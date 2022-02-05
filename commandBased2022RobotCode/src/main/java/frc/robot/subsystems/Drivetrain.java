@@ -16,6 +16,7 @@ public class Drivetrain extends SubsystemBase {
   private final CANSparkMax rightFrontMotor = new CANSparkMax(Constants.RIGHT_FRONT_WHEEL_PORT,MotorType.kBrushless);
   private final CANSparkMax leftBackMotor = new CANSparkMax(Constants.LEFT_BACK_WHEEL_PORT,MotorType.kBrushless);
   private final CANSparkMax rightBackMotor = new CANSparkMax(Constants.RIGHT_BACK_WHEEL_PORT,MotorType.kBrushless);
+  private double speedModulator = 1.0;
   private final MecanumDrive drivetrain;
 
   /** Creates a new Drivetrain. */
@@ -31,5 +32,11 @@ public class Drivetrain extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+  }
+  public double getSpeedModulator() {
+      return speedModulator;
+  }
+  public void setSpeedModulator(double speedModulator) {
+      this.speedModulator = speedModulator;
   }
 }

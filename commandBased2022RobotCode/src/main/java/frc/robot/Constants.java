@@ -18,6 +18,9 @@ public final class Constants {
     public static final int RIGHT_FRONT_WHEEL_PORT = 2;
     public static final int LEFT_BACK_WHEEL_PORT = 3;
     public static final int RIGHT_BACK_WHEEL_PORT = 4;
+    public static final int CONTROLLER_PORT = 0;
+    public static final double HIGH_GEAR = 1.0;
+    public static final double LOW_GEAR = 0.5;
     
 
 }

@@ -14,17 +14,15 @@ public class TeleOpDrive extends CommandBase {
   private final Supplier<Double> m_xSpeed;
   private final Supplier<Double> m_ySpeed;
   private final Supplier<Double> m_zRotation;
-  private final Supplier<Double> m_speedModulator;
   private final Drivetrain m_drivetrain;
 
   /** Creates a new TeleOpDrive. */
-  public TeleOpDrive(Drivetrain drivetrain, Supplier<Double> xSpeed, Supplier<Double> ySpeed, Supplier<Double> zRotation, Supplier<Double> speedModulator) {
+  public TeleOpDrive(Drivetrain drivetrain, Supplier<Double> xSpeed, Supplier<Double> ySpeed, Supplier<Double> zRotation) {
     // Use addRequirements() here to declare subsystem dependencies.
     m_drivetrain = drivetrain;
     m_xSpeed = xSpeed;
     m_ySpeed = ySpeed;
     m_zRotation = zRotation;
-    m_speedModulator = speedModulator;
     addRequirements(m_drivetrain);
 
   }
@@ -36,7 +34,7 @@ public class TeleOpDrive extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_drivetrain.drive(m_xSpeed.get()*m_speedModulator.get(), m_ySpeed.get()*m_speedModulator.get(), m_zRotation.get()*m_speedModulator.get());
+    m_drivetrain.drive(m_xSpeed.get()*m_drivetrain.getSpeedModulator(), m_ySpeed.get()*m_drivetrain.getSpeedModulator(), m_zRotation.get()*m_drivetrain.getSpeedModulator());
   }
 
   // Called once the command ends or is interrupted.

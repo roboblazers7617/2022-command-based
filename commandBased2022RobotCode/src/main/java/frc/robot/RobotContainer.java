@@ -6,9 +6,11 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.simulation.XboxControllerSim;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.*;
 import frc.robot.commands.*;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -37,8 +39,11 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    Trigger speedAdjustorTrigger = new Trigger( ()-> controller.getLeftBumper());
-    speedAdjustorTrigger.toggleWhenActive(new SpeedAdjustor(drivetrain));
+
+    JoystickButton speedButton = new JoystickButton(controller, 5);
+    speedButton.whenPressed(new SpeedAdjustor(drivetrain));
+    //Trigger speedAdjustorTrigger = new Trigger( ()-> controller.getLeftBumper());
+    //speedAdjustorTrigger.whenActive(new SpeedAdjustor(drivetrain));
     
   }
 
