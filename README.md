@@ -1,2 +1,2 @@
 # 2022-command-based
-read me
+this is the command based rewrite
