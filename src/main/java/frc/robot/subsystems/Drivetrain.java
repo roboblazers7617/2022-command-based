@@ -8,6 +8,8 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import frc.robot.Constants;
 import edu.wpi.first.wpilibj.drive.MecanumDrive;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.smartdashboard.*;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
@@ -24,6 +26,7 @@ public class Drivetrain extends SubsystemBase {
     leftFrontMotor.setInverted(true);
     leftBackMotor.setInverted(true);
     drivetrain = new MecanumDrive(leftFrontMotor, leftBackMotor, rightFrontMotor, rightBackMotor);
+    getSpeedModulator();
   }
   public void drive(double xSpeed, double ySpeed, double zRotation){
     drivetrain.driveCartesian(ySpeed, xSpeed, zRotation);
@@ -32,9 +35,12 @@ public class Drivetrain extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+
   }
   public double getSpeedModulator() {
-      return speedModulator;
+
+    SmartDashboard.putNumber("Speed Modulator", speedModulator);
+    return speedModulator;
   }
   public void setSpeedModulator(double speedModulator) {
       this.speedModulator = speedModulator;

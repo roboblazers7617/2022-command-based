@@ -40,10 +40,8 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
 
-    JoystickButton speedButton = new JoystickButton(controller, 5);
+    JoystickButton speedButton = new JoystickButton(controller, Constants.SPEED_ADJUSTOR_TRIGGER);
     speedButton.whenPressed(new SpeedAdjustor(drivetrain));
-    //Trigger speedAdjustorTrigger = new Trigger( ()-> controller.getLeftBumper());
-    //speedAdjustorTrigger.whenActive(new SpeedAdjustor(drivetrain));
     
   }
 

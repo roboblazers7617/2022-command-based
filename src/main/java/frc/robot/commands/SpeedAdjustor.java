@@ -26,7 +26,7 @@ public class SpeedAdjustor extends CommandBase {
   public void execute() {
     m_speedModulator = m_drivetrain.getSpeedModulator();
     if(m_speedModulator == Constants.HIGH_GEAR)
-      m_speedModulator = Constants.LOW_GEAR;
+      m_drivetrain.setSpeedModulator(Constants.LOW_GEAR);
     else
       m_drivetrain.setSpeedModulator(Constants.HIGH_GEAR);
   }
