@@ -22,6 +22,7 @@ public final class Constants {
     public static final double HIGH_GEAR = 1.0;
     public static final double LOW_GEAR = 0.5;
     public static final int SPEED_ADJUSTOR_TRIGGER = 5;
+    public static final int INTAKE_PORT = 6;
     
 
 }
