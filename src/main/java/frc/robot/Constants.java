@@ -24,6 +24,8 @@ public final class Constants {
     public static final int SPEED_ADJUSTOR_TRIGGER = 5;
     public static final int INTAKE_PORT = 6;
     public static final double INTAKE_MOTOR_SPEED = 0.2;
+    public static final int LOWER_TOWER_MOTOR = 7;
+    public static final int UPPER_TOWER_MOTOR = 8;
     
 
 }
