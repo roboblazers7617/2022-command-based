@@ -6,6 +6,7 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.simulation.XboxControllerSim;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.*;
@@ -23,6 +24,7 @@ public class RobotContainer {
   private final XboxController controller = new XboxController(Constants.CONTROLLER_PORT);
   private final Drivetrain drivetrain = new Drivetrain();
   private final AutoCommand autoCommand = new AutoCommand();
+  private final Intake intake = new Intake();
 
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
@@ -30,6 +32,9 @@ public class RobotContainer {
     // Configure the button bindings
     configureButtonBindings();
     drivetrain.setDefaultCommand(getTeleOpDrive());
+    Shuffleboard.getTab("Debug").add("ToggleIntake", new ToggleIntake(intake));
+    Shuffleboard.getTab("Debug").add("ToggleIntakeReverse", new ToggleIntakeReverse(intake));
+    
   }
 
   /**
