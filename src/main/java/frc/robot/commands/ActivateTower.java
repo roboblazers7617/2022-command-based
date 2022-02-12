@@ -10,7 +10,6 @@ import frc.robot.subsystems.Tower;
 
 public class ActivateTower extends CommandBase {
   private Tower tower;
-  private boolean sesor;
   private boolean finished;
   /** Creates a new ToggleTower. */
   /*
@@ -39,9 +38,14 @@ public class ActivateTower extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if(!sesor){
+    if(!tower.getLowerSensor()){
       tower.setSpeedLower(0);
+      
+    }
+    if(!tower.getUpperSensor()){
       tower.setSpeedUpper(0);
+    }
+    if((tower.getSpeedLower() == 0.0) && (tower.getSpeedUpper() == 0.0)){
       finished = true;
     }
   }
