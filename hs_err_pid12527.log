@@ -1,0 +1,33 @@
+#
+# A fatal error has been detected by the Java Runtime Environment:
+#
+#  SIGSEGV (0xb) at pc=0x000000013900c84c, pid=12527, tid=259
+#
+# JRE version: OpenJDK Runtime Environment Temurin-11.0.13+8 (11.0.13+8) (build 11.0.13+8)
+# Java VM: OpenJDK 64-Bit Server VM Temurin-11.0.13+8 (11.0.13+8, mixed mode, tiered, compressed oops, g1 gc, bsd-amd64)
+# Problematic frame:
+# C  [libhalsim_gui.dylib+0xd84c]  _ZNSt3__110__function6__funcIZN5glass8ProviderINS2_6detail19NTProviderFunctionsEE10GlobalInitEvEUlvE_NS_9allocatorIS7_EEFvvEEclEv+0xc
+#
+# No core dump will be written. Core dumps have been disabled. To enable core dumping, try "ulimit -c unlimited" before starting Java again
+#
+# If you would like to submit a bug report, please visit:
+#   https://github.com/adoptium/adoptium-support/issues
+# The crash happened outside the Java Virtual Machine in native code.
+# See problematic frame for where to report the bug.
+#
+
+---------------  S U M M A R Y ------------
+
+Command Line: -agentlib:jdwp=transport=dt_socket,server=n,suspend=y,address=localhost:51258 -Djava.library.path=/Users/brandonclague/Documents/GitHub/2022-command-based/build/jni/release frc.robot.Main
+
+Host: MacBookAir10,1 x86_64 2400 MHz, 8 cores, 16G, Darwin 20.6.0
+Time: Sat Feb 12 15:57:59 2022 EST elapsed time: 652.005511 seconds (0d 0h 10m 52s)
+
+---------------  T H R E A D  ---------------
+
+Current thread (0x00007fc42a026800):  JavaThread "main" [_thread_in_native, id=259, stack(0x000000030bff0000,0x000000030c7f0000)]
+
+Stack: [0x000000030bff0000,0x000000030c7f0000],  sp=0x000000030c7ec9d8,  free space=8178k
+Native frames: (J=compiled Java code, A=aot compiled Java code, j=interpreted, Vv=VM code, C=native code)
+C  [libhalsim_gui.dylib+0xd84c]  _ZNSt3__110__function6__funcIZN5glass8ProviderINS2_6detail19NTProviderFunctionsEE10GlobalInitEvEUlvE_NS_9allocatorIS7_EEFvvEEclEv+0xc
+C

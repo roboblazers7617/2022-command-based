@@ -17,9 +17,6 @@ public class ActivateTower extends CommandBase {
   Both tower motors will spin until sensor is set to false(the laser is tripped)
 
 
-
-
-
   */
   public ActivateTower(Tower tower) {
     addRequirements(tower);

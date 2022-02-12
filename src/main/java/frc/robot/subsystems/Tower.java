@@ -23,7 +23,8 @@ public class Tower extends SubsystemBase {
   private boolean lowerSensor;
   /** Creates a new Tower. */
   public Tower() {
-
+    upperSensor = true;
+    lowerSensor = true;
   }
   public void setSpeedUpper(double speed){
     upperMotor.set(speed);
