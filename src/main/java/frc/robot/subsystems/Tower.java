@@ -19,8 +19,10 @@ public class Tower extends SubsystemBase {
   private ShuffleboardTab tab = Shuffleboard.getTab("Debug");
   private NetworkTableEntry upperSpeed = tab.add("Upper Tower Motor Speed: ", 0).getEntry();
   private NetworkTableEntry lowerSpeed = tab.add("Lower Tower Motor Speed: ", 0).getEntry();
-  private boolean upperSensor;
-  private boolean lowerSensor;
+  private boolean upperSensor = true;
+  private boolean lowerSensor = true;
+  private NetworkTableEntry upperSensorDisplay = tab.add("Upper Sensor: ", 0).getEntry();
+  private NetworkTableEntry lowerSensorDisplay = tab.add("Lower Sensor: ", 0).getEntry();
   /** Creates a new Tower. */
   public Tower() {
     upperSensor = true;
