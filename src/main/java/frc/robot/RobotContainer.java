@@ -25,6 +25,7 @@ public class RobotContainer {
   private final Drivetrain drivetrain = new Drivetrain();
   private final AutoCommand autoCommand = new AutoCommand();
   private final Intake intake = new Intake();
+  private final Tower tower = new Tower();
 
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
@@ -34,7 +35,7 @@ public class RobotContainer {
     drivetrain.setDefaultCommand(getTeleOpDrive());
     Shuffleboard.getTab("Debug").add("ToggleIntake", new ToggleIntake(intake));
     Shuffleboard.getTab("Debug").add("ToggleIntakeReverse", new ToggleIntakeReverse(intake));
-    
+    Shuffleboard.getTab("Debug").add("ActivateTower", new ActivateTower(tower));
   }
 
   /**
