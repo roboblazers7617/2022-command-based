@@ -10,7 +10,6 @@ import frc.robot.subsystems.Intake;
 
 public class ToggleIntake extends CommandBase {
   private Intake intake;
-  private boolean turnOn;
   /** Creates a new Intake. */
   public ToggleIntake(Intake intake) {
     addRequirements(intake);
