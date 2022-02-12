@@ -26,6 +26,7 @@ public final class Constants {
     public static final double INTAKE_MOTOR_SPEED = 0.2;
     public static final int LOWER_TOWER_MOTOR = 7;
     public static final int UPPER_TOWER_MOTOR = 8;
+    public static final double TOWER_SPEED = 0.5;
     
 
 }
