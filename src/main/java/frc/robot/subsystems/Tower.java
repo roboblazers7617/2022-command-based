@@ -10,6 +10,7 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
@@ -23,10 +24,14 @@ public class Tower extends SubsystemBase {
   private boolean lowerSensor = true;
   private NetworkTableEntry upperSensorDisplay = tab.add("Upper Sensor: ", upperSensor).getEntry();
   private NetworkTableEntry lowerSensorDisplay = tab.add("Lower Sensor: ", lowerSensor).getEntry();
+  private final SendableChooser<Boolean> sensorChooser = new SendableChooser<Boolean>();
   /** Creates a new Tower. */
   public Tower() {
     upperSensor = true;
     lowerSensor = true;
+    sensorChooser.setDefaultOption("no ball", true);
+    sensorChooser.setDefaultOption("yes ball", false);
+    Shuffleboard.getTab("Debug").add(sensorChooser);
   }
   public void setSpeedUpper(double speed){
     upperMotor.set(speed);
@@ -51,6 +56,8 @@ public class Tower extends SubsystemBase {
   public boolean getLowerSensor(){
     return lowerSensor;
   }
+
+
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
@@ -58,5 +65,6 @@ public class Tower extends SubsystemBase {
     lowerSpeed.setDouble(lowerMotor.get());
     upperSensorDisplay.setBoolean(getUpperSensor());
     lowerSensorDisplay.setBoolean(getLowerSensor());
+    lowerSensor = sensorChooser.getSelected();
   }
 }
