@@ -1,0 +1,21 @@
+[
+  {
+    "type": "java",
+    "name": "jar (in project 2022-command-based)",
+    "extensions": [
+      {
+        "name": "Sim DriverStation",
+        "libName": "/Users/lukasfiur/Documents/GitHub/2022-command-based/build/jni/release/libhalsim_ds_socket.dylib",
+        "defaultEnabled": false
+      },
+      {
+        "name": "Sim GUI",
+        "libName": "/Users/lukasfiur/Documents/GitHub/2022-command-based/build/jni/release/libhalsim_gui.dylib",
+        "defaultEnabled": true
+      }
+    ],
+    "environment": {},
+    "libraryDir": "/Users/lukasfiur/Documents/GitHub/2022-command-based/build/jni/release",
+    "mainClassName": "frc.robot.Main"
+  }
+]

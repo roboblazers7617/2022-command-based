@@ -23,6 +23,17 @@ public final class Constants {
     public static final double LOW_GEAR = 0.5;
     public static final int SPEED_ADJUSTOR_TRIGGER = 5;
     public static final int INTAKE_PORT = 6;
+    public static double turnTolerance = 3;
+    public static double turnRateTolerance = 1;
+    public static final int WHEEL_RADIUS = 4;//inches
+    public static final double WHEEL_GEAR_RATIO = 5/12;
+    public static final double KS = 0;
+    public static final double KV = 0;
+    public static final double KA = 0;
+    public static final double MAX_ACCELERATION = 5;//feet per second squared
+    public static final double MAX_VELOCITY = 2;//feet per second
+    public static final double MAX_ROTATION = Math.PI;
+    public static final double MAX_ROTATION_CHANGE = Math.PI/4;
     
 
 }

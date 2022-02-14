@@ -4,14 +4,18 @@
 
 package frc.robot;
 
+import com.pathplanner.lib.PathPlanner;
+import com.pathplanner.lib.PathPlannerTrajectory;
+
+import edu.wpi.first.math.trajectory.TrajectoryConfig;
+import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj.simulation.XboxControllerSim;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.MecanumControllerCommand;
 import frc.robot.subsystems.*;
 import frc.robot.commands.*;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-import edu.wpi.first.wpilibj2.command.button.Trigger;
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
  * "declarative" paradigm, very little robot logic should actually be handled in the {@link Robot}
@@ -56,6 +60,25 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    return autoCommand;
+    TrajectoryConfig tConfig = new TrajectoryConfig(Units.feetToMeters(Constants.MAX_VELOCITY), Units.feetToMeters(Constants.MAX_ACCELERATION));
+    tConfig.setKinematics(drivetrain.getKinematics());
+    PathPlannerTrajectory test = PathPlanner.loadPath("test Path", Constants.MAX_VELOCITY, Constants.MAX_ACCELERATION);
+    MecanumControllerCommand testingFunctionality = new MecanumControllerCommand(test, 
+    drivetrain :: getPose, 
+    drivetrain.getFeedforward(),
+    drivetrain.getKinematics(), 
+    drivetrain.getXPID(), 
+    drivetrain.getYPID(), 
+    drivetrain.getThetaPID(), 
+    Units.feetToMeters(Constants.MAX_VELOCITY),
+    drivetrain.getLeftFrontPID(),
+    drivetrain.getLeftBackPID(),
+    drivetrain.getRightFrontPID(),
+    drivetrain.getRightBackPID(), 
+    drivetrain :: getSpeed,
+    drivetrain::setMotorVoltages, 
+    drivetrain);
+    drivetrain.resetOdometry(test.getInitialPose());
+    return testingFunctionality.andThen(() -> drivetrain.drive(0, 0, 0));
   }
 }
