@@ -1,0 +1,39 @@
+#
+# A fatal error has been detected by the Java Runtime Environment:
+#
+#  SIGBUS (0xa) at pc=0x00007fff86f9dd38, pid=27316, tid=259
+#
+# JRE version: OpenJDK Runtime Environment Temurin-11.0.13+8 (11.0.13+8) (build 11.0.13+8)
+# Java VM: OpenJDK 64-Bit Server VM Temurin-11.0.13+8 (11.0.13+8, mixed mode, tiered, compressed oops, g1 gc, bsd-amd64)
+# Problematic frame:
+# C  [libc++abi.dylib+0x66cd3d38]  _ZTVN10__cxxabiv117__class_type_infoE+0x10
+#
+# No core dump will be written. Core dumps have been disabled. To enable core dumping, try "ulimit -c unlimited" before starting Java again
+#
+# If you would like to submit a bug report, please visit:
+#   https://github.com/adoptium/adoptium-support/issues
+# The crash happened outside the Java Virtual Machine in native code.
+# See problematic frame for where to report the bug.
+#
+
+---------------  S U M M A R Y ------------
+
+Command Line: -agentlib:jdwp=transport=dt_socket,server=n,suspend=y,address=localhost:60013 -Djava.library.path=/Users/brandonclague/Documents/GitHub/2022-command-based/build/jni/release frc.robot.Main
+
+Host: MacBookAir10,1 x86_64 2400 MHz, 8 cores, 16G, Darwin 20.6.0
+Time: Mon Feb 14 17:01:16 2022 EST elapsed time: 341.969198 seconds (0d 0h 5m 41s)
+
+---------------  T H R E A D  ---------------
+
+Current thread (0x00007fe56e017800):  JavaThread "main" [_thread_in_native, id=259, stack(0x000000030d471000,0x000000030dc71000)]
+
+Stack: [0x000000030d471000,0x000000030dc71000],  sp=0x000000030dc6d9d8,  free space=8178k
+Native frames: (J=compiled Java code, A=aot compiled Java code, j=interpreted, Vv=VM code, C=native code)
+C  [libc++abi.dylib+0x66cd3d38]  _ZTVN10__cxxabiv117__class_type_infoE+0x10
+C  [libhalsim_gui.dylib+0x84d96]  _ZN3wpi3gui19PlatformRenderFrameEv+0x2c6
+C  [libhalsim_gui.dylib+0x71ec0]  _ZN3wpi3gui4MainEv+0xe0
+C  [libhalsim_gui.dylib+0x1f989]  _ZZ20HALSIM_InitExtensionEN3$_28__invokeEPv+0x9
+j  edu.wpi.first.hal.HAL.runMain()V+0
+j  edu.wpi.first.wpilibj.RobotBase.startRobot(Ljava/util/function/Supplier;)V+79
+j  frc.robot.Main.main([Ljava/lang/String;)V+5
+v  ~StubRoutines::call_stub

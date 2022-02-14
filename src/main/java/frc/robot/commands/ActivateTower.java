@@ -36,11 +36,11 @@ public class ActivateTower extends CommandBase {
   @Override
   public void execute() {
     if(!tower.getLowerSensor()){
-      tower.setSpeedLower(0);
+      tower.setSpeedLower(0.0);
       
     }
     if(!tower.getUpperSensor()){
-      tower.setSpeedUpper(0);
+      tower.setSpeedUpper(0.0);
     }
     if((tower.getSpeedLower() == 0.0) && (tower.getSpeedUpper() == 0.0)){
       finished = true;

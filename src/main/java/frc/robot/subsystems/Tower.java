@@ -24,14 +24,19 @@ public class Tower extends SubsystemBase {
   private boolean lowerSensor = true;
   private NetworkTableEntry upperSensorDisplay = tab.add("Upper Sensor: ", upperSensor).getEntry();
   private NetworkTableEntry lowerSensorDisplay = tab.add("Lower Sensor: ", lowerSensor).getEntry();
-  private final SendableChooser<Boolean> sensorChooser = new SendableChooser<Boolean>();
+  private final SendableChooser<Boolean> sensorChooserLower = new SendableChooser<Boolean>();
+  private final SendableChooser<Boolean> sensorChooserUpper = new SendableChooser<Boolean>();
   /** Creates a new Tower. */
   public Tower() {
     upperSensor = true;
     lowerSensor = true;
-    sensorChooser.setDefaultOption("no ball", true);
-    sensorChooser.setDefaultOption("yes ball", false);
-    Shuffleboard.getTab("Debug").add(sensorChooser);
+    sensorChooserLower.setDefaultOption("no ball low", true);
+    sensorChooserLower.addOption("yes ball low", false);
+    tab.add(sensorChooserLower);
+
+    sensorChooserUpper.setDefaultOption("no ball high", true);
+    sensorChooserUpper.addOption("yes ball high", false);
+    tab.add(sensorChooserUpper);
   }
   public void setSpeedUpper(double speed){
     upperMotor.set(speed);
@@ -65,6 +70,13 @@ public class Tower extends SubsystemBase {
     lowerSpeed.setDouble(lowerMotor.get());
     upperSensorDisplay.setBoolean(getUpperSensor());
     lowerSensorDisplay.setBoolean(getLowerSensor());
-    lowerSensor = sensorChooser.getSelected();
+    if(sensorChooserLower.getSelected() != null){
+      //System.out.println(sensorChooserLower.getSelected());
+      lowerSensor = sensorChooserLower.getSelected().booleanValue();
+      upperSensor = sensorChooserUpper.getSelected().booleanValue();
+    }
+    else{
+      //System.out.println("null");
+    }
   }
 }
