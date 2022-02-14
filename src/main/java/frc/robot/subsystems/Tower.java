@@ -21,8 +21,8 @@ public class Tower extends SubsystemBase {
   private NetworkTableEntry lowerSpeed = tab.add("Lower Tower Motor Speed: ", 0).getEntry();
   private boolean upperSensor = true;
   private boolean lowerSensor = true;
-  private NetworkTableEntry upperSensorDisplay = tab.add("Upper Sensor: ", 0).getEntry();
-  private NetworkTableEntry lowerSensorDisplay = tab.add("Lower Sensor: ", 0).getEntry();
+  private NetworkTableEntry upperSensorDisplay = tab.add("Upper Sensor: ", upperSensor).getEntry();
+  private NetworkTableEntry lowerSensorDisplay = tab.add("Lower Sensor: ", lowerSensor).getEntry();
   /** Creates a new Tower. */
   public Tower() {
     upperSensor = true;
@@ -56,5 +56,7 @@ public class Tower extends SubsystemBase {
     // This method will be called once per scheduler run
     upperSpeed.setDouble(upperMotor.get());
     lowerSpeed.setDouble(lowerMotor.get());
+    upperSensorDisplay.setBoolean(getUpperSensor());
+    lowerSensorDisplay.setBoolean(getLowerSensor());
   }
 }

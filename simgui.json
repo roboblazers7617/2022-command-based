@@ -1,0 +1,24 @@
+{
+  "NTProvider": {
+    "types": {
+      "/FMSInfo": "FMSInfo",
+      "/LiveWindow/Drivetrain": "Subsystem",
+      "/LiveWindow/Intake": "Subsystem",
+      "/LiveWindow/Tower": "Subsystem",
+      "/LiveWindow/Ungrouped/MecanumDrive[1]": "MecanumDrive",
+      "/LiveWindow/Ungrouped/Scheduler": "Scheduler",
+      "/Shuffleboard/Debug/ActivateTower": "Command",
+      "/Shuffleboard/Debug/StopTower": "Command",
+      "/Shuffleboard/Debug/ToggleIntake": "Command",
+      "/Shuffleboard/Debug/ToggleIntakeReverse": "Command"
+    }
+  },
+  "NetworkTables": {
+    "Shuffleboard": {
+      "Debug": {
+        "open": true
+      },
+      "open": true
+    }
+  }
+}
