@@ -11,13 +11,13 @@ import frc.robot.subsystems.Drivetrain;
 
 
 public class TeleOpDrive extends CommandBase {
-  private final Supplier<Double> m_xSpeed;
-  private final Supplier<Double> m_ySpeed;
-  private final Supplier<Double> m_zRotation;
+  private final double m_xSpeed;
+  private final double m_ySpeed;
+  private final double m_zRotation;
   private final Drivetrain m_drivetrain;
 
   /** Creates a new TeleOpDrive. */
-  public TeleOpDrive(Drivetrain drivetrain, Supplier<Double> xSpeed, Supplier<Double> ySpeed, Supplier<Double> zRotation) {
+  public TeleOpDrive(Drivetrain drivetrain, double xSpeed, double ySpeed, double zRotation) {
     // Use addRequirements() here to declare subsystem dependencies.
     m_drivetrain = drivetrain;
     m_xSpeed = xSpeed;
@@ -34,7 +34,24 @@ public class TeleOpDrive extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_drivetrain.drive(m_xSpeed.get()*m_drivetrain.getSpeedModulator(), m_ySpeed.get()*m_drivetrain.getSpeedModulator(), m_zRotation.get()*m_drivetrain.getSpeedModulator());
+    double[] speeds = {
+      (m_xSpeed + m_ySpeed + m_zRotation),
+      (m_xSpeed - m_ySpeed - m_zRotation),
+      (m_xSpeed - m_ySpeed + m_zRotation),
+      (m_xSpeed + m_ySpeed - m_zRotation)
+    };
+
+    double max = Math.abs(speeds[0]);
+    for (int i = 0; i <speeds.length; i++){
+      if (max < Math.abs(speeds[i])) max = Math.abs(speeds[1]);
+    }
+
+    if (max > 1) {
+      for (int i = 0; i < speeds.length; i++) speeds [1] /= max;
+    }
+
+    m_drivetrain.setMotorSpeeds(speeds[0],speeds[1],speeds[2], speeds[3]);
+
   }
 
   // Called once the command ends or is interrupted.
