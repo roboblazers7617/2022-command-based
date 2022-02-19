@@ -23,7 +23,8 @@ public class Climber extends SubsystemBase {
   private final SendableChooser<Double> climberToggle = new SendableChooser<Double>();
   /** Creates a new Climber. */
   public Climber() {
-    climberToggle.setDefaultOption("go climb go ", 1.0);
+    climberToggle.setDefaultOption("go climb ", 0.1);
+    climberToggle.setDefaultOption("un climb ", -0.1);
     climberToggle.setDefaultOption("no climb no", 0.0);
     tab.add(climberToggle);
   }

@@ -34,11 +34,12 @@ public class RobotContainer {
   public RobotContainer() {
     // Configure the button bindings
     configureButtonBindings();
-    drivetrain.setDefaultCommand(getTeleOpDrive());
+    //drivetrain.setDefaultCommand(getTeleOpDrive());
     Shuffleboard.getTab("Debug").add("ToggleIntake", new ToggleIntake(intake));
     Shuffleboard.getTab("Debug").add("ToggleIntakeReverse", new ToggleIntakeReverse(intake));
     Shuffleboard.getTab("Debug").add("ActivateTower", new ActivateTower(tower));
     Shuffleboard.getTab("Debug").add("StopTower", new StopTower(tower));
+  
   }
 
   /**
@@ -54,9 +55,9 @@ public class RobotContainer {
     
   }
 
-  public Command getTeleOpDrive(){
-    return new TeleOpDrive(drivetrain,() -> controller.getLeftX(), () -> controller.getLeftY(), () -> controller.getRightX());
-  }
+  //public Command getTeleOpDrive(){
+    //return new TeleOpDrive(drivetrain,() -> controller.getLeftX(), () -> controller.getLeftY(), () -> controller.getRightX());
+  //}
 
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.

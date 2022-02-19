@@ -24,12 +24,12 @@ public final class Constants {
     public static final int SPEED_ADJUSTOR_TRIGGER = 5;
     public static final int INTAKE_PORT = 6;
     public static final double INTAKE_MOTOR_SPEED = 0.2;
-    public static final int LOWER_TOWER_MOTOR = 7;
-    public static final int UPPER_TOWER_MOTOR = 8;
+    public static final int LOWER_TOWER_MOTOR = 50;//need to add
+    public static final int UPPER_TOWER_MOTOR = 51;//need to add
     public static final double TOWER_SPEED = 0.5;
     public static final int SHOOTER_PORT = 9;
-    public static final int LEFT_CLIMBER_PORT = 10;
-    public static final int RIGHT_CLIMBER_PORT = 11;
+    public static final int LEFT_CLIMBER_PORT = 7;
+    public static final int RIGHT_CLIMBER_PORT = 8;
     
 
 }
