@@ -42,7 +42,8 @@ public class ActivateTower extends CommandBase {
     if(!tower.getUpperSensor()){
       tower.setSpeedUpper(0.0);
     }
-    if((tower.getSpeedLower() == 0.0) && (tower.getSpeedUpper() == 0.0)){
+    //if(!tower.getUpperSensor()  && !tower.getLowerSensor()){
+    if(tower.getSpeedUpper() == 0.0  && tower.getSpeedLower() == 0.0){
       finished = true;
     }
   }
@@ -58,6 +59,6 @@ public class ActivateTower extends CommandBase {
   @Override
   public boolean isFinished() {
     
-    return finished;
+    return true;
   }
 }

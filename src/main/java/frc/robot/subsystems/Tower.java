@@ -66,17 +66,18 @@ public class Tower extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    upperSpeed.setDouble(upperMotor.get());
-    lowerSpeed.setDouble(lowerMotor.get());
-    upperSensorDisplay.setBoolean(getUpperSensor());
-    lowerSensorDisplay.setBoolean(getLowerSensor());
     if(sensorChooserLower.getSelected() != null){
       //System.out.println(sensorChooserLower.getSelected());
       lowerSensor = sensorChooserLower.getSelected().booleanValue();
       upperSensor = sensorChooserUpper.getSelected().booleanValue();
     }
     else{
-      //System.out.println("null");
+      System.out.println("null");
     }
+    upperSpeed.setDouble(upperMotor.get());
+    lowerSpeed.setDouble(lowerMotor.get());
+    upperSensorDisplay.setBoolean(getUpperSensor());
+    lowerSensorDisplay.setBoolean(getLowerSensor());
+    
   }
 }
