@@ -27,6 +27,7 @@ public class RobotContainer {
   private final Intake intake = new Intake();
   private final Tower tower = new Tower();
   private final Shooter shooter = new Shooter();
+  private final Climber climber = new Climber();
 
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */

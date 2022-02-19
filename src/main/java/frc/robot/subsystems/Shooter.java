@@ -23,7 +23,7 @@ public class Shooter extends SubsystemBase {
   public Shooter() {
     toggleShooter.setDefaultOption("yes shoot", 0.25);
     toggleShooter.setDefaultOption("no shoot", 0.0);
-    Shuffleboard.getTab("Debug").add(toggleShooter);
+    tab.add(toggleShooter);
   }
   public void setSpeed(double speed){
     shooterMotor.set(speed);
