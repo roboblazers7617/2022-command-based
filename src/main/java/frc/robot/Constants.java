@@ -28,6 +28,8 @@ public final class Constants {
     public static final int UPPER_TOWER_MOTOR = 8;
     public static final double TOWER_SPEED = 0.5;
     public static final int SHOOTER_PORT = 9;
+    public static final int LEFT_CLIMER_PORT = 10;
+    public static final int RIGHT_CLIMER_PORT = 11;
     
 
 }
