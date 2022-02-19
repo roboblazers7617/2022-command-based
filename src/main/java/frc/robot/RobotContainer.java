@@ -42,13 +42,15 @@ public class RobotContainer {
 
     JoystickButton speedButton = new JoystickButton(controller, Constants.SPEED_ADJUSTOR_TRIGGER);
     speedButton.whenPressed(new SpeedAdjustor(drivetrain));
-    
+
+   // JoystickButton toggleMotor = new JoystickButton(controller,3);
+    //toggleMotor.whenPressed(new ToggleMotors(drivetrain));
+   
   }
 
   public Command getTeleOpDrive(){
     return new TeleOpDrive(drivetrain,() -> controller.getLeftX(), () -> controller.getLeftY(), () -> controller.getRightX());
   }
-
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
    *

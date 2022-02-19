@@ -14,7 +14,7 @@ package frc.robot;
  */
 public final class Constants {
 
-    public static final int LEFT_FRONT_WHEEL_PORT = 1;
+    public static final int LEFT_FRONT_WHEEL_PORT =1;
     public static final int RIGHT_FRONT_WHEEL_PORT = 2;
     public static final int LEFT_BACK_WHEEL_PORT = 3;
     public static final int RIGHT_BACK_WHEEL_PORT = 4;
