@@ -26,6 +26,7 @@ public class RobotContainer {
   private final AutoCommand autoCommand = new AutoCommand();
   private final Intake intake = new Intake();
   private final Tower tower = new Tower();
+  private final Shooter shooter = new Shooter();
 
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
