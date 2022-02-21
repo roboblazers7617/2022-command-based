@@ -54,7 +54,7 @@ public class RobotContainer {
   }
 
   public Command getTeleOpDrive(){
-    return new TeleOpDrive(drivetrain,controller.getLeftX(), controller.getLeftY(), controller.getRightX());
+    return new TeleOpDrive(drivetrain, () -> controller.getRawAxis(0), () -> controller.getRawAxis(1), () -> controller.getRawAxis(4));
   }
 
   /**

@@ -32,12 +32,6 @@ public class Drivetrain extends SubsystemBase {
     drivetrain.driveCartesian(ySpeed, xSpeed, zRotation);
   }
 
-  public void setMotorSpeeds(double LF, double RF, double LB, double RB){
-    leftFrontMotor.set(LF);
-    rightFrontMotor.set(RF);
-    leftBackMotor.set(LB);
-    rightBackMotor.set(RB);
-  }
 
   @Override
   public void periodic() {

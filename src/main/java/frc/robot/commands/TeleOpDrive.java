@@ -11,18 +11,18 @@ import frc.robot.subsystems.Drivetrain;
 
 
 public class TeleOpDrive extends CommandBase {
-  private final double m_xSpeed;
-  private final double m_ySpeed;
-  private final double m_zRotation;
+  private final Supplier <Double> m_xSpeed;
+  private final Supplier <Double> m_ySpeed;
+  private final Supplier <Double> m_zRotation;
   private final Drivetrain m_drivetrain;
 
   /** Creates a new TeleOpDrive. */
-  public TeleOpDrive(Drivetrain drivetrain, double xSpeed, double ySpeed, double zRotation) {
+  public TeleOpDrive(Drivetrain drivetrain, Supplier <Double> d, Supplier <Double> e, Supplier <Double> f) {
     // Use addRequirements() here to declare subsystem dependencies.
     m_drivetrain = drivetrain;
-    m_xSpeed = xSpeed;
-    m_ySpeed = ySpeed;
-    m_zRotation = zRotation;
+    m_xSpeed = d;
+    m_ySpeed = e;
+    m_zRotation = f;
     addRequirements(m_drivetrain);
 
   }
@@ -34,23 +34,8 @@ public class TeleOpDrive extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    double[] speeds = {
-      (m_xSpeed + m_ySpeed + m_zRotation),
-      (m_xSpeed - m_ySpeed - m_zRotation),
-      (m_xSpeed - m_ySpeed + m_zRotation),
-      (m_xSpeed + m_ySpeed - m_zRotation)
-    };
 
-    double max = Math.abs(speeds[0]);
-    for (int i = 0; i <speeds.length; i++){
-      if (max < Math.abs(speeds[i])) max = Math.abs(speeds[1]);
-    }
-
-    if (max > 1) {
-      for (int i = 0; i < speeds.length; i++) speeds [1] /= max;
-    }
-
-    m_drivetrain.setMotorSpeeds(speeds[0],speeds[1],speeds[2], speeds[3]);
+    m_drivetrain.drive(m_xSpeed.get(), m_ySpeed.get(), m_zRotation.get());
 
   }
 
