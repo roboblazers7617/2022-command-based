@@ -30,6 +30,7 @@ public final class Constants {
     public static final int SHOOTER_PORT = 9;
     public static final int LEFT_CLIMBER_PORT = 7;
     public static final int RIGHT_CLIMBER_PORT = 8;
+    public static final int INTAKE_ROTATION_PORT = 20;//need to add
     
 
 }
