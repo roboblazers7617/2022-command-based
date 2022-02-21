@@ -39,6 +39,7 @@ public class RobotContainer {
     Shuffleboard.getTab("Debug").add("ToggleIntakeReverse", new ToggleIntakeReverse(intake));
     Shuffleboard.getTab("Debug").add("ActivateTower", new ActivateTower(tower));
     Shuffleboard.getTab("Debug").add("StopTower", new StopTower(tower));
+    Shuffleboard.getTab("Debug").add("ToggleIntakeRotation", new ToggleIntakeRotation(intake));
   
   }
 
