@@ -40,10 +40,10 @@ public class ToggleIntakeRotation extends CommandBase {
   @Override
   public void execute() {
     if(!raising){
-      intake.setRotationMotorSpeed(0.5);
+      intake.setRotationMotorSpeed(0.2);
     }
     else{
-      intake.setRotationMotorSpeed(-0.5);
+      intake.setRotationMotorSpeed(-0.2);
     }
   }
 
