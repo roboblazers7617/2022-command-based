@@ -57,17 +57,19 @@ public class Tower extends SubsystemBase {
   }
 
   public boolean getUpperSensor(){
-    if(ultrasonicUpper.getRangeMM()>100){
-      return true;
-    }
-    return false;
+    return true;
+    // if(ultrasonicUpper.getRangeMM()>100){
+    //   return true;
+    // }
+    // return false;
   }
 
   public boolean getLowerSensor(){
-    if(ultrasonicLower.getRangeMM()>100){
-      return true;
-    }
-    return false;
+    return true;
+    // if(ultrasonicLower.getRangeMM()>100){
+    //   return true;
+    // }
+    // return false;
   }
 
 
