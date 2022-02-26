@@ -28,11 +28,11 @@ public class Tower extends SubsystemBase {
   //private AnalogInput analogSensorLower = new  AnalogInput(Constants.LOWER_SENSOR_PORT);
   //private AnalogInput analogSensorUpper = new  AnalogInput(Constants.UPPER_SENSOR_PORT);
 
-  //private Ultrasonic ultrasonicLower = new Ultrasonic(Constants.LOWER_SENSOR_PORT_INPUT, Constants.LOWER_SENSOR_PORT_OUTPUT);
-  //private Ultrasonic ultrasonicUpper = new Ultrasonic(Constants.UPPER_SENSOR_PORT_INPUT, Constants.UPPER_SENSOR_PORT_OUTPUT);
+  private Ultrasonic ultrasonicLower = new Ultrasonic(Constants.LOWER_SENSOR_PORT_INPUT, Constants.LOWER_SENSOR_PORT_OUTPUT);
+  private Ultrasonic ultrasonicUpper = new Ultrasonic(Constants.UPPER_SENSOR_PORT_INPUT, Constants.UPPER_SENSOR_PORT_OUTPUT);
 
-  //private NetworkTableEntry upperSensorDisplay = tab.add("DISSABLED: Upper Sensor: ", ultrasonicUpper.getRangeMM()).getEntry();
-  //private NetworkTableEntry lowerSensorDisplay = tab.add("DISSABLED: Lower Sensor: ", ultrasonicLower.getRangeMM()).getEntry();
+  private NetworkTableEntry upperSensorDisplay = tab.add("Upper Sensor: ", ultrasonicUpper.getRangeMM()).getEntry();
+  private NetworkTableEntry lowerSensorDisplay = tab.add("Lower Sensor: ", ultrasonicLower.getRangeMM()).getEntry();
   private final SendableChooser<Boolean> sensorChooser = new SendableChooser<Boolean>();
   /** Creates a new Tower. 69 haha funny number*/
   public Tower() {
@@ -57,17 +57,19 @@ public class Tower extends SubsystemBase {
   }
 
   public boolean getUpperSensor(){
+    return true;
     // if(ultrasonicUpper.getRangeMM()>100){
     //   return true;
     // }
-    return false;
+    // return false;
   }
 
   public boolean getLowerSensor(){
+    return true;
     // if(ultrasonicLower.getRangeMM()>100){
     //   return true;
     // }
-    return false;
+    // return false;
   }
 
 
@@ -76,8 +78,8 @@ public class Tower extends SubsystemBase {
     // This method will be called once per scheduler run
     upperSpeed.setDouble(upperMotor.get());
     lowerSpeed.setDouble(lowerMotor.get());
-    //upperSensorDisplay.setBoolean(getUpperSensor());
-    //lowerSensorDisplay.setBoolean(getLowerSensor());
+    upperSensorDisplay.setBoolean(getUpperSensor());
+    lowerSensorDisplay.setBoolean(getLowerSensor());
 
   }
 }

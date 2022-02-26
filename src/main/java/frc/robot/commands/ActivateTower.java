@@ -35,16 +35,16 @@ public class ActivateTower extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    // if(!tower.getLowerSensor()){
-    //   tower.setSpeedLower(0);
+    if(!tower.getLowerSensor()){
+      tower.setSpeedLower(0);
       
-    // }
-    // if(!tower.getUpperSensor()){
-    //   tower.setSpeedUpper(0);
-    // }
-    // if((tower.getSpeedLower() == 0.0) && (tower.getSpeedUpper() == 0.0)){
-    //   finished = true;
-    // }
+    }
+    if(!tower.getUpperSensor()){
+      tower.setSpeedUpper(0);
+    }
+    if((tower.getSpeedLower() == 0.0) && (tower.getSpeedUpper() == 0.0)){
+      finished = true;
+    }
   }
 
   // Called once the command ends or is interrupted.
