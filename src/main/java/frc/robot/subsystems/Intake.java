@@ -16,6 +16,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Intake extends SubsystemBase {
   private final CANSparkMax intakeMotor = new CANSparkMax(Constants.INTAKE_PORT,MotorType.kBrushless);
+  //intake rotation motor is the motor that raises the intake off ground
   private final CANSparkMax intakeRotationMotor = new CANSparkMax(Constants.INTAKE_ROTATION_PORT,MotorType.kBrushless);
   private ShuffleboardTab tab = Shuffleboard.getTab("Debug");
   private NetworkTableEntry speedDisplay = tab.add("Intake Motor Speed: ", 0).getEntry();
@@ -27,15 +28,15 @@ public class Intake extends SubsystemBase {
     
   }
 
-  public void setSpeed(double speed){
+  public void setSpeed(double speed){//for intake motor
     intakeMotor.set(speed);
   }
 
-  public double getSpeed(){
+  public double getSpeed(){//for intake motor
     return intakeMotor.get();
   }
 
-  public double getEncoderValue(){
+  public double getEncoderValue(){//for intake rotation motor
     return encoder.getPosition();
   }
 
@@ -46,8 +47,8 @@ public class Intake extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    speedDisplay.setDouble(intakeMotor.get());
-    intakeRotationDisplay.setDouble(encoder.getPosition());
-    intakeRotationSpeedDisplay.setDouble(intakeRotationMotor.get());
+    speedDisplay.setDouble(getSpeed());//update the intake motor speed display
+    intakeRotationDisplay.setDouble(getEncoderValue());//updates the display showing the rotation
+    intakeRotationSpeedDisplay.setDouble(intakeRotationMotor.get());//updates the display for the intake rotation motor speed
   }
 }

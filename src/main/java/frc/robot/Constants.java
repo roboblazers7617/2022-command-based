@@ -31,6 +31,10 @@ public final class Constants {
     public static final int LEFT_CLIMBER_PORT = 7;
     public static final int RIGHT_CLIMBER_PORT = 8;
     public static final int INTAKE_ROTATION_PORT = 20;//need to add
+    public static final int LOWER_SENSOR_PORT_INPUT = 25;
+    public static final int LOWER_SENSOR_PORT_OUTPUT = 26;
+    public static final int UPPER_SENSOR_PORT_INPUT = 27;
+    public static final int UPPER_SENSOR_PORT_OUTPUT = 28;
     
 
 }

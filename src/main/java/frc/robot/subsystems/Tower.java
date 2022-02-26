@@ -4,10 +4,14 @@
 
 package frc.robot.subsystems;
 
+
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.SparkMaxAnalogSensor;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.networktables.NetworkTableEntry;
+import edu.wpi.first.wpilibj.AnalogInput;
+import edu.wpi.first.wpilibj.Ultrasonic;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -20,17 +24,20 @@ public class Tower extends SubsystemBase {
   private ShuffleboardTab tab = Shuffleboard.getTab("Debug");
   private NetworkTableEntry upperSpeed = tab.add("Upper Tower Motor Speed: ", 0).getEntry();
   private NetworkTableEntry lowerSpeed = tab.add("Lower Tower Motor Speed: ", 0).getEntry();
-  private boolean upperSensor = true;
-  private boolean lowerSensor = true;
-  private NetworkTableEntry upperSensorDisplay = tab.add("Upper Sensor: ", upperSensor).getEntry();
-  private NetworkTableEntry lowerSensorDisplay = tab.add("Lower Sensor: ", lowerSensor).getEntry();
+
+  //private AnalogInput analogSensorLower = new  AnalogInput(Constants.LOWER_SENSOR_PORT);
+  //private AnalogInput analogSensorUpper = new  AnalogInput(Constants.UPPER_SENSOR_PORT);
+
+  private Ultrasonic ultrasonicLower = new Ultrasonic(Constants.LOWER_SENSOR_PORT_INPUT, Constants.LOWER_SENSOR_PORT_OUTPUT);
+  private Ultrasonic ultrasonicUpper = new Ultrasonic(Constants.UPPER_SENSOR_PORT_INPUT, Constants.UPPER_SENSOR_PORT_OUTPUT);
+
+  private NetworkTableEntry upperSensorDisplay = tab.add("Upper Sensor: ", ultrasonicUpper.getRangeMM()).getEntry();
+  private NetworkTableEntry lowerSensorDisplay = tab.add("Lower Sensor: ", ultrasonicLower.getRangeMM()).getEntry();
   private final SendableChooser<Boolean> sensorChooser = new SendableChooser<Boolean>();
-  /** Creates a new Tower. */
+  /** Creates a new Tower. 69 haha funny number*/
   public Tower() {
-    upperSensor = true;
-    lowerSensor = true;
-    sensorChooser.setDefaultOption("no ball", true);
-    sensorChooser.setDefaultOption("yes ball", false);
+    sensorChooser.setDefaultOption("does nothi g", true);
+    sensorChooser.setDefaultOption("no do thing", false);
     Shuffleboard.getTab("Debug").add(sensorChooser);
   }
   public void setSpeedUpper(double speed){
@@ -50,11 +57,17 @@ public class Tower extends SubsystemBase {
   }
 
   public boolean getUpperSensor(){
-    return upperSensor;
+    if(ultrasonicUpper.getRangeMM()>100){
+      return true;
+    }
+    return false;
   }
 
   public boolean getLowerSensor(){
-    return lowerSensor;
+    if(ultrasonicLower.getRangeMM()>100){
+      return true;
+    }
+    return false;
   }
 
 
@@ -65,6 +78,6 @@ public class Tower extends SubsystemBase {
     lowerSpeed.setDouble(lowerMotor.get());
     upperSensorDisplay.setBoolean(getUpperSensor());
     lowerSensorDisplay.setBoolean(getLowerSensor());
-    lowerSensor = sensorChooser.getSelected();
+
   }
 }
