@@ -21,7 +21,7 @@ public class Shooter extends SubsystemBase {
   private final SendableChooser<Double> toggleShooter = new SendableChooser<Double>();
   /** Creates a new Shooter. */
   public Shooter() {
-    toggleShooter.setDefaultOption("yes shoot", -1.0);
+    toggleShooter.setDefaultOption("yes shoot", 0.1);
     toggleShooter.setDefaultOption("no shoot", 0.0);
     tab.add(toggleShooter);
   }

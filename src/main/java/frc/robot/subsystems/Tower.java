@@ -31,8 +31,8 @@ public class Tower extends SubsystemBase {
   private Ultrasonic ultrasonicLower = new Ultrasonic(Constants.LOWER_SENSOR_PORT_INPUT, Constants.LOWER_SENSOR_PORT_OUTPUT);
   private Ultrasonic ultrasonicUpper = new Ultrasonic(Constants.UPPER_SENSOR_PORT_INPUT, Constants.UPPER_SENSOR_PORT_OUTPUT);
 
-  private NetworkTableEntry upperSensorDisplay = tab.add("DISSABLED: Upper Sensor: ", ultrasonicUpper.getRangeMM()).getEntry();
-  private NetworkTableEntry lowerSensorDisplay = tab.add("DISSABLED: Lower Sensor: ", ultrasonicLower.getRangeMM()).getEntry();
+  private NetworkTableEntry upperSensorDisplay = tab.add("Upper Sensor: ", ultrasonicUpper.getRangeMM()).getEntry();
+  private NetworkTableEntry lowerSensorDisplay = tab.add("Lower Sensor: ", ultrasonicLower.getRangeMM()).getEntry();
   private final SendableChooser<Boolean> sensorChooser = new SendableChooser<Boolean>();
   /** Creates a new Tower. 69 haha funny number*/
   public Tower() {
