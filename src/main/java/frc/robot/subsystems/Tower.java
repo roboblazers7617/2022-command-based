@@ -12,6 +12,7 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.Ultrasonic;
+import edu.wpi.first.wpilibj.motorcontrol.PWMVictorSPX;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -19,26 +20,27 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class Tower extends SubsystemBase {
-  private final CANSparkMax lowerMotor = new CANSparkMax(Constants.LOWER_TOWER_MOTOR,MotorType.kBrushless);
-  private final CANSparkMax upperMotor = new CANSparkMax(Constants.UPPER_TOWER_MOTOR,MotorType.kBrushless);
+
+  private final PWMVictorSPX lowerMotor = new PWMVictorSPX(Constants.LOWER_TOWER_MOTOR);
+  private final PWMVictorSPX upperMotor = new PWMVictorSPX(Constants.UPPER_TOWER_MOTOR);
   private ShuffleboardTab tab = Shuffleboard.getTab("Debug");
-  private NetworkTableEntry upperSpeed = tab.add("Upper Tower Motor Speed: ", 0).getEntry();
-  private NetworkTableEntry lowerSpeed = tab.add("Lower Tower Motor Speed: ", 0).getEntry();
+  //private NetworkTableEntry upperSpeed = tab.add("Upper Tower Motor Speed: ", 0).getEntry();
+  //private NetworkTableEntry lowerSpeed = tab.add("Lower Tower Motor Speed: ", 0).getEntry();
 
   //private AnalogInput analogSensorLower = new  AnalogInput(Constants.LOWER_SENSOR_PORT);
   //private AnalogInput analogSensorUpper = new  AnalogInput(Constants.UPPER_SENSOR_PORT);
 
-  private Ultrasonic ultrasonicLower = new Ultrasonic(Constants.LOWER_SENSOR_PORT_INPUT, Constants.LOWER_SENSOR_PORT_OUTPUT);
-  private Ultrasonic ultrasonicUpper = new Ultrasonic(Constants.UPPER_SENSOR_PORT_INPUT, Constants.UPPER_SENSOR_PORT_OUTPUT);
+  //private Ultrasonic ultrasonicLower = new Ultrasonic(Constants.LOWER_SENSOR_PORT_INPUT, Constants.LOWER_SENSOR_PORT_OUTPUT);
+  //private Ultrasonic ultrasonicUpper = new Ultrasonic(Constants.UPPER_SENSOR_PORT_INPUT, Constants.UPPER_SENSOR_PORT_OUTPUT);
 
-  private NetworkTableEntry upperSensorDisplay = tab.add("Upper Sensor: ", ultrasonicUpper.getRangeMM()).getEntry();
-  private NetworkTableEntry lowerSensorDisplay = tab.add("Lower Sensor: ", ultrasonicLower.getRangeMM()).getEntry();
+  //private NetworkTableEntry upperSensorDisplay = tab.add("Upper Sensor: ", ultrasonicUpper.getRangeMM()).getEntry();
+  //private NetworkTableEntry lowerSensorDisplay = tab.add("Lower Sensor: ", ultrasonicLower.getRangeMM()).getEntry();
   private final SendableChooser<Boolean> sensorChooser = new SendableChooser<Boolean>();
-  /** Creates a new Tower. 69 haha funny number*/
+  
   public Tower() {
-    sensorChooser.setDefaultOption("does nothi g", true);
-    sensorChooser.setDefaultOption("no do thing", false);
-    Shuffleboard.getTab("Debug").add(sensorChooser);
+  //  sensorChooser.setDefaultOption("does nothi g", true);
+  //  sensorChooser.setDefaultOption("no do thing", false);
+  //  Shuffleboard.getTab("Debug").add(sensorChooser);
   }
   public void setSpeedUpper(double speed){
     upperMotor.set(speed);
@@ -76,10 +78,10 @@ public class Tower extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    upperSpeed.setDouble(upperMotor.get());
-    lowerSpeed.setDouble(lowerMotor.get());
-    upperSensorDisplay.setBoolean(getUpperSensor());
-    lowerSensorDisplay.setBoolean(getLowerSensor());
+//    upperSpeed.setDouble(upperMotor.get());
+//    lowerSpeed.setDouble(lowerMotor.get());
+//    upperSensorDisplay.setBoolean(getUpperSensor());
+//    lowerSensorDisplay.setBoolean(getLowerSensor());
 
   }
 }
