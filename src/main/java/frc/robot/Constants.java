@@ -35,10 +35,11 @@ public final class Constants {
     public static final int LOWER_SENSOR_PORT_OUTPUT = 26;
     public static final int UPPER_SENSOR_PORT_INPUT = 27;
     public static final int UPPER_SENSOR_PORT_OUTPUT = 28;
-    public static final int CLIMBER_UP_BUTTON = 3; // blue button
+    //public static final int CLIMBER_UP_BUTTON = 3; // blue button
     public static final int CLIMBER_DOWN_BUTTON = 2; // red button
     public static final int CLIMBER_STOP_BUTTON = 1;  // green button
     public static final int SHOOT_BOLL_BUTTON = 6;//right bumper
     public static final int TOWER_TOGGLE_BUTTON = 4; // yellow button
+    public static final int INTAKE_TOGGLE_BUTTON = 3; // blue button
 
 }

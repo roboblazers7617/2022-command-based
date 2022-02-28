@@ -25,7 +25,7 @@ public class RobotContainer {
   private final XboxController controller = new XboxController(Constants.CONTROLLER_PORT);
   //private final Drivetrain drivetrain = new Drivetrain();
   private final AutoCommand autoCommand = new AutoCommand();
- // private final Intake intake = new Intake();
+ private final Intake intake = new Intake();
  private final Tower tower = new Tower();
  private final Shooter shooter = new Shooter();
  //private final Climber climber = new Climber();
@@ -55,18 +55,20 @@ public class RobotContainer {
     JoystickButton speedButton = new JoystickButton(controller, Constants.SPEED_ADJUSTOR_TRIGGER);
    // speedButton.whenPressed(new SpeedAdjustor(drivetrain));
 
-   JoystickButton climberUpButton = new JoystickButton(controller, Constants.CLIMBER_UP_BUTTON);
+   //JoystickButton climberUpButton = new JoystickButton(controller, Constants.CLIMBER_UP_BUTTON);
    JoystickButton climberDownButton = new JoystickButton(controller, Constants.CLIMBER_DOWN_BUTTON);
    JoystickButton climberStopButton = new JoystickButton(controller, Constants.CLIMBER_STOP_BUTTON);
    JoystickButton towerToggleButton = new JoystickButton(controller, Constants.TOWER_TOGGLE_BUTTON);
    JoystickButton shootButton = new JoystickButton(controller, Constants.SHOOT_BOLL_BUTTON);
+   JoystickButton intakeToggleButton = new JoystickButton(controller, Constants.INTAKE_TOGGLE_BUTTON);
 
  //climberUpButton.whenPressed(new RaiseClimber(climber));
  // climberDownButton.whenPressed(new LowerClimber(climber));
  // climberStopButton.whenPressed(new StopClimber(climber));
 
-  shootButton.whenPressed(new SpinShooter(shooter));
+  shootButton.whenPressed(new SpinShooter(shooter));//toggles shooter
   towerToggleButton.whenPressed(new ToggleTower(tower));
+  intakeToggleButton.whenPressed(new ToggleIntake(intake));
 
     
   }
