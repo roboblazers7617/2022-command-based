@@ -22,15 +22,15 @@ public final class Constants {
     public static final double HIGH_GEAR = 1.0;
     public static final double LOW_GEAR = 0.5;
     public static final int SPEED_ADJUSTOR_TRIGGER = 5;
-    public static final int INTAKE_PORT = 9;
+    public static final int INTAKE_PORT = 6;
     public static final double INTAKE_MOTOR_SPEED = 0.2;
-    public static final int LOWER_TOWER_MOTOR = 7;//need to change
+    public static final int LOWER_TOWER_MOTOR = 7;
     public static final int UPPER_TOWER_MOTOR = 5;
     public static final double TOWER_SPEED = 0.5;
     public static final int SHOOTER_PORT = 4;
     public static final int LEFT_CLIMBER_PORT = 4;
     public static final int RIGHT_CLIMBER_PORT = 3;
-    public static final int INTAKE_ROTATION_PORT = 20;//need to add
+    public static final int INTAKE_ROTATION_PORT = 8;//PWM
     public static final int LOWER_SENSOR_PORT_INPUT = 25;
     public static final int LOWER_SENSOR_PORT_OUTPUT = 26;
     public static final int UPPER_SENSOR_PORT_INPUT = 27;
@@ -41,6 +41,8 @@ public final class Constants {
     public static final int SHOOT_BOLL_BUTTON = 6;//right bumper
     public static final int TOWER_TOGGLE_BUTTON = 4; // yellow button
     public static final int INTAKE_TOGGLE_BUTTON = 3; // blue button
-    
+    public static final double GEAR_RATIO_INTAKE_LIFT = (15/54)*1/1.925;
+    public static final int ANGLE_INTAKE_DEPLOY = 80;
+
 
 }
