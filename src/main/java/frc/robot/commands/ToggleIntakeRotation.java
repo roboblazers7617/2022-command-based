@@ -5,6 +5,7 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Constants;
 import frc.robot.subsystems.Intake;
 
 public class ToggleIntakeRotation extends CommandBase {
@@ -24,15 +25,11 @@ public class ToggleIntakeRotation extends CommandBase {
     finished = false;
     //starts raised
     //rotating down is positive
-    if(intake.getEncoderValue()<0.05){
-      raising = false;
-    }
-    else if(intake.getEncoderValue()>.20){
+    if(intake.getEncoderValue()<Constants.ANGLE_INTAKE_DEPLOY/Constants.GEAR_RATIO_INTAKE_LIFT){
       raising = true;
     }
     else{
-      System.out.println("intake rotation motor is in wrong place");
-
+      raising = false;
     }
   }
 
@@ -54,12 +51,11 @@ public class ToggleIntakeRotation extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if(raising == true && intake.getEncoderValue() < .05){
+    if(intake.getEncoderValue()>=Constants.ANGLE_INTAKE_DEPLOY/Constants.GEAR_RATIO_INTAKE_LIFT){
       return true;
     }
-    else if (raising == false && intake.getEncoderValue() > .2){
-      return true;
+    else{
+      return false;
     }
-    return false;
-  }
+}
 }
