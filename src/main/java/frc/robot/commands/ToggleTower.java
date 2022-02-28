@@ -26,15 +26,15 @@ public class ToggleTower extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if(Math.abs(m_tower.getSpeedUpper())>0){
+    if((Math.abs(m_tower.getSpeedUpper())>0) && (Math.abs(m_tower.getSpeedLower())>0)){
       m_tower.setSpeedUpper(0);
+    }
+    else if(Math.abs(m_tower.getSpeedLower())>0){
       m_tower.setSpeedLower(0);
-      SmartDashboard.putNumber("Tower Speed", 0);
     }
     else{
       m_tower.setSpeedUpper(.5);
       m_tower.setSpeedLower(.5);
-      SmartDashboard.putNumber("Tower Speed", .5);
     }
     
   }

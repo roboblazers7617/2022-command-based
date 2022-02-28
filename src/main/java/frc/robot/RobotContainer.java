@@ -56,8 +56,8 @@ public class RobotContainer {
    // speedButton.whenPressed(new SpeedAdjustor(drivetrain));
 
    //JoystickButton climberUpButton = new JoystickButton(controller, Constants.CLIMBER_UP_BUTTON);
-   JoystickButton climberDownButton = new JoystickButton(controller, Constants.CLIMBER_DOWN_BUTTON);
-   JoystickButton climberStopButton = new JoystickButton(controller, Constants.CLIMBER_STOP_BUTTON);
+   //JoystickButton climberDownButton = new JoystickButton(controller, Constants.CLIMBER_DOWN_BUTTON);
+  // JoystickButton climberStopButton = new JoystickButton(controller, Constants.CLIMBER_STOP_BUTTON);
    JoystickButton towerToggleButton = new JoystickButton(controller, Constants.TOWER_TOGGLE_BUTTON);
    JoystickButton shootButton = new JoystickButton(controller, Constants.SHOOT_BOLL_BUTTON);
    JoystickButton intakeToggleButton = new JoystickButton(controller, Constants.INTAKE_TOGGLE_BUTTON);
