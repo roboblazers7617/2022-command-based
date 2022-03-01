@@ -34,7 +34,7 @@ public class ToggleTower extends CommandBase {
     }
     else{
       m_tower.setSpeedUpper(.5);
-      m_tower.setSpeedLower(.5);
+      m_tower.setSpeedLower(.6);
     }
     
   }

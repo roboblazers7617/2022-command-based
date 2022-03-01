@@ -67,7 +67,7 @@ public class RobotContainer {
  // climberStopButton.whenPressed(new StopClimber(climber));
 
   shootButton.whenPressed(new SpinShooter(shooter));//toggles shooter
-  towerToggleButton.whenPressed(new ToggleTower(tower));
+  towerToggleButton.whenPressed(new LoadTower(tower));
   intakeToggleButton.whenPressed(new ToggleIntake(intake));
 
     

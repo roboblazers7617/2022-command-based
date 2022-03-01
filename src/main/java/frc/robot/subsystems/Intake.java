@@ -10,22 +10,24 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import frc.robot.Constants;
 import edu.wpi.first.networktables.NetworkTableEntry;
+import edu.wpi.first.wpilibj.motorcontrol.PWMSparkMax;
+import edu.wpi.first.wpilibj.motorcontrol.PWMVictorSPX;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Intake extends SubsystemBase {
-  private final CANSparkMax intakeMotor = new CANSparkMax(Constants.INTAKE_PORT,MotorType.kBrushless);
+  private final PWMVictorSPX intakeMotor = new PWMVictorSPX(Constants.INTAKE_PORT);
   //intake rotation motor is the motor that raises the intake off ground
-  private final CANSparkMax intakeRotationMotor = new CANSparkMax(Constants.INTAKE_ROTATION_PORT,MotorType.kBrushless);
+  private final PWMSparkMax intakeRotationMotor = new PWMSparkMax(Constants.INTAKE_ROTATION_PORT/*,MotorType.kBrushless*/);
   private ShuffleboardTab tab = Shuffleboard.getTab("Debug");
   private NetworkTableEntry speedDisplay = tab.add("Intake Motor Speed: ", 0).getEntry();
   private NetworkTableEntry intakeRotationDisplay = tab.add("Intake Rotation Motor Position: ", 0).getEntry();
   private NetworkTableEntry intakeRotationSpeedDisplay = tab.add("Intake Rotation Motor Speed: ", 0).getEntry();
-  private RelativeEncoder encoder = intakeRotationMotor.getEncoder();
+ // private RelativeEncoder encoder = intakeRotationMotor.getEncoder();
   /** Creates a new Intake. */
   public Intake() {
-    
+    intakeMotor.setInverted(true);
   }
 
   public void setSpeed(double speed){//for intake motor
@@ -37,7 +39,7 @@ public class Intake extends SubsystemBase {
   }
 
   public double getEncoderValue(){//for intake rotation motor
-    return encoder.getPosition();
+    return 0;//encoder.getPosition();
   }
 
   public void setRotationMotorSpeed(double speed){

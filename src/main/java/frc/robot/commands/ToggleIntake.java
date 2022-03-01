@@ -29,7 +29,7 @@ public class ToggleIntake extends CommandBase {
   @Override
   public void execute() {
     
-    if(intake.getSpeed() == Constants.INTAKE_MOTOR_SPEED){
+    if(intake.getSpeed() > 0){
       intake.setSpeed(0.0);
 
     }

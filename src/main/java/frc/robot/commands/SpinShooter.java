@@ -31,8 +31,7 @@ public class SpinShooter extends CommandBase {
       m_shooter.setSpeed(0);
       SmartDashboard.putNumber("Flywheel Speed", 0);}
     else{
-      m_shooter.setSpeed(-.25);
-      // SmartDashboard.putNumber("Flywheel Speed", -.6);
+      m_shooter.setSpeed(.33);
     }
   }
 

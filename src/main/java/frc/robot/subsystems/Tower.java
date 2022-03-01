@@ -27,17 +27,15 @@ public class Tower extends SubsystemBase {
   //private NetworkTableEntry upperSpeed = tab.add("Upper Tower Motor Speed: ", 0).getEntry();
   //private NetworkTableEntry lowerSpeed = tab.add("Lower Tower Motor Speed: ", 0).getEntry();
 
-  //private AnalogInput analogSensorLower = new  AnalogInput(Constants.LOWER_SENSOR_PORT);
-  //private AnalogInput analogSensorUpper = new  AnalogInput(Constants.UPPER_SENSOR_PORT);
+  private AnalogInput analogSensorLower = new  AnalogInput(Constants.LOWER_SENSOR_PORT_INPUT);
+  private AnalogInput analogSensorUpper = new  AnalogInput(Constants.UPPER_SENSOR_PORT_INPUT);
 
-  //private Ultrasonic ultrasonicLower = new Ultrasonic(Constants.LOWER_SENSOR_PORT_INPUT, Constants.LOWER_SENSOR_PORT_OUTPUT);
-  //private Ultrasonic ultrasonicUpper = new Ultrasonic(Constants.UPPER_SENSOR_PORT_INPUT, Constants.UPPER_SENSOR_PORT_OUTPUT);
-
-  //private NetworkTableEntry upperSensorDisplay = tab.add("Upper Sensor: ", ultrasonicUpper.getRangeMM()).getEntry();
-  //private NetworkTableEntry lowerSensorDisplay = tab.add("Lower Sensor: ", ultrasonicLower.getRangeMM()).getEntry();
+  private NetworkTableEntry upperSensorDisplay = tab.add("Upper Sensor: ", analogSensorUpper.getAverageValue()).getEntry();
+  private NetworkTableEntry lowerSensorDisplay = tab.add("Lower Sensor: ", analogSensorLower.getAverageValue()).getEntry();
   private final SendableChooser<Boolean> sensorChooser = new SendableChooser<Boolean>();
   
   public Tower() {
+    lowerMotor.setInverted(true);
   //  sensorChooser.setDefaultOption("does nothi g", true);
   //  sensorChooser.setDefaultOption("no do thing", false);
   //  Shuffleboard.getTab("Debug").add(sensorChooser);
@@ -59,19 +57,19 @@ public class Tower extends SubsystemBase {
   }
 
   public boolean getUpperSensor(){
-    return true;
-    // if(ultrasonicUpper.getRangeMM()>100){
-    //   return true;
-    // }
-    // return false;
+    //return true;
+    if(analogSensorUpper.getAverageValue()<5){
+      return true;
+    }
+    return false;
   }
 
   public boolean getLowerSensor(){
-    return true;
-    // if(ultrasonicLower.getRangeMM()>100){
-    //   return true;
-    // }
-    // return false;
+    // return true;
+    if(analogSensorLower.getAverageValue()<.075){
+      return true;
+    }
+    return false;
   }
 
 
