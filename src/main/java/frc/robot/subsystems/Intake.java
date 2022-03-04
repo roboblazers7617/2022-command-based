@@ -11,6 +11,7 @@ import com.revrobotics.CANSparkMax.SoftLimitDirection;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import frc.robot.Constants;
+import frc.robot.commands.ResetIntake;
 import frc.robot.commands.ToggleIntakeRotation;
 import edu.wpi.first.networktables.NetworkTableEntry;
 
@@ -35,16 +36,18 @@ public class Intake extends SubsystemBase {
   /** Creates a new Intake. */
   public Intake() {
     intakeMotor.setInverted(true);
+    intakeRotationMotor.setInverted(true);
     intakeRotationMotorRaised = true;
     movingIntakeRotationMotor = false;
     tab.add("toggle intake rotation: ", new ToggleIntakeRotation(this));
+    setDefaultCommand(new ResetIntake(this));
   }
-
-  public void setSpeed(double speed){//for intake motor
+  /**sets the speed for the intake motor not the intake rotation motor */
+  public void setSpeedIntake(double speed){//for intake motor
     intakeMotor.set(speed);
   }
-
-  public double getSpeed(){//for intake motor
+  /**gets the speed for the intake motor not the intake rotation motor */
+  public double getSpeedIntake(){//for intake motor
     return intakeMotor.get();
   }
 
@@ -64,11 +67,11 @@ public class Intake extends SubsystemBase {
   public void raiseIntake(){
     //SparkMaxLimitSwitch limit = intakeRotationMotor.getReverseLimitSwitch(SparkMaxLimitSwitch.Type.kNormallyOpen);
     movingIntakeRotationMotor = true;
-    intakeRotationMotor.set(-0.25);
+    intakeRotationMotor.set(Constants.INTAKE_ROTATION_MOTOR_SPEED);
 
     //used this for help https://github.com/REVrobotics/SPARK-MAX-Examples/blob/master/Java/Soft%20Limits/src/main/java/frc/robot/Robot.java 
     intakeRotationMotor.enableSoftLimit(CANSparkMax.SoftLimitDirection.kReverse, true);
-    intakeRotationMotor.setSoftLimit(CANSparkMax.SoftLimitDirection.kReverse, (float) 0.25);
+    intakeRotationMotor.setSoftLimit(CANSparkMax.SoftLimitDirection.kReverse, (float) Constants.INTAKE_ROTATION_MOTOR_DISTANCE);
     movingIntakeRotationMotor = true;
 
   }
@@ -77,7 +80,7 @@ public class Intake extends SubsystemBase {
   public void lowerIntake(){
     //SparkMaxLimitSwitch limit = intakeRotationMotor.getReverseLimitSwitch(SparkMaxLimitSwitch.Type.kNormallyOpen);
     movingIntakeRotationMotor = true;
-    intakeRotationMotor.set(0.25);
+    intakeRotationMotor.set(Constants.INTAKE_ROTATION_MOTOR_SPEED);
 
     //used this for help https://github.com/REVrobotics/SPARK-MAX-Examples/blob/master/Java/Soft%20Limits/src/main/java/frc/robot/Robot.java 
     intakeRotationMotor.enableSoftLimit(CANSparkMax.SoftLimitDirection.kForward, true);
@@ -89,8 +92,8 @@ public class Intake extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    speedDisplay.setDouble(getSpeed());//update the intake motor speed display
-    //intakeRotationDisplay.setDouble(getEncoderValue());//updates the display showing the rotation
+    speedDisplay.setDouble(getSpeedIntake());//update the intake motor speed display
+
     intakeRotationSpeedDisplay.setDouble(intakeRotationMotor.get());//updates the display for the intake rotation motor speed
   }
 }
