@@ -40,7 +40,7 @@ public class Intake extends SubsystemBase {
     intakeRotationMotorRaised = true;
     movingIntakeRotationMotor = false;
     tab.add("toggle intake rotation: ", new ToggleIntakeRotation(this));
-    setDefaultCommand(new ResetIntake(this));
+    
   }
   /**sets the speed for the intake motor not the intake rotation motor */
   public void setSpeedIntake(double speed){//for intake motor

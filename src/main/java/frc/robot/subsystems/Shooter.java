@@ -26,7 +26,7 @@ public class Shooter extends SubsystemBase {
   /** Creates a new Shooter. */
   public Shooter() {
     shooterMotor.setInverted(true);
-    setDefaultCommand(new StopShooter(this));
+
     toggleShooter.setDefaultOption("yes shoot", -1.0);
     toggleShooter.setDefaultOption("no shoot", 0.0);
     tab.add(toggleShooter);
