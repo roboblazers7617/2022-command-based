@@ -25,7 +25,7 @@ public class ToggleIntakeRotation extends CommandBase {
     finished = false;
     //starts raised
     //rotating down is positive
-    if(intake.getEncoderValue()<Constants.ANGLE_INTAKE_DEPLOY/Constants.GEAR_RATIO_INTAKE_LIFT){
+    if(intake.getIntakeRotationMotorRaised()){
       raising = true;
     }
     else{
@@ -37,10 +37,10 @@ public class ToggleIntakeRotation extends CommandBase {
   @Override
   public void execute() {
     if(!raising){
-      intake.setRotationMotorSpeed(0.2);
+      intake.raiseIntake();
     }
     else{
-      intake.setRotationMotorSpeed(-0.2);
+      intake.lowerIntake();
     }
   }
 
@@ -51,11 +51,6 @@ public class ToggleIntakeRotation extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if(intake.getEncoderValue()>=Constants.ANGLE_INTAKE_DEPLOY/Constants.GEAR_RATIO_INTAKE_LIFT){
-      return true;
-    }
-    else{
-      return false;
-    }
+    return intake.isIntakeRotationMotorMoving();
 }
 }

@@ -11,6 +11,7 @@ import com.revrobotics.CANSparkMax.SoftLimitDirection;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import frc.robot.Constants;
+import frc.robot.commands.ToggleIntakeRotation;
 import edu.wpi.first.networktables.NetworkTableEntry;
 
 import edu.wpi.first.wpilibj.motorcontrol.PWMVictorSPX;
@@ -24,6 +25,8 @@ public class Intake extends SubsystemBase {
   // private SparkMaxLimitSwitch backwordsLimit;
   //intake rotation motor is the motor that raises the intake off ground
   private final CANSparkMax intakeRotationMotor = new CANSparkMax(Constants.INTAKE_ROTATION_PORT,MotorType.kBrushless);
+  private boolean intakeRotationMotorRaised;
+  private boolean movingIntakeRotationMotor;
   private ShuffleboardTab tab = Shuffleboard.getTab("Debug");
   private NetworkTableEntry speedDisplay = tab.add("Intake Motor Speed: ", 0).getEntry();
   
@@ -32,6 +35,9 @@ public class Intake extends SubsystemBase {
   /** Creates a new Intake. */
   public Intake() {
     intakeMotor.setInverted(true);
+    intakeRotationMotorRaised = true;
+    movingIntakeRotationMotor = false;
+    tab.add("toggle intake rotation: ", new ToggleIntakeRotation(this));
   }
 
   public void setSpeed(double speed){//for intake motor
@@ -42,6 +48,14 @@ public class Intake extends SubsystemBase {
     return intakeMotor.get();
   }
 
+  public boolean getIntakeRotationMotorRaised(){
+    return intakeRotationMotorRaised;
+  }
+
+  public boolean isIntakeRotationMotorMoving(){
+    return movingIntakeRotationMotor;
+  }
+
   
 
   
@@ -49,23 +63,27 @@ public class Intake extends SubsystemBase {
   /** will raise the intake up within the robot */
   public void raiseIntake(){
     //SparkMaxLimitSwitch limit = intakeRotationMotor.getReverseLimitSwitch(SparkMaxLimitSwitch.Type.kNormallyOpen);
+    movingIntakeRotationMotor = true;
     intakeRotationMotor.set(-0.25);
 
     //used this for help https://github.com/REVrobotics/SPARK-MAX-Examples/blob/master/Java/Soft%20Limits/src/main/java/frc/robot/Robot.java 
     intakeRotationMotor.enableSoftLimit(CANSparkMax.SoftLimitDirection.kReverse, true);
     intakeRotationMotor.setSoftLimit(CANSparkMax.SoftLimitDirection.kReverse, (float) 0.25);
+    movingIntakeRotationMotor = true;
 
   }
 
   /** will lower the intake down to the ground */
   public void lowerIntake(){
     //SparkMaxLimitSwitch limit = intakeRotationMotor.getReverseLimitSwitch(SparkMaxLimitSwitch.Type.kNormallyOpen);
+    movingIntakeRotationMotor = true;
     intakeRotationMotor.set(0.25);
 
     //used this for help https://github.com/REVrobotics/SPARK-MAX-Examples/blob/master/Java/Soft%20Limits/src/main/java/frc/robot/Robot.java 
     intakeRotationMotor.enableSoftLimit(CANSparkMax.SoftLimitDirection.kForward, true);
     intakeRotationMotor.setSoftLimit(CANSparkMax.SoftLimitDirection.kForward, (float) 0.0);
 
+    movingIntakeRotationMotor = true;
   }
 
   @Override
