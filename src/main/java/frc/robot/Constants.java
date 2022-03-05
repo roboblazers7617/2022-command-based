@@ -36,8 +36,8 @@ public final class Constants {
     //DIO Ports
     public static final int SHOOTER_PORT = 4;
     public static final double SHOOTER_MOTOR_SPEED = 1.0;
-    /**the speed that shooter will count as full speed for shooterReady() */
-    public static final double SHOOTER_MOTOR_SPEED_FULL = .95;
+    /**the speed relative to SHOOTER_MOTOR_SPEED that shooter will count as full speed for shooterReady() */
+    public static final double SHOOTER_MOTOR_SPEED_FULL = .95 * SHOOTER_MOTOR_SPEED;
 
 
     public static final int LEFT_BOTTOM_CLIMBER_PORT = 4;
