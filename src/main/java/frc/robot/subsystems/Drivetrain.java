@@ -42,7 +42,7 @@ public class Drivetrain extends SubsystemBase {
     drivetrain = new MecanumDrive(leftFrontMotor, leftBackMotor, rightFrontMotor, rightBackMotor);
     drivetrain.setMaxOutput(Constants.LOW_GEAR);
   }
-  public void drive(double xSpeed, double ySpeed, double zRotation){
+  public void drive(double ySpeed, double xSpeed, double zRotation){
     drivetrain.driveCartesian(ySpeed, xSpeed, zRotation);
   }
 

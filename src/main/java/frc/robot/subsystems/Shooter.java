@@ -18,7 +18,7 @@ import frc.robot.Constants;
 import frc.robot.commands.StopShooter;
 
 public class Shooter extends SubsystemBase {
-  private final CANSparkMax shooterMotor = new CANSparkMax(Constants.SHOOTER_PORT, null);
+  private final CANSparkMax shooterMotor = new CANSparkMax(Constants.SHOOTER_PORT, MotorType.kBrushless);
   private ShuffleboardTab tab = Shuffleboard.getTab("Debug");
   private NetworkTableEntry shooterSpeedDisplay = tab.add("Shooter Motor Speed: ", 0).getEntry();
   private final SendableChooser<Double> toggleShooter = new SendableChooser<Double>();

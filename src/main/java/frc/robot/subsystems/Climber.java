@@ -44,7 +44,7 @@ public class Climber extends SubsystemBase {
 
   public void setSpeedBottom(double speed){
     rightBottomClimber.set(speed);
-    leftTopClimber.set(speed);
+    leftBottomClimber.set(speed);
   }
 
   

@@ -20,35 +20,36 @@ public final class Constants {
     public static final double INTAKE_MOTOR_SPEED = 0.4;
     public static final double HIGH_GEAR = 1;
     public static final double LOW_GEAR = .5;
-    //PWM Ports
-    
-    public static final int LEFT_CLIMBER_PORT = 4;
-    public static final int RIGHT_CLIMBER_PORT = 3;
-    public static final int LOWER_TOWER_MOTOR = 5;
-    public static final int UPPER_TOWER_MOTOR = 6;
-    public static final int INTAKE_PORT = 9842;
-    //CAN Ports
-    public static final int LEFT_FRONT_WHEEL_PORT = 5;
-    public static final int RIGHT_FRONT_WHEEL_PORT = 8;
-    public static final int LEFT_BACK_WHEEL_PORT = 7;
-    public static final int RIGHT_BACK_WHEEL_PORT = 6;
-    public static final int INTAKE_ROTATION_PORT = 8;
-    //DIO Ports
-    public static final int SHOOTER_PORT = 4;
+    public static final double CLIMBER_SPEED = 0.25;
     public static final double SHOOTER_MOTOR_SPEED = 1.0;
     /**the speed relative to SHOOTER_MOTOR_SPEED that shooter will count as full speed for shooterReady() */
     public static final double SHOOTER_MOTOR_SPEED_FULL = .95 * SHOOTER_MOTOR_SPEED;
-
-
+    //PWM Ports
     public static final int LEFT_BOTTOM_CLIMBER_PORT = 4;
-    public static final int LEFT_TOP_CLIMBER_PORT = 23490;
-    public static final int RIGHT_BOTTOM_CLIMBER_PORT = 88392;
-    public static final int RIGHT_TOP_CLIMBER_PORT = 3;
-    public static final double CLIMBER_SPEED = 0.25;
-    public static final double INTAKE_ROTATION_MOTOR_SPEED = 0.25;
-    public static final double INTAKE_ROTATION_MOTOR_DISTANCE = 0.25;
+    public static final int LEFT_TOP_CLIMBER_PORT = 9;
+    public static final int RIGHT_BOTTOM_CLIMBER_PORT = 13;
+    public static final int RIGHT_TOP_CLIMBER_PORT = 14;
+    public static final int LOWER_TOWER_MOTOR = 5;
+    public static final int UPPER_TOWER_MOTOR = 6;
+    public static final int INTAKE_PORT = 10;
+    //CAN Ports
+    public static final int LEFT_FRONT_WHEEL_PORT = 1;
+    public static final int RIGHT_FRONT_WHEEL_PORT = 8;
+    public static final int LEFT_BACK_WHEEL_PORT = 7;
+    public static final int RIGHT_BACK_WHEEL_PORT =11;
+    public static final int INTAKE_ROTATION_PORT = 12;
+    public static final int SHOOTER_PORT = 4;
+    
+
+    //DIO Ports
     public static final int LOWER_SENSOR_PORT_INPUT = 1;
     public static final int UPPER_SENSOR_PORT_INPUT = 0;
+    
+
+    
+    public static final double INTAKE_ROTATION_MOTOR_SPEED = 0.25;
+    public static final double INTAKE_ROTATION_MOTOR_DISTANCE = 0.25;
+    
     //Controller Ports
     public static final int DRIVER_CONTROLLER_PORT = 0;
     public static final int SHOOTER_CONTROLLER_PORT = 1;

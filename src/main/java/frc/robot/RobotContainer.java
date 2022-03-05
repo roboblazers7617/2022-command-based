@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.RunCommand;
 import frc.robot.subsystems.*;
 import frc.robot.commands.*;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
@@ -37,14 +38,12 @@ public class RobotContainer {
     // Configure the button bindings
     configureButtonBindings();
    drivetrain.setDefaultCommand(getTeleOpDrive());
-   tower.setDefaultCommand( new InstantCommand(tower::stop, tower));  
-//  //   drivetrain.setDefaultCommand(getTeleOpDrive());
-//   //  Shuffleboard.getTab("Debug").add("ToggleIntake", new ToggleIntake(intake));
+   tower.setDefaultCommand( new RunCommand(tower::stop, tower));  
+   intake.setDefaultCommand(new ResetIntakeForever(intake));
 //     Shuffleboard.getTab("Debug").add("ToggleIntakeReverse", new ToggleIntakeReverse(intake));
 //     Shuffleboard.getTab("Debug").add("ActivateTower", new ActivateTower(tower));
 //     Shuffleboard.getTab("Debug").add("StopTower", new StopTower(tower));
 //     Shuffleboard.getTab("Debug").add("ToggleIntakeRotation", new ToggleIntakeRotation(intake));
-    intake.setDefaultCommand(new ResetIntake(intake));
   }
 
   /**
@@ -55,49 +54,34 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
 
-    JoystickButton speedButton = new JoystickButton(driverController, Constants.SPEED_ADJUSTOR_TRIGGER);
-    speedButton.whenHeld(new SpeedAdjustor(drivetrain));
+    // JoystickButton speedButton = new JoystickButton(driverController, Constants.SPEED_ADJUSTOR_TRIGGER);
+    // speedButton.whenHeld(new SpeedAdjustor(drivetrain));
 
-   //JoystickButton climberUpButton = new JoystickButton(driverController, Constants.CLIMBER_UP_BUTTON);
-   //JoystickButton climberDownButton = new JoystickButton(driverController, Constants.CLIMBER_DOWN_BUTTON);
-  // JoystickButton climberStopButton = new JoystickButton(driverController, Constants.CLIMBER_STOP_BUTTON);
-    JoystickButton climberTopFowardButton = new JoystickButton(driverController, Constants.CLIMBER_TOP_FOWARD_BUTTON);
-    JoystickButton climberTopBackwordButton = new JoystickButton(driverController, Constants.CLIMBER_TOP_BACKWARD_BUTTON);
-    JoystickButton climberBottomFowardButton = new JoystickButton(driverController, Constants.CLIMBER_BOTTOM_FORWARD_BUTTON);
-    JoystickButton climberBottomBackwardButton = new JoystickButton(driverController, Constants.CLIMBER_BOTTOM_BACKWARD_BUTTON);
+    // JoystickButton climberTopFowardButton = new JoystickButton(driverController, Constants.CLIMBER_TOP_FOWARD_BUTTON);
+    // JoystickButton climberTopBackwordButton = new JoystickButton(driverController, Constants.CLIMBER_TOP_BACKWARD_BUTTON);
+    // JoystickButton climberBottomFowardButton = new JoystickButton(driverController, Constants.CLIMBER_BOTTOM_FORWARD_BUTTON);
+    // JoystickButton climberBottomBackwardButton = new JoystickButton(driverController, Constants.CLIMBER_BOTTOM_BACKWARD_BUTTON);
 
-    climberTopFowardButton.whenHeld(new RaiseTopClimber(climber));
-    climberTopBackwordButton.whenHeld(new LowerTopClimber(climber));
-    climberBottomFowardButton.whenHeld(new RaiseBottomClimber(climber));
-    climberBottomBackwardButton.whenHeld(new LowerBottomClimber(climber));
+    // climberTopFowardButton.whenHeld(new RaiseTopClimber(climber));
+    // climberTopBackwordButton.whenHeld(new LowerTopClimber(climber));
+    // climberBottomFowardButton.whenHeld(new RaiseBottomClimber(climber));
+    // climberBottomBackwardButton.whenHeld(new LowerBottomClimber(climber));
 
-    JoystickButton collectBallsButton = new JoystickButton(shooterController, Constants.COLLECT_BALLS_BUTTON);
-    JoystickButton stopCollectBallsButton = new JoystickButton(shooterController, Constants.STOP_COLLECT_BALLS_BUTTON);
-    JoystickButton runTowerManualButton = new JoystickButton(shooterController, Constants.RUN_TOWER_BUTTON);
-    JoystickButton reverseTowerButton = new JoystickButton(shooterController, Constants.REVERSE_TOWER_BUTTON);
-    JoystickButton shootBallButton = new JoystickButton(shooterController, Constants.SHOOT_BOLL_BUTTON);
+    // JoystickButton collectBallsButton = new JoystickButton(shooterController, Constants.COLLECT_BALLS_BUTTON);
+    // JoystickButton stopCollectBallsButton = new JoystickButton(shooterController, Constants.STOP_COLLECT_BALLS_BUTTON);
+    // JoystickButton runTowerManualButton = new JoystickButton(shooterController, Constants.RUN_TOWER_BUTTON);
+    // JoystickButton reverseTowerButton = new JoystickButton(shooterController, Constants.REVERSE_TOWER_BUTTON);
+    // JoystickButton shootBallButton = new JoystickButton(shooterController, Constants.SHOOT_BOLL_BUTTON);
 
-    collectBallsButton.whenPressed(new LoadBalls(intake, tower));
-    stopCollectBallsButton.whenPressed(new InstantCommand(tower::stop,tower).andThen(new ResetIntake(intake)));
-    runTowerManualButton.whenHeld(new RunTower(tower, intake));
-    reverseTowerButton.whenHeld(new ReverseTower(tower, intake));
-    shootBallButton.whenHeld(new ShootBolls(shooter, tower).andThen(new InstantCommand(shooter::stopShooter)).andThen(new InstantCommand(tower::stop)));
-
-
- //climberUpButton.whenPressed(new RaiseClimber(climber));
- // climberDownButton.whenPressed(new LowerClimber(climber));
- // climberStopButton.whenPressed(new StopClimber(climber));
-
-
-
-
-  
-
-    
+    // collectBallsButton.whenPressed(new LoadBalls(intake, tower));
+    // stopCollectBallsButton.whenPressed(new InstantCommand(tower::stop,tower).andThen(new ResetIntake(intake)));
+    // runTowerManualButton.whenHeld(new RunTower(tower, intake));
+    // reverseTowerButton.whenHeld(new ReverseTower(tower, intake));
+    // shootBallButton.whenHeld(new ShootBolls(shooter, tower).andThen(new InstantCommand(shooter::stopShooter)).andThen(new InstantCommand(tower::stop)));    
   }
 
 public Command getTeleOpDrive(){
-    return null; //TeleOpDrive(drivetrain,() -> controller.getLeftX(), () -> controller.getLeftY(), () -> controller.getRightX());
+    return new RunCommand(() -> drivetrain.drive(driverController.getLeftY(),driverController.getLeftX(),driverController.getRightX()), drivetrain);
   }
 
   /**
