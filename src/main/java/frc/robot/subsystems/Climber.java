@@ -18,7 +18,10 @@ import frc.robot.Constants;
 
 public class Climber extends SubsystemBase {
  // private final PWMSparkMax leftClimber = new PWMSparkMax(Constants.LEFT_CLIMBER_PORT);
-  private final PWMSparkMax rightClimber = new PWMSparkMax(Constants.RIGHT_CLIMBER_PORT);
+  private final PWMSparkMax rightBottomClimber = new PWMSparkMax(Constants.RIGHT_BOTTOM_CLIMBER_PORT);
+  private final PWMSparkMax rightTopClimber = new PWMSparkMax(Constants.RIGHT_TOP_CLIMBER_PORT);
+  private final PWMSparkMax leftBottomClimber = new PWMSparkMax(Constants.LEFT_BOTTOM_CLIMBER_PORT);
+  private final PWMSparkMax leftTopClimber = new PWMSparkMax(Constants.LEFT_TOP_CLIMBER_PORT);
   // private ShuffleboardTab tab = Shuffleboard.getTab("Debug");
   // private NetworkTableEntry leftClimberDisplay = tab.add("Left Climber Display: ", 0.0).getEntry();
   // private NetworkTableEntry rightClimberDisplay = tab.add("Right Climber Display: ", 0.0).getEntry();
@@ -31,35 +34,28 @@ public class Climber extends SubsystemBase {
     // tab.add(climberToggle);
   }
 
-  public void setSpeed(double speed){
+  public void setSpeedTop(double speed){
     SmartDashboard.putNumber("Climber speed bghhf", speed);
    // leftClimber.set(speed);
-    rightClimber.set(speed);
+    rightTopClimber.set(speed);
+    leftTopClimber.set(speed);
   //  SmartDashboard.putNumber("LeftClimber Speed Read", leftClimber.get());
   }
 
-  public void lowerClimber(){
-   // leftClimber.set(.5);
-    rightClimber.set(.5);
+  public void setSpeedBottom(double speed){
+    rightBottomClimber.set(speed);
+    leftTopClimber.set(speed);
   }
 
-  public void raiseClimber(){
-   // leftClimber.set(-.5);
-    rightClimber.set(-.5);
-  }
+  
 
-  public void stopClimber(){
-  //  leftClimber.set(0);
-    rightClimber.set(0);
-  }
-
-  public double getSpeedLeft(){
+  public double getSpeedTop(){
   //  return leftClimber.get();
-  return 0.0;
+  return rightTopClimber.get();
   }
   
-  public double getSpeedRight(){
-    return rightClimber.get();
+  public double getSpeedBottom(){
+    return rightBottomClimber.get();
   }
 
   @Override
