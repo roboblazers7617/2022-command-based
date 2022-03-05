@@ -51,6 +51,9 @@ public class ToggleIntakeRotation extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return intake.isIntakeRotationMotorMoving();
+    if(raising){
+      return !intake.isIntakeRasing();
+    }
+    return !intake.isIntakeLowering();
 }
 }
