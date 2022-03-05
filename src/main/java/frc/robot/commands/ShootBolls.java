@@ -6,17 +6,21 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import frc.robot.subsystems.Intake;
+import edu.wpi.first.wpilibj2.command.WaitUntilCommand;
+import frc.robot.Constants;
+import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.Tower;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class LoadBalls extends SequentialCommandGroup {
-  /** Creates a new LoadBalls. */
-  public LoadBalls(Intake intake, Tower tower) {
+public class ShootBolls extends SequentialCommandGroup {
+  /** Creates a new ShootBolls. */
+  public ShootBolls(Shooter shooter, Tower tower) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
-    addCommands(new InstantCommand(intake::lowerIntake), new LoadTower(tower),new InstantCommand(intake::raiseIntake));
+    addCommands(new SpinShooter(shooter),
+    new WaitUntilCommand(shooter::shooterReady), 
+    new InstantCommand(() ->tower.setSpeedUpper(Constants.TOWER_SPEED),tower));
   }
 }

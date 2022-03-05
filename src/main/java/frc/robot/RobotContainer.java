@@ -23,13 +23,13 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final XboxController driverController = new XboxController(Constants.DRIVER_CONTROLLER_PORT);
-  private final XboxController otherController = new XboxController(Constants.OTHER_CONTROLLER_PORT);
+  private final XboxController shooterController = new XboxController(Constants.SHOOTER_CONTROLLER_PORT);
   private final Drivetrain drivetrain = new Drivetrain();
   private final AutoCommand autoCommand = new AutoCommand();
  private final Intake intake = new Intake();
  private final Tower tower = new Tower();
  private final Shooter shooter = new Shooter();
- //private final Climber climber = new Climber();
+ private final Climber climber = new Climber();
 
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
@@ -45,7 +45,6 @@ public class RobotContainer {
 //     Shuffleboard.getTab("Debug").add("StopTower", new StopTower(tower));
 //     Shuffleboard.getTab("Debug").add("ToggleIntakeRotation", new ToggleIntakeRotation(intake));
     intake.setDefaultCommand(new ResetIntake(intake));
-    shooter.setDefaultCommand(new StopShooter(shooter));
   }
 
   /**
@@ -62,17 +61,36 @@ public class RobotContainer {
    //JoystickButton climberUpButton = new JoystickButton(driverController, Constants.CLIMBER_UP_BUTTON);
    //JoystickButton climberDownButton = new JoystickButton(driverController, Constants.CLIMBER_DOWN_BUTTON);
   // JoystickButton climberStopButton = new JoystickButton(driverController, Constants.CLIMBER_STOP_BUTTON);
-   JoystickButton towerRunManualButton = new JoystickButton(otherController, Constants.TOWER_TOGGLE_BUTTON);
-   JoystickButton shootButton = new JoystickButton(otherController, Constants.SHOOT_BOLL_BUTTON);
-   JoystickButton towerReverseMannualButton = new JoystickButton(otherController, Constants.INTAKE_TOGGLE_BUTTON);
+    JoystickButton climberTopFowardButton = new JoystickButton(driverController, Constants.CLIMBER_TOP_FOWARD_BUTTON);
+    JoystickButton climberTopBackwordButton = new JoystickButton(driverController, Constants.CLIMBER_TOP_BACKWARD_BUTTON);
+    JoystickButton climberBottomFowardButton = new JoystickButton(driverController, Constants.CLIMBER_BOTTOM_FORWARD_BUTTON);
+    JoystickButton climberBottomBackwardButton = new JoystickButton(driverController, Constants.CLIMBER_BOTTOM_BACKWARD_BUTTON);
+
+    climberTopFowardButton.whenHeld(new RaiseTopClimber(climber));
+    climberTopBackwordButton.whenHeld(new LowerTopClimber(climber));
+    climberBottomFowardButton.whenHeld(new RaiseBottomClimber(climber));
+    climberBottomBackwardButton.whenHeld(new LowerBottomClimber(climber));
+
+    JoystickButton collectBallsButton = new JoystickButton(shooterController, Constants.COLLECT_BALLS_BUTTON);
+    JoystickButton stopCollectBallsButton = new JoystickButton(shooterController, Constants.STOP_COLLECT_BALLS_BUTTON);
+    JoystickButton runTowerManualButton = new JoystickButton(shooterController, Constants.RUN_TOWER_BUTTON);
+    JoystickButton reverseTowerButton = new JoystickButton(shooterController, Constants.REVERSE_TOWER_BUTTON);
+    JoystickButton shootBallButton = new JoystickButton(shooterController, Constants.SHOOT_BOLL_BUTTON);
+
+    collectBallsButton.whenPressed(new LoadBalls(intake, tower));
+    stopCollectBallsButton.whenPressed(new InstantCommand(tower::stop,tower).andThen(new ResetIntake(intake)));
+    runTowerManualButton.whenHeld(new RunTower(tower, intake));
+    reverseTowerButton.whenHeld(new ReverseTower(tower, intake));
+    shootBallButton.whenHeld(new ShootBolls(shooter, tower).andThen(new InstantCommand(shooter::stopShooter)).andThen(new InstantCommand(tower::stop)));
+
 
  //climberUpButton.whenPressed(new RaiseClimber(climber));
  // climberDownButton.whenPressed(new LowerClimber(climber));
  // climberStopButton.whenPressed(new StopClimber(climber));
 
-  shootButton.whenPressed(new SpinShooter(shooter));//toggles shooter
-  towerRunManualButton.whenHeld(new RunTower(tower,intake));
-  towerReverseMannualButton.whileHeld(new ReverseTower(tower, intake));
+
+
+
   
 
     

@@ -51,15 +51,20 @@ public final class Constants {
     public static final int UPPER_SENSOR_PORT_INPUT = 0;
     //Controller Ports
     public static final int DRIVER_CONTROLLER_PORT = 0;
-    public static final int OTHER_CONTROLLER_PORT = 1;
-    //Button Bindings
-    public static final int CLIMBER_UP_BUTTON = 3; // blue button
-    public static final int CLIMBER_DOWN_BUTTON = 2; // red button
-    public static final int CLIMBER_STOP_BUTTON = 1;  // green button
+    public static final int SHOOTER_CONTROLLER_PORT = 1;
+    //Driver Button Bindings
+    public static final int CLIMBER_TOP_FOWARD_BUTTON = 4; // yellow button
+    public static final int CLIMBER_TOP_BACKWARD_BUTTON = 2; // red button
+    public static final int CLIMBER_BOTTOM_FORWARD_BUTTON = 3;  // blue button
+    public static final int CLIMBER_BOTTOM_BACKWARD_BUTTON = 1; //green button
+    public static final int SPEED_ADJUSTOR_TRIGGER = 5; // left bumper
+    //shooter button bindings
     public static final int SHOOT_BOLL_BUTTON = 6;//right bumper
-    public static final int TOWER_TOGGLE_BUTTON = 4; // yellow button
-    public static final int INTAKE_TOGGLE_BUTTON = 3; // blue button
-    public static final int SPEED_ADJUSTOR_TRIGGER = 5;
+    public static final int COLLECT_BALLS_BUTTON = 4; // yellow button
+    public static final int STOP_COLLECT_BALLS_BUTTON = 3; //blue button
+    public static final int RUN_TOWER_BUTTON = 2; //red button
+    
+    public static final int REVERSE_TOWER_BUTTON = 1; //green button
     //Intake data
     public static final double GEAR_RATIO_INTAKE_LIFT = (15/54)*1/1.925;
     public static final int ANGLE_INTAKE_DEPLOY = 80;
