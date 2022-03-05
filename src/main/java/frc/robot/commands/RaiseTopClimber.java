@@ -4,42 +4,37 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Constants;
 import frc.robot.subsystems.Climber;
 
-public class RaiseClimber extends CommandBase {
-  /** Creates a new RaiseClimber. */
-  private Climber m_climber;
-
-  public RaiseClimber(Climber climber) {
-    // Use addRequirements() here to declare subsystem dependencies.
+public class RaiseTopClimber extends CommandBase {
+  private final Climber climber;
+  /** Creates a new RaiseTopClimber. */
+  public RaiseTopClimber(Climber climber) {
+    this.climber = climber;
     addRequirements(climber);
-     m_climber = climber;
+    // Use addRequirements() here to declare subsystem dependencies.
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {
-    m_climber.setSpeed(0);
-  }
+  public void initialize() {}
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_climber.setSpeed(-0.25);
-    SmartDashboard.putString("Climber", "Raise");
+    climber.setSpeedTop(Constants.CLIMBER_SPEED);
   }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {
-    m_climber.setSpeed(0);
-  }
+  public void end(boolean interrupted) {}
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return true;
   }
 }
+

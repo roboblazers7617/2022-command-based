@@ -38,6 +38,14 @@ public class RobotContainer {
     configureButtonBindings();
    drivetrain.setDefaultCommand(getTeleOpDrive());
    tower.setDefaultCommand( new InstantCommand(tower::stop, tower));  
+//  //   drivetrain.setDefaultCommand(getTeleOpDrive());
+//   //  Shuffleboard.getTab("Debug").add("ToggleIntake", new ToggleIntake(intake));
+//     Shuffleboard.getTab("Debug").add("ToggleIntakeReverse", new ToggleIntakeReverse(intake));
+//     Shuffleboard.getTab("Debug").add("ActivateTower", new ActivateTower(tower));
+//     Shuffleboard.getTab("Debug").add("StopTower", new StopTower(tower));
+//     Shuffleboard.getTab("Debug").add("ToggleIntakeRotation", new ToggleIntakeRotation(intake));
+    intake.setDefaultCommand(new ResetIntake(intake));
+    shooter.setDefaultCommand(new StopShooter(shooter));
   }
 
   /**

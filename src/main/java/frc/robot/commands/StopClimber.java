@@ -10,11 +10,11 @@ import frc.robot.subsystems.Climber;
 
 public class StopClimber extends CommandBase {
 
-  private Climber m_climber;
+  private Climber climber;
 
   /** Creates a new StopClimber. */
   public StopClimber(Climber climber) {
-    m_climber = climber;
+    this.climber = climber;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(climber);
   }
@@ -27,7 +27,8 @@ public class StopClimber extends CommandBase {
   @Override
   public void execute() {
     SmartDashboard.putString("Climber", "Stop");
-    m_climber.setSpeed(0);
+    climber.setSpeedBottom(0.0);
+    climber.setSpeedTop(0.0);
   }
 
   // Called once the command ends or is interrupted.
@@ -37,6 +38,6 @@ public class StopClimber extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return true;
   }
 }

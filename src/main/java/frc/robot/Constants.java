@@ -32,6 +32,19 @@ public final class Constants {
     public static final int LEFT_BACK_WHEEL_PORT = 7;
     public static final int RIGHT_BACK_WHEEL_PORT = 6;
     //DIO Ports
+    public static final int SHOOTER_PORT = 4;
+    public static final double SHOOTER_MOTOR_SPEED = 1.0;
+    /**the speed that shooter will count as full speed for shooterReady() */
+    public static final double SHOOTER_MOTOR_SPEED_FULL = .95;
+
+
+    public static final int LEFT_BOTTOM_CLIMBER_PORT = 4;
+    public static final int LEFT_TOP_CLIMBER_PORT = 23490;
+    public static final int RIGHT_BOTTOM_CLIMBER_PORT = 88392;
+    public static final int RIGHT_TOP_CLIMBER_PORT = 3;
+    public static final double CLIMBER_SPEED = 0.25;
+    public static final double INTAKE_ROTATION_MOTOR_SPEED = 0.25;
+    public static final double INTAKE_ROTATION_MOTOR_DISTANCE = 0.25;
     public static final int LOWER_SENSOR_PORT_INPUT = 1;
     public static final int UPPER_SENSOR_PORT_INPUT = 0;
     //Controller Ports

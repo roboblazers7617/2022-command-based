@@ -5,6 +5,7 @@
 package frc.robot.subsystems;
 
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.networktables.NetworkTableEntry;
@@ -14,15 +15,18 @@ import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import frc.robot.commands.StopShooter;
 
 public class Shooter extends SubsystemBase {
-  private final PWMSparkMax shooterMotor = new PWMSparkMax(Constants.SHOOTER_PORT);
+  private final CANSparkMax shooterMotor = new CANSparkMax(Constants.SHOOTER_PORT, null);
   private ShuffleboardTab tab = Shuffleboard.getTab("Debug");
   private NetworkTableEntry shooterSpeedDisplay = tab.add("Shooter Motor Speed: ", 0).getEntry();
   private final SendableChooser<Double> toggleShooter = new SendableChooser<Double>();
+  private final RelativeEncoder encoder = shooterMotor.getEncoder();
   /** Creates a new Shooter. */
   public Shooter() {
     shooterMotor.setInverted(true);
+
     toggleShooter.setDefaultOption("yes shoot", -1.0);
     toggleShooter.setDefaultOption("no shoot", 0.0);
     tab.add(toggleShooter);
@@ -31,8 +35,24 @@ public class Shooter extends SubsystemBase {
     shooterMotor.set(speed);
   }
 
+  public void startShooter(){
+    setSpeed(Constants.SHOOTER_MOTOR_SPEED);
+  }
+
+  public void stopShooter(){
+    setSpeed(0.0);
+  }
+
   public double getSpeed(){
     return shooterMotor.get();
+  }
+
+  /**returns wether shooter is at full speed */
+  public boolean shooterReady(){
+    if(encoder.getVelocity() > Constants.SHOOTER_MOTOR_SPEED_FULL){
+      return true;
+    }
+    return false;
   }
 
   

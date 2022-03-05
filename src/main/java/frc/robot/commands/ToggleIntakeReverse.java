@@ -26,19 +26,19 @@ public class ToggleIntakeReverse extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if(intake.getSpeed() == -Constants.INTAKE_MOTOR_SPEED){
-      intake.setSpeed(0.0);
+    if(intake.getSpeedIntake() == -Constants.INTAKE_MOTOR_SPEED){
+      intake.setSpeedIntake(0.0);
 
     }
     else{
-      intake.setSpeed(-Constants.INTAKE_MOTOR_SPEED);
+      intake.setSpeedIntake(-Constants.INTAKE_MOTOR_SPEED);
     }
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    
+    intake.setSpeedIntake(0.0);
   }
 
   // Returns true when the command should end.
