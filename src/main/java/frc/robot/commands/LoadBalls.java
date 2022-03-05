@@ -16,6 +16,6 @@ public class LoadBalls extends SequentialCommandGroup {
   public LoadBalls(Intake intake, Tower tower) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
-    addCommands(new RetractIntake(intake), new LoadTower(tower),new RetractIntake(intake));
+    addCommands(new RetractIntake(intake), new LoadTower(tower),new DeployIntake(/*intake*/));
   }
 }

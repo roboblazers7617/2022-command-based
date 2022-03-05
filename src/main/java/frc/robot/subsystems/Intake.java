@@ -19,15 +19,15 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 public class Intake extends SubsystemBase {
   private final PWMVictorSPX intakeMotor = new PWMVictorSPX(Constants.INTAKE_PORT);
   //intake rotation motor is the motor that raises the intake off ground
-  private final PWMSparkMax intakeRotationMotor = new PWMSparkMax(Constants.INTAKE_ROTATION_PORT/*,MotorType.kBrushless*/);
+  private final PWMSparkMax intakeRotationMotor = new PWMSparkMax(Constants.INTAKE_ROTATION_PORT);
   private ShuffleboardTab tab = Shuffleboard.getTab("Debug");
   private NetworkTableEntry speedDisplay = tab.add("Intake Motor Speed: ", 0).getEntry();
   private NetworkTableEntry intakeRotationDisplay = tab.add("Intake Rotation Motor Position: ", 0).getEntry();
   private NetworkTableEntry intakeRotationSpeedDisplay = tab.add("Intake Rotation Motor Speed: ", 0).getEntry();
- // private RelativeEncoder encoder = intakeRotationMotor.getEncoder();
+  //private RelativeEncoder encoder = intakeRotationMotor.getEncoder();
   /** Creates a new Intake. */
   public Intake() {
-    intakeMotor.setInverted(true);
+    
   }
 
   public void setSpeed(double speed){//for intake motor

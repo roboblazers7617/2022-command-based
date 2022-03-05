@@ -9,7 +9,6 @@ import frc.robot.Constants;
 import frc.robot.subsystems.Drivetrain;
 
 public class SpeedAdjustor extends CommandBase {
-  private double m_speedModulator;
   private Drivetrain m_drivetrain;
   /** Creates a new SpeedAdjustor. */
   public SpeedAdjustor(Drivetrain drivetrain) {
@@ -24,20 +23,18 @@ public class SpeedAdjustor extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_speedModulator = m_drivetrain.getSpeedModulator();
-    if(m_speedModulator == Constants.HIGH_GEAR)
-      m_drivetrain.setSpeedModulator(Constants.LOW_GEAR);
-    else
-      m_drivetrain.setSpeedModulator(Constants.HIGH_GEAR);
+    m_drivetrain.setMaxSpeed(Constants.HIGH_GEAR);
   }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    m_drivetrain.setMaxSpeed(Constants.LOW_GEAR);
+  }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return true;
+    return false;
   }
 }

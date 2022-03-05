@@ -7,9 +7,9 @@ package frc.robot.subsystems;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+import com.revrobotics.CANSparkMax.IdleMode;
 import frc.robot.Constants;
 import edu.wpi.first.wpilibj.drive.MecanumDrive;
-import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.smartdashboard.*;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -35,9 +35,12 @@ public class Drivetrain extends SubsystemBase {
     //Original Inversions
     leftFrontMotor.setInverted(true);
     leftBackMotor.setInverted(true);
- 
+    leftFrontMotor.setIdleMode(IdleMode.kCoast);
+    rightFrontMotor.setIdleMode(IdleMode.kCoast);
+    leftBackMotor.setIdleMode(IdleMode.kCoast);
+    rightBackMotor.setIdleMode(IdleMode.kCoast);
     drivetrain = new MecanumDrive(leftFrontMotor, leftBackMotor, rightFrontMotor, rightBackMotor);
-    getSpeedModulator();
+    drivetrain.setMaxOutput(Constants.LOW_GEAR);
   }
   public void drive(double xSpeed, double ySpeed, double zRotation){
     drivetrain.driveCartesian(ySpeed, xSpeed, zRotation);
@@ -59,5 +62,8 @@ public class Drivetrain extends SubsystemBase {
   }
   public void setSpeedModulator(double speedModulator) {
       this.speedModulator = speedModulator;
+  }
+  public void setMaxSpeed(double speed) {
+    drivetrain.setMaxOutput(speed);
   }
 }
