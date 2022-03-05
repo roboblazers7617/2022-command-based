@@ -75,6 +75,10 @@ public class Intake extends SubsystemBase {
     return true;
   }
 
+  public void stopIntakeRotation(){
+    intakeRotationMotor.set(0.0);
+  }
+
   
 
   
