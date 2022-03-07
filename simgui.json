@@ -32,6 +32,7 @@
       "/Shuffleboard/Test/Commands/RaiseTopClimber": "Command",
       "/Shuffleboard/Test/Commands/ReverseTower": "Command",
       "/Shuffleboard/Test/Commands/RunTower": "Command",
+      "/Shuffleboard/Test/Commands/ShootBolls": "Command",
       "/Shuffleboard/Test/Commands/SpinShooter": "Command"
     }
   },

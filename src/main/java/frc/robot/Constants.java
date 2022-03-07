@@ -67,7 +67,7 @@ public final class Constants {
     
     public static final int REVERSE_TOWER_BUTTON = 1; //green button
     //Intake data
-    public static final double GEAR_RATIO_INTAKE_LIFT = (15/54)*1/1.925;//change
+    public static final double GEAR_RATIO_INTAKE_LIFT = (15/54)*(1/20);
     public static final int ANGLE_INTAKE_DEPLOY = 80;
 
 }

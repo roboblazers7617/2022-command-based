@@ -6,6 +6,7 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import frc.robot.Constants;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Tower;
 
@@ -17,6 +18,6 @@ public class LoadBalls extends SequentialCommandGroup {
   public LoadBalls(Intake intake, Tower tower) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
-    addCommands(new InstantCommand(intake::lowerIntake), new LoadTower(tower),new InstantCommand(intake::raiseIntake));
+    addCommands(new InstantCommand(() -> intake.setSpeedIntake(Constants.INTAKE_MOTOR_SPEED)), new LoadTower(tower),new InstantCommand(() -> intake.setSpeedIntake(0)));
   }
 }

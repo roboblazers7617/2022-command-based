@@ -48,6 +48,7 @@ public class RobotContainer {
    commandLayout.add(new RunTower(tower));
    commandLayout.add(new LoadTower(tower));
    commandLayout.add(new SpinShooter(shooter));
+   commandLayout.add(new ShootBolls(shooter, tower));
  //  tower.setDefaultCommand( new RunCommand(tower::stop, tower));  
    //intake.setDefaultCommand(new ResetIntakeForever(intake));
   }
@@ -80,7 +81,7 @@ public class RobotContainer {
      JoystickButton shootBallButton = new JoystickButton(shooterController, Constants.SHOOT_BOLL_BUTTON);
 
      collectBallsButton.whenPressed(new LoadBalls(intake, tower));
-     stopCollectBallsButton.whenPressed(new InstantCommand(tower::stop,tower).andThen(new ResetIntake(intake)));
+     stopCollectBallsButton.whenPressed(new InstantCommand(tower::stop,tower).andThen(new InstantCommand(() -> intake.setSpeedIntake(0),intake)));
      runTowerManualButton.whenHeld(new RunTower(tower));
      reverseTowerButton.whenHeld(new ReverseTower(tower));
      shootBallButton.whenHeld(new ShootBolls(shooter, tower).andThen(new InstantCommand(tower::stop).andThen(new InstantCommand(shooter::stopShooter))));    
