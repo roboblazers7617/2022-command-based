@@ -6,6 +6,7 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Constants;
 import frc.robot.subsystems.Shooter;
 
 public class SpinShooter extends CommandBase {
@@ -27,21 +28,25 @@ public class SpinShooter extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if(Math.abs(m_shooter.getSpeed())>0){
+    /*if(Math.abs(m_shooter.getSpeed())>0){
       m_shooter.setSpeed(0);
-      SmartDashboard.putNumber("Flywheel Speed", 0);}
+      SmartDashboard.putNumber("Flywheel Speed", 0);
+    }
     else{
       m_shooter.setSpeed(.33);
-    }
+    }*/
+    m_shooter.setSpeed(Constants.SHOOTER_MOTOR_SPEED);
   }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    m_shooter.setSpeed(0);
+  }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return true;
+    return false;
   }
 }

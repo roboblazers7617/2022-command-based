@@ -4,55 +4,72 @@
 
 package frc.robot.subsystems;
 
-
+import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.motorcontrol.PWMVictorSPX;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import frc.robot.ShuffleboardInfo;
 
 public class Tower extends SubsystemBase {
+  private final NetworkTableEntry towerUpperMotorEntry, towerLowerMotorEntry, towerLowerSensorEntry,
+      towerUpperSensorEntry;
 
   private final PWMVictorSPX lowerMotor = new PWMVictorSPX(Constants.LOWER_TOWER_MOTOR);
   private final PWMVictorSPX upperMotor = new PWMVictorSPX(Constants.UPPER_TOWER_MOTOR);
 
-  private DigitalInput lowerSensor = new  DigitalInput(Constants.LOWER_SENSOR_PORT_INPUT);
-  private DigitalInput upperSensor = new  DigitalInput(Constants.UPPER_SENSOR_PORT_INPUT);
+  private DigitalInput lowerSensor = new DigitalInput(Constants.LOWER_SENSOR_PORT_INPUT);
+  private DigitalInput upperSensor = new DigitalInput(Constants.UPPER_SENSOR_PORT_INPUT);
+
   public Tower() {
     lowerMotor.setInverted(true);
-    
+    towerUpperMotorEntry = ShuffleboardInfo.getInstance().getTowerUpperMotorEntry();
+    towerLowerMotorEntry = ShuffleboardInfo.getInstance().getTowerLowerMotorEntry();
+    towerUpperSensorEntry = ShuffleboardInfo.getInstance().getTowerUpperMotorEntry();
+    towerLowerSensorEntry = ShuffleboardInfo.getInstance().getTowerLowerMotorEntry();
+
   }
-  /**Sets the upper motor speed for the tower. */
-  public void setSpeedUpper(double speed){
+
+  /** Sets the upper motor speed for the tower. */
+  public void setSpeedUpper(double speed) {
     upperMotor.set(speed);
   }
-  /**Returns the set speed of the upper motor. */
-  public double getSpeedUpper(){
+
+  /** Returns the set speed of the upper motor. */
+  public double getSpeedUpper() {
     return upperMotor.get();
   }
-/**Sets the speed of the lower tower motor. */
-  public void setSpeedLower(double speed){
+
+  /** Sets the speed of the lower tower motor. */
+  public void setSpeedLower(double speed) {
     lowerMotor.set(speed);
   }
-/**Returns the set speed of the lower motor */
-  public double getSpeedLower(){
+
+  /** Returns the set speed of the lower motor */
+  public double getSpeedLower() {
     return lowerMotor.get();
   }
 
-  public boolean getUpperSensor(){
-    return upperSensor.get();
+  public boolean getUpperSensor() {
+    return false;//upperSensor.get();
   }
 
-  public boolean getLowerSensor(){
-    return lowerSensor.get();
+  public boolean getLowerSensor() {
+    return false;//lowerSensor.get();
   }
-  public void stop(){
+
+  public void stop() {
     lowerMotor.set(0);
     upperMotor.set(0);
   }
 
-
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+    towerUpperMotorEntry.setDouble(getSpeedUpper());
+    towerLowerMotorEntry.setDouble(getSpeedLower());
+    towerUpperSensorEntry.setBoolean(getUpperSensor());
+    towerLowerSensorEntry.setBoolean(getLowerSensor());
+
   }
 }

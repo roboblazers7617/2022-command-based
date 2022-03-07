@@ -22,7 +22,6 @@ public class LoadTower extends CommandBase {
   public LoadTower(Tower tower) {
     addRequirements(tower);
     this.tower = tower;
-    finished = false;
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
@@ -31,6 +30,7 @@ public class LoadTower extends CommandBase {
   public void initialize() {
     tower.setSpeedLower(Constants.TOWER_SPEED);
     tower.setSpeedUpper(Constants.TOWER_SPEED);
+    finished = false;
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -51,7 +51,8 @@ public class LoadTower extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    //increments trigger if command is interupted to ensue functional behavior
+    tower.setSpeedUpper(0);
+    tower.setSpeedLower(0);
   }
   
     

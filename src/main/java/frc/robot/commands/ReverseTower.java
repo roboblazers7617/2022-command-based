@@ -11,13 +11,11 @@ import frc.robot.subsystems.Tower;
 
 public class ReverseTower extends CommandBase {
   private final Tower m_tower;
-  private final Intake m_intake;
   /** Creates a new ReverseTower. */
-  public ReverseTower(Tower tower, Intake intake) {
+  public ReverseTower(Tower tower) {
     // Use addRequirements() here to declare subsystem dependencies.
     m_tower = tower;
     addRequirements(tower);
-    m_intake = intake;
   }
 
   // Called when the command is initially scheduled.
@@ -25,7 +23,6 @@ public class ReverseTower extends CommandBase {
   public void initialize() {
     m_tower.setSpeedLower(-Constants.TOWER_SPEED);
     m_tower.setSpeedUpper(-Constants.TOWER_SPEED);
-    m_intake.setSpeedIntake(-Constants.INTAKE_MOTOR_SPEED);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -37,7 +34,6 @@ public class ReverseTower extends CommandBase {
   public void end(boolean interrupted) {
     m_tower.setSpeedLower(0);
     m_tower.setSpeedUpper(0);
-    m_intake.setSpeedIntake(0);
   }
 
   // Returns true when the command should end.

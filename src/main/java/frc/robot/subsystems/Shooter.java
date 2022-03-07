@@ -15,6 +15,7 @@ import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import frc.robot.ShuffleboardInfo;
 import frc.robot.commands.StopShooter;
 
 public class Shooter extends SubsystemBase {
@@ -23,13 +24,17 @@ public class Shooter extends SubsystemBase {
   private NetworkTableEntry shooterSpeedDisplay = tab.add("Shooter Motor Speed: ", 0).getEntry();
   private final SendableChooser<Double> toggleShooter = new SendableChooser<Double>();
   private final RelativeEncoder encoder = shooterMotor.getEncoder();
+  private final NetworkTableEntry shooterMotorEntry, shooterStateEntry;
+ 
   /** Creates a new Shooter. */
   public Shooter() {
     shooterMotor.setInverted(true);
+    shooterMotorEntry = ShuffleboardInfo.getInstance().getShooterMotorEntry();
+    shooterStateEntry = ShuffleboardInfo.getInstance().getShooterStateEntry();
 
-    toggleShooter.setDefaultOption("yes shoot", -1.0);
+    /*toggleShooter.setDefaultOption("yes shoot", -1.0);
     toggleShooter.setDefaultOption("no shoot", 0.0);
-    tab.add(toggleShooter);
+    tab.add(toggleShooter);*/
   }
   public void setSpeed(double speed){
     shooterMotor.set(speed);
@@ -47,20 +52,22 @@ public class Shooter extends SubsystemBase {
     return shooterMotor.get();
   }
 
-  /**returns wether shooter is at full speed */
+  /**returns whether shooter is at full speed */
   public boolean shooterReady(){
-    if(encoder.getVelocity() > Constants.SHOOTER_MOTOR_SPEED_FULL){
+    /*if(encoder.getVelocity() > Constants.SHOOTER_MOTOR_SPEED_FULL){
       return true;
     }
-    return false;
+    return false;*/
+    return true;
   }
 
   
 
   @Override
   public void periodic() {
-    //shooterSpeedDisplay.setDouble(getSpeed());
-    //setSpeed(toggleShooter.getSelected());
     // This method will be called once per scheduler run
+    shooterMotorEntry.setDouble(getSpeed());
+    shooterStateEntry.setBoolean(shooterReady());
+
   }
 }

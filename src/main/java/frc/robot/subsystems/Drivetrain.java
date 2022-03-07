@@ -23,7 +23,6 @@ public class Drivetrain extends SubsystemBase {
   private final RelativeEncoder rightFrontEncoder = rightFrontMotor.getEncoder();
   private final RelativeEncoder leftBackEncoder = leftBackMotor.getEncoder();
   private final RelativeEncoder rightBackEncoder = rightBackMotor.getEncoder();
-  private double speedModulator = 1.0;
   private final MecanumDrive drivetrain;
 
   /** Creates a new Drivetrain. */
@@ -54,14 +53,6 @@ public class Drivetrain extends SubsystemBase {
     SmartDashboard.putNumber("Left Back Velocity", leftBackEncoder.getVelocity());
     SmartDashboard.putNumber("Right Back Velocity", rightBackEncoder.getVelocity());
 
-  }
-  public double getSpeedModulator() {
-
-    SmartDashboard.putNumber("Speed Modulator", speedModulator);
-    return speedModulator;
-  }
-  public void setSpeedModulator(double speedModulator) {
-      this.speedModulator = speedModulator;
   }
   public void setMaxSpeed(double speed) {
     drivetrain.setMaxOutput(speed);

@@ -20,7 +20,7 @@ public class ShootBolls extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(new SpinShooter(shooter),
-    new WaitUntilCommand(shooter::shooterReady), 
+    //new WaitUntilCommand(shooter::shooterReady), 
     new InstantCommand(() ->tower.setSpeedUpper(Constants.TOWER_SPEED),tower));
   }
 }

@@ -21,7 +21,7 @@ public final class Constants {
     public static final double HIGH_GEAR = 1;
     public static final double LOW_GEAR = .5;
     public static final double CLIMBER_SPEED = 0.25;
-    public static final double SHOOTER_MOTOR_SPEED = 1.0;
+    public static final double SHOOTER_MOTOR_SPEED = .33;
     /**the speed relative to SHOOTER_MOTOR_SPEED that shooter will count as full speed for shooterReady() */
     public static final double SHOOTER_MOTOR_SPEED_FULL = .95 * SHOOTER_MOTOR_SPEED;
     //PWM Ports
@@ -67,7 +67,7 @@ public final class Constants {
     
     public static final int REVERSE_TOWER_BUTTON = 1; //green button
     //Intake data
-    public static final double GEAR_RATIO_INTAKE_LIFT = (15/54)*1/1.925;
+    public static final double GEAR_RATIO_INTAKE_LIFT = (15/54)*1/1.925;//change
     public static final int ANGLE_INTAKE_DEPLOY = 80;
 
 }
