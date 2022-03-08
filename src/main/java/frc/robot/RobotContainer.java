@@ -84,7 +84,8 @@ public class RobotContainer {
      stopCollectBallsButton.whenPressed(new InstantCommand(tower::stop,tower).andThen(new InstantCommand(() -> intake.setSpeedIntake(0),intake)));
      runTowerManualButton.whenHeld(new RunTower(tower));
      reverseTowerButton.whenHeld(new ReverseTower(tower));
-     shootBallButton.whenHeld(new ShootBolls(shooter, tower).andThen(new InstantCommand(tower::stop).andThen(new InstantCommand(shooter::stopShooter))));    
+     shootBallButton.whenHeld(new ShootBolls(shooter, tower));
+     shootBallButton.whenReleased(new InstantCommand (() -> tower.setSpeedUpper(0),tower));    
   }
 
 public Command getTeleOpDrive(){

@@ -20,8 +20,8 @@ public class ShootBolls extends ParallelCommandGroup {
   public ShootBolls(Shooter shooter, Tower tower) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
-    addCommands(new SpinShooter(shooter),
-    //new WaitUntilCommand(shooter::shooterReady), 
-    new InstantCommand(() ->tower.setSpeedUpper(Constants.TOWER_SPEED),tower));
+    addCommands(new SpinShooter(shooter));
+    //,new WaitUntilCommand(shooter::shooterReady), 
+    //new InstantCommand(() ->tower.setSpeedUpper(Constants.TOWER_SPEED),tower));
   }
 }

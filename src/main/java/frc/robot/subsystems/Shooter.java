@@ -19,16 +19,16 @@ import frc.robot.ShuffleboardInfo;
 import frc.robot.commands.StopShooter;
 
 public class Shooter extends SubsystemBase {
-  private final CANSparkMax shooterMotor = new CANSparkMax(Constants.SHOOTER_PORT, MotorType.kBrushless);
+  private final PWMSparkMax shooterMotor = new PWMSparkMax(Constants.SHOOTER_PORT);
   private ShuffleboardTab tab = Shuffleboard.getTab("Debug");
   private NetworkTableEntry shooterSpeedDisplay = tab.add("Shooter Motor Speed: ", 0).getEntry();
   private final SendableChooser<Double> toggleShooter = new SendableChooser<Double>();
-  private final RelativeEncoder encoder = shooterMotor.getEncoder();
+ // private final RelativeEncoder encoder = shooterMotor.getEncoder();
   private final NetworkTableEntry shooterMotorEntry, shooterStateEntry;
  
   /** Creates a new Shooter. */
   public Shooter() {
-    shooterMotor.setInverted(true);
+    shooterMotor.setInverted(false);
     shooterMotorEntry = ShuffleboardInfo.getInstance().getShooterMotorEntry();
     shooterStateEntry = ShuffleboardInfo.getInstance().getShooterStateEntry();
 

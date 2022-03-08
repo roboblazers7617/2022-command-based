@@ -23,6 +23,7 @@ public class Tower extends SubsystemBase {
 
   public Tower() {
     lowerMotor.setInverted(true);
+    upperMotor.setInverted(true);
     towerUpperMotorEntry = ShuffleboardInfo.getInstance().getTowerUpperMotorEntry();
     towerLowerMotorEntry = ShuffleboardInfo.getInstance().getTowerLowerMotorEntry();
     towerUpperSensorEntry = ShuffleboardInfo.getInstance().getTowerUpperMotorEntry();
