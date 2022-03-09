@@ -6,6 +6,7 @@ package frc.robot.subsystems;
 
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
+import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.networktables.NetworkTableEntry;
@@ -19,16 +20,18 @@ import frc.robot.ShuffleboardInfo;
 import frc.robot.commands.StopShooter;
 
 public class Shooter extends SubsystemBase {
-  private final PWMSparkMax shooterMotor = new PWMSparkMax(Constants.SHOOTER_PORT);
-  private ShuffleboardTab tab = Shuffleboard.getTab("Debug");
-  private NetworkTableEntry shooterSpeedDisplay = tab.add("Shooter Motor Speed: ", 0).getEntry();
-  private final SendableChooser<Double> toggleShooter = new SendableChooser<Double>();
+  private final CANSparkMax shooterMotor = new CANSparkMax(Constants.SHOOTER_PORT, MotorType.kBrushless);
+
+
+
  // private final RelativeEncoder encoder = shooterMotor.getEncoder();
   private final NetworkTableEntry shooterMotorEntry, shooterStateEntry;
  
   /** Creates a new Shooter. */
   public Shooter() {
+    shooterMotor.restoreFactoryDefaults();
     shooterMotor.setInverted(false);
+    shooterMotor.setIdleMode(IdleMode.kCoast);
     shooterMotorEntry = ShuffleboardInfo.getInstance().getShooterMotorEntry();
     shooterStateEntry = ShuffleboardInfo.getInstance().getShooterStateEntry();
 
@@ -37,7 +40,7 @@ public class Shooter extends SubsystemBase {
     tab.add(toggleShooter);*/
   }
   public void setSpeed(double speed){
-    shooterMotor.setVoltage(speed);
+    shooterMotor.set(speed);
   }
 
   public void startShooter(){

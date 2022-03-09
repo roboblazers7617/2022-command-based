@@ -66,7 +66,7 @@ public class Intake extends SubsystemBase {
   /**sets the speed for the intake motor not the intake rotation motor */
   public void setSpeedIntake(double speed){//for intake motor
     if(!intakeRotationMotorRaised){
-      intakeMotor.setVoltage(speed);
+      intakeMotor.set(speed);
     }
   }
   /**gets the speed for the intake motor not the intake rotation motor */
@@ -99,7 +99,7 @@ public class Intake extends SubsystemBase {
   }
 
   public void stopIntakeRotation(){
-    intakeRotationMotor.setVoltage(0.0);
+    intakeRotationMotor.set(0.0);
   }
 
 
@@ -109,7 +109,7 @@ public class Intake extends SubsystemBase {
   public void raiseIntake(){
     //SparkMaxLimitSwitch limit = intakeRotationMotor.getReverseLimitSwitch(SparkMaxLimitSwitch.Type.kNormallyOpen);
 
-    // intakeRotationMotor.setVoltage(Constants.INTAKE_ROTATION_MOTOR_SPEED);
+    // intakeRotationMotor.set(Constants.INTAKE_ROTATION_MOTOR_SPEED);
 
     // //used this for help https://github.com/REVrobotics/SPARK-MAX-Examples/blob/master/Java/Soft%20Limits/src/main/java/frc/robot/Robot.java 
     // intakeRotationMotor.enableSoftLimit(CANSparkMax.SoftLimitDirection.kReverse, true);
@@ -123,7 +123,7 @@ public class Intake extends SubsystemBase {
   /** will lower the intake down to the ground */
   public void lowerIntake(){
     //SparkMaxLimitSwitch limit = intakeRotationMotor.getReverseLimitSwitch(SparkMaxLimitSwitch.Type.kNormallyOpen);
-    // intakeRotationMotor.setVoltage(Constants.INTAKE_ROTATION_MOTOR_SPEED);
+    // intakeRotationMotor.set(Constants.INTAKE_ROTATION_MOTOR_SPEED);
     // //used this for help https://github.com/REVrobotics/SPARK-MAX-Examples/blob/master/Java/Soft%20Limits/src/main/java/frc/robot/Robot.java 
     // intakeRotationMotor.enableSoftLimit(CANSparkMax.SoftLimitDirection.kForward, true);
     // intakeRotationMotor.setSoftLimit(CANSparkMax.SoftLimitDirection.kForward, (float) 0.0);
@@ -156,7 +156,7 @@ public class Intake extends SubsystemBase {
     //manage raise and lower intake
     //raise intake
     if(raisingIntake){
-      intakeRotationMotor.setVoltage(-Constants.INTAKE_ROTATION_MOTOR_SPEED);
+      intakeRotationMotor.set(-Constants.INTAKE_ROTATION_MOTOR_SPEED);
       if(getUpperLimitSwitch() || getEncoderPosition() < Constants.INTAKE_UPPER_ENCODER_VALUE){
         raisingIntake = false;
         intakeRotationMotorRaised = true;
@@ -164,7 +164,7 @@ public class Intake extends SubsystemBase {
       
     }
     else if(loweringIntake){
-      intakeRotationMotor.setVoltage(Constants.INTAKE_ROTATION_MOTOR_SPEED);
+      intakeRotationMotor.set(Constants.INTAKE_ROTATION_MOTOR_SPEED);
       if(getLowerLimitSwitch() || getEncoderPosition() > Constants.INTAKE_LOWER_ENCODER_VALUE){
         loweringIntake = false;
         intakeRotationMotorRaised = false;
