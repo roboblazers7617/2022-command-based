@@ -28,21 +28,26 @@ public final class Constants {
     /**the speed relative to SHOOTER_MOTOR_SPEED that shooter will count as the max speed for shooterReady() */
     public static final double SHOOTER_MOTOR_SPEED_FULL_MAX = 1.05 * SHOOTER_MOTOR_SPEED;
     //PWM Ports
-    public static final int LEFT_BOTTOM_CLIMBER_PORT = 4;
-    public static final int LEFT_TOP_CLIMBER_PORT = 9;
-    public static final int RIGHT_BOTTOM_CLIMBER_PORT = 13;
-    public static final int RIGHT_TOP_CLIMBER_PORT = 14;
     public static final int LOWER_TOWER_MOTOR = 7;
     public static final int UPPER_TOWER_MOTOR = 5;
-    public static final int INTAKE_PORT = 6;
-    public static final int SHOOTER_PORT = 8;
-    //CAN Ports
-    public static final int LEFT_FRONT_WHEEL_PORT = 1;
-    public static final int RIGHT_FRONT_WHEEL_PORT = 8;
-    public static final int LEFT_BACK_WHEEL_PORT = 7;
-    public static final int RIGHT_BACK_WHEEL_PORT =11;
-    public static final int INTAKE_ROTATION_PORT = 12;
+    public static final int INTAKE_PORT = 0;
+
+
     
+    
+    //CAN Ports
+    public static final int LEFT_FRONT_WHEEL_PORT = 8;
+    public static final int RIGHT_FRONT_WHEEL_PORT = 9;
+    public static final int LEFT_BACK_WHEEL_PORT = 7;
+    public static final int RIGHT_BACK_WHEEL_PORT =6;
+    public static final int INTAKE_ROTATION_PORT = 10;
+    
+    public static final int LEFT_BOTTOM_CLIMBER_PORT = 4;
+    public static final int LEFT_TOP_CLIMBER_PORT = 2;
+    public static final int RIGHT_BOTTOM_CLIMBER_PORT = 5;
+    public static final int RIGHT_TOP_CLIMBER_PORT = 3;
+
+    public static final int SHOOTER_PORT = 1;
 
     //DIO Ports
     public static final int LOWER_SENSOR_PORT_INPUT = 1;
