@@ -65,15 +65,15 @@ public class RobotContainer {
      JoystickButton speedButton = new JoystickButton(driverController, Constants.SPEED_ADJUSTOR_TRIGGER);
      speedButton.whenHeld(new SpeedAdjustor(drivetrain));
 
-     JoystickButton climberTopFowardButton = new JoystickButton(driverController, Constants.CLIMBER_TOP_FOWARD_BUTTON);
-     JoystickButton climberTopBackwordButton = new JoystickButton(driverController, Constants.CLIMBER_TOP_BACKWARD_BUTTON);
-     JoystickButton climberBottomFowardButton = new JoystickButton(driverController, Constants.CLIMBER_BOTTOM_FORWARD_BUTTON);
-      JoystickButton climberBottomBackwardButton = new JoystickButton(driverController, Constants.CLIMBER_BOTTOM_BACKWARD_BUTTON);
+     JoystickButton climberTopRaiseButton = new JoystickButton(driverController, Constants.CLIMBER_TOP_RAISE_BUTTON);
+     JoystickButton climberTopLowerButton = new JoystickButton(driverController, Constants.CLIMBER_TOP_LOWER_BUTTON);
+     JoystickButton climberBottomRaiseButton = new JoystickButton(driverController, Constants.CLIMBER_BOTTOM_RAISE_BUTTON);
+      JoystickButton climberBottomLowerButton = new JoystickButton(driverController, Constants.CLIMBER_BOTTOM_LOWER_BUTTON);
 
-     climberTopFowardButton.whenHeld(new RaiseTopClimber(climber));
-     climberTopBackwordButton.whenHeld(new LowerTopClimber(climber));
-     climberBottomFowardButton.whenHeld(new RaiseBottomClimber(climber));
-     climberBottomBackwardButton.whenHeld(new LowerBottomClimber(climber));
+     climberTopRaiseButton.whenHeld(new RaiseTopClimber(climber));
+     climberTopLowerButton.whenHeld(new LowerTopClimber(climber));
+     climberBottomRaiseButton.whenHeld(new RaiseBottomClimber(climber));
+     climberBottomLowerButton.whenHeld(new LowerBottomClimber(climber));
 
      JoystickButton collectBallsButton = new JoystickButton(shooterController, Constants.COLLECT_BALLS_BUTTON);
      JoystickButton stopCollectBallsButton = new JoystickButton(shooterController, Constants.STOP_COLLECT_BALLS_BUTTON);

@@ -63,10 +63,10 @@ public final class Constants {
     public static final int DRIVER_CONTROLLER_PORT = 0;
     public static final int SHOOTER_CONTROLLER_PORT = 1;
     //Driver Button Bindings
-    public static final int CLIMBER_TOP_FOWARD_BUTTON = 4; // yellow button
-    public static final int CLIMBER_TOP_BACKWARD_BUTTON = 2; // red button
-    public static final int CLIMBER_BOTTOM_FORWARD_BUTTON = 3;  // blue button
-    public static final int CLIMBER_BOTTOM_BACKWARD_BUTTON = 1; //green button
+    public static final int CLIMBER_TOP_RAISE_BUTTON = 4; // yellow button
+    public static final int CLIMBER_TOP_LOWER_BUTTON = 2; // red button
+    public static final int CLIMBER_BOTTOM_RAISE_BUTTON = 3;  // blue button
+    public static final int CLIMBER_BOTTOM_LOWER_BUTTON = 1; //green button
     public static final int SPEED_ADJUSTOR_TRIGGER = 5; // left bumper
     //shooter button bindings
     public static final int SHOOT_BOLL_BUTTON = 6;//right bumper
