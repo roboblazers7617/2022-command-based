@@ -37,7 +37,7 @@ public class Shooter extends SubsystemBase {
     tab.add(toggleShooter);*/
   }
   public void setSpeed(double speed){
-    shooterMotor.set(speed);
+    shooterMotor.setVoltage(speed);
   }
 
   public void startShooter(){

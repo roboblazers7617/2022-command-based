@@ -34,6 +34,7 @@ public class ShuffleboardInfo {
     private final NetworkTableEntry drivetrainLeftFrontMotorEntry, drivetrainLeftRearMotorEntry, drivetrainRightFrontMotorEntry, drivetrainRightRearMotorEntry;
     private final NetworkTableEntry towerUpperMotorEntry, towerLowerMotorEntry, towerLowerSensorEntry, towerUpperSensorEntry;
     private final NetworkTableEntry shooterMotorEntry, shooterStateEntry;
+    private final NetworkTableEntry intakeRotationMotorPosition;
    
     // To better organize the data displayed, use Shuffleboard Layouts. These will all be setup in
     // ShuffleboardInfo except for the Layout for the Command buttons. These are used to unit test the functions
@@ -61,6 +62,7 @@ public class ShuffleboardInfo {
         ShuffleboardLayout drivetrainRightLayout = testTab.getLayout("Drivetrain Right", BuiltInLayouts.kList).withPosition(4,0).withSize(1, 1).withProperties(Map.of("Label position", "HIDDEN"));
         ShuffleboardLayout towerLayout = testTab.getLayout("Tower", BuiltInLayouts.kList).withPosition(2,0).withSize(1, 6);
         ShuffleboardLayout shooterLayout = testTab.getLayout("Shooter", BuiltInLayouts.kList).withPosition(6, 0).withSize(1, 2).withProperties(Map.of("Label position", "HIDDEN"));
+        ShuffleboardLayout intakeLayout = testTab.getLayout("Intake", BuiltInLayouts.kList).withPosition(7, 0).withSize(1, 2).withProperties(Map.of("Label position", "HIDDEN"));
        
         // Create the layout for the Command buttons that are used for testing
         commandLayout = testTab.getLayout("Commands", BuiltInLayouts.kList).withPosition(0, 0).withSize(2,8).withProperties(Map.of("Label position", "HIDDEN"));
@@ -84,7 +86,9 @@ public class ShuffleboardInfo {
         //shooter
         shooterMotorEntry = shooterLayout.add("Shooter motor speed", 0).getEntry();
         shooterStateEntry = shooterLayout.add("Shooter Ready", false).getEntry();
- 
+        
+        //intake
+        intakeRotationMotorPosition = intakeLayout.add("Intake rotation motor position", 0.0).getEntry();
     }
  
     // The public accessor method allows this to be a Singleton class
@@ -138,6 +142,9 @@ public class ShuffleboardInfo {
     }
     public NetworkTableEntry getShooterStateEntry() {
         return shooterStateEntry;
+    }
+    public NetworkTableEntry getIntakeRotationMotorPosition(){
+        return intakeRotationMotorPosition;
     }
  
 }

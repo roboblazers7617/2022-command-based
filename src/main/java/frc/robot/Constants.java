@@ -69,5 +69,17 @@ public final class Constants {
     //Intake data
     public static final double GEAR_RATIO_INTAKE_LIFT = (15/54)*(1/20);
     public static final int ANGLE_INTAKE_DEPLOY = 80;
+    
+    
+    //Limit switches
+    public static final int INTAKE_LIMIT_UPPER_PORT = 15;
+    public static final int INTAKE_LIMIT_LOWER_PORT = 16;
+
+
+    //Enocder Values
+    /**this is the mininum value that the robot will consider the intake down. this will stop the intake. in rotations */
+    public static final double INTAKE_LOWER_ENCODER_VALUE = 0.2;
+    /**this is the mininum value that the robot will consider up */
+    public static final double INTAKE_UPPER_ENCODER_VALUE = .05;
 
 }

@@ -26,22 +26,17 @@ public class ToggleIntakeRotation extends CommandBase {
     //starts raised
     //rotating down is positive
     if(intake.getIntakeRotationMotorRaised()){
-      raising = true;
+      intake.lowerIntake();
     }
     else{
-      raising = false;
+      intake.raiseIntake();
     }
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if(!raising){
-      intake.raiseIntake();
-    }
-    else{
-      intake.lowerIntake();
-    }
+    
   }
 
   // Called once the command ends or is interrupted.
@@ -53,9 +48,9 @@ public class ToggleIntakeRotation extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if(raising){
-      return !intake.isIntakeRasing();
+    if(intake.isIntakeLowering() || intake.isIntakeRasing()){
+      return false;
     }
-    return !intake.isIntakeLowering();
+    return true;
 }
 }

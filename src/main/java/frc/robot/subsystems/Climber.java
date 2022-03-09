@@ -36,15 +36,15 @@ public class Climber extends SubsystemBase {
 
   public void setSpeedTop(double speed){
     SmartDashboard.putNumber("Climber speed bghhf", speed);
-   // leftClimber.set(speed);
-    rightTopClimber.set(speed);
-    leftTopClimber.set(speed);
+   // leftClimber.setVoltage(speed);
+    rightTopClimber.setVoltage(speed);
+    leftTopClimber.setVoltage(speed);
   //  SmartDashboard.putNumber("LeftClimber Speed Read", leftClimber.get());
   }
 
   public void setSpeedBottom(double speed){
-    rightBottomClimber.set(speed);
-    leftBottomClimber.set(speed);
+    rightBottomClimber.setVoltage(speed);
+    leftBottomClimber.setVoltage(speed);
   }
 
   
