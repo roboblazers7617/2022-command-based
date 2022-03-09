@@ -5,6 +5,7 @@
 package frc.robot.subsystems;
 
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.networktables.NetworkTableEntry;
@@ -32,6 +33,11 @@ public class Climber extends SubsystemBase {
     rightTopClimber.restoreFactoryDefaults();
     leftBottomClimber.restoreFactoryDefaults();
     leftTopClimber.restoreFactoryDefaults();
+    
+    rightBottomClimber.setIdleMode(IdleMode.kBrake);
+    rightTopClimber.setIdleMode(IdleMode.kBrake);
+    leftBottomClimber.setIdleMode(IdleMode.kBrake);
+    leftTopClimber.setIdleMode(IdleMode.kBrake);
     // climberToggle.setDefaultOption("go climb ", 0.1);
     // climberToggle.setDefaultOption("un climb ", -0.1);
     // climberToggle.setDefaultOption("no climb no", 0.0);
