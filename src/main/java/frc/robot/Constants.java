@@ -22,8 +22,11 @@ public final class Constants {
     public static final double LOW_GEAR = .5;
     public static final double CLIMBER_SPEED = 0.25;
     public static final double SHOOTER_MOTOR_SPEED = .3;
-    /**the speed relative to SHOOTER_MOTOR_SPEED that shooter will count as full speed for shooterReady() */
+    public static final double SHOOTER_MOTOR_VELOCITY = 30;
+    /**the speed relative to SHOOTER_MOTOR_SPEED that shooter will count as the minunum speed for shooterReady() */
     public static final double SHOOTER_MOTOR_SPEED_FULL = .95 * SHOOTER_MOTOR_SPEED;
+    /**the speed relative to SHOOTER_MOTOR_SPEED that shooter will count as the max speed for shooterReady() */
+    public static final double SHOOTER_MOTOR_SPEED_FULL_MAX = 1.05 * SHOOTER_MOTOR_SPEED;
     //PWM Ports
     public static final int LEFT_BOTTOM_CLIMBER_PORT = 4;
     public static final int LEFT_TOP_CLIMBER_PORT = 9;
@@ -81,5 +84,16 @@ public final class Constants {
     public static final double INTAKE_LOWER_ENCODER_VALUE = 0.2;
     /**this is the mininum value that the robot will consider up */
     public static final double INTAKE_UPPER_ENCODER_VALUE = .05;
+
+
+    //PID Values
+    public static final double SHOOTER_kP = 6e-5; 
+    public static final double SHOOTER_kI = 0;
+    public static final double SHOOTER_kD = 0; 
+    public static final double SHOOTER_kIz = 0; 
+    public static final double SHOOTER_kFF = 0.000015; 
+    public static final double SHOOTER_kMaxOutput = 1; 
+    public static final double SHOOTER_kMinOutput = -1;
+    public static final double SHOOTER_maxRPM = 5700;
 
 }

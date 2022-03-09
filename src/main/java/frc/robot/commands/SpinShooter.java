@@ -35,13 +35,13 @@ public class SpinShooter extends CommandBase {
     else{
       m_shooter.setSpeed(.33);
     }*/
-    m_shooter.setSpeed(Constants.SHOOTER_MOTOR_SPEED);
+    m_shooter.startShooter();;
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    m_shooter.setSpeed(0);
+    m_shooter.stopShooter();
   }
 
   // Returns true when the command should end.
