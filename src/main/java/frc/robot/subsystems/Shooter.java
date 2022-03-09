@@ -85,7 +85,7 @@ public class Shooter extends SubsystemBase {
 
   /**returns whether shooter is at full speed */
   public boolean shooterReady(){
-    if(encoder.getVelocity() > Constants.SHOOTER_MOTOR_SPEED_FULL && encoder.getVelocity() < Constants.SHOOTER_MOTOR_SPEED_FULL_MAX){
+    if(encoder.getVelocity() > Constants.SHOOTER_MOTOR_TARGET_MIN && encoder.getVelocity() < Constants.SHOOTER_MOTOR_TARGET_MAX){
       return true;
     }
     return false;
