@@ -87,11 +87,11 @@ public class Drivetrain extends SubsystemBase {
   public void setMaxSpeed(double speed) {
     drivetrain.setMaxOutput(speed);
   }
-  public void setVoltages(double leftFrontSpeed, double rightFrontSpeed, double leftBackSpeed, double rightBackSpeed){
-    leftFrontMotor.setVoltage(leftFrontSpeed);
-    rightFrontMotor.setVoltage(rightFrontSpeed);
-    leftBackMotor.setVoltage(leftBackSpeed);
-    rightBackMotor.setVoltage(rightBackSpeed);
+  public void setSpeeds(double leftFrontSpeed, double rightFrontSpeed, double leftBackSpeed, double rightBackSpeed){
+    leftFrontMotor.set(leftFrontSpeed);
+    rightFrontMotor.set(rightFrontSpeed);
+    leftBackMotor.set(leftBackSpeed);
+    rightBackMotor.set(rightBackSpeed);
   }
   public double getAverageEncoderPosition(){
     return (leftFrontEncoder.getPosition()+rightFrontEncoder.getPosition()+leftBackEncoder.getPosition()+rightBackEncoder.getPosition())/4;

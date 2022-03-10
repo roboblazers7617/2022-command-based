@@ -58,7 +58,7 @@ public class GyroGoStraight extends CommandBase {
   public void execute() {
     m_angleAddjustment = m_angleController.calculate(m_drivetrain.getGyro());
     if(!finished){
-    m_drivetrain.setSpeed((m_direction*Constants.AUTO_SPEED)-m_angleAddjustment, (m_direction*Constants.AUTO_SPEED)+m_angleAddjustment, (m_direction*Constants.AUTO_SPEED)-m_angleAddjustment, (m_direction*Constants.AUTO_SPEED)+m_angleAddjustment);
+    m_drivetrain.setSpeeds((m_direction*Constants.AUTO_SPEED)-m_angleAddjustment, (m_direction*Constants.AUTO_SPEED)+m_angleAddjustment, (m_direction*Constants.AUTO_SPEED)-m_angleAddjustment, (m_direction*Constants.AUTO_SPEED)+m_angleAddjustment);
     if(Units.inchesToMeters(m_drivetrain.getAverageEncoderPosition()) == m_distance){
       finished = true;
     }
