@@ -47,6 +47,9 @@ public class GyroGoStraight extends CommandBase {
       m_positionAdjustment = -m_drivetrain.getAverageEncoderPosition();
       m_angleController.setSetpoint(0+m_gyroAdjustment);
       m_positionController.setSetpoint(0+m_positionAdjustment);
+      m_angleController.enableContinuousInput(-180, 180);
+
+
   }
 
   // Called when the command is initially scheduled.

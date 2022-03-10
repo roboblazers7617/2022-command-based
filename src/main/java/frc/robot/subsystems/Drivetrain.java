@@ -4,11 +4,13 @@
 
 package frc.robot.subsystems;
 
+import com.kauailabs.navx.frc.AHRS;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import com.revrobotics.CANSparkMax.IdleMode;
 import frc.robot.Constants;
+import edu.wpi.first.wpilibj.SPI.Port;
 import edu.wpi.first.wpilibj.drive.MecanumDrive;
 import edu.wpi.first.wpilibj.smartdashboard.*;
 
@@ -24,6 +26,7 @@ public class Drivetrain extends SubsystemBase {
   private final RelativeEncoder leftBackEncoder = leftBackMotor.getEncoder();
   private final RelativeEncoder rightBackEncoder = rightBackMotor.getEncoder();
   private final MecanumDrive drivetrain;
+  private final AHRS gyro = new AHRS(Port.kMXP);
 
   /** Creates a new Drivetrain. */
   public Drivetrain() {
@@ -40,6 +43,8 @@ public class Drivetrain extends SubsystemBase {
     rightBackMotor.setIdleMode(IdleMode.kCoast);
     drivetrain = new MecanumDrive(leftFrontMotor, leftBackMotor, rightFrontMotor, rightBackMotor);
     drivetrain.setMaxOutput(Constants.LOW_GEAR);
+    gyro.calibrate();
+    gyro.reset();
   }
   public void drive(double ySpeed, double xSpeed, double zRotation){
     drivetrain.driveCartesian(ySpeed, xSpeed, zRotation);
@@ -56,6 +61,12 @@ public class Drivetrain extends SubsystemBase {
   }
   public void setMaxSpeed(double speed) {
     drivetrain.setMaxOutput(speed);
+  }
+  public double getGyro(){
+    return gyro.getAngle();
+  }
+  public void resetGyro(){
+    gyro.reset();
   }
   public void setSpeeds(double leftFrontSpeed, double rightFrontSpeed, double leftBackSpeed, double rightBackSpeed){
     leftFrontMotor.set(leftFrontSpeed);
