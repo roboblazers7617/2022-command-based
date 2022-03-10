@@ -22,23 +22,24 @@ public final class Constants {
     public static final double LOW_GEAR = .5;
     public static final double CLIMBER_SPEED = 0.25;
     public static final double SHOOTER_MOTOR_SPEED = .3;
+    public static final int AUTO_SPEED = 0;
     /**the speed relative to SHOOTER_MOTOR_SPEED that shooter will count as full speed for shooterReady() */
     public static final double SHOOTER_MOTOR_SPEED_FULL = .95 * SHOOTER_MOTOR_SPEED;
     //PWM Ports
-    public static final int LEFT_BOTTOM_CLIMBER_PORT = 4;
-    public static final int LEFT_TOP_CLIMBER_PORT = 9;
-    public static final int RIGHT_BOTTOM_CLIMBER_PORT = 13;
-    public static final int RIGHT_TOP_CLIMBER_PORT = 14;
     public static final int LOWER_TOWER_MOTOR = 7;
     public static final int UPPER_TOWER_MOTOR = 5;
-    public static final int INTAKE_PORT = 6;
-    public static final int SHOOTER_PORT = 8;
+    public static final int INTAKE_PORT = 0;
     //CAN Ports
-    public static final int LEFT_FRONT_WHEEL_PORT = 1;
-    public static final int RIGHT_FRONT_WHEEL_PORT = 8;
+    public static final int LEFT_FRONT_WHEEL_PORT = 8;
+    public static final int RIGHT_FRONT_WHEEL_PORT = 9;
     public static final int LEFT_BACK_WHEEL_PORT = 7;
-    public static final int RIGHT_BACK_WHEEL_PORT =11;
-    public static final int INTAKE_ROTATION_PORT = 12;
+    public static final int RIGHT_BACK_WHEEL_PORT =6;
+    public static final int INTAKE_ROTATION_PORT = 10;
+    public static final int SHOOTER_PORT = 8;
+    public static final int LEFT_BOTTOM_CLIMBER_PORT = 4;
+    public static final int LEFT_TOP_CLIMBER_PORT = 2;
+    public static final int RIGHT_BOTTOM_CLIMBER_PORT = 5;
+    public static final int RIGHT_TOP_CLIMBER_PORT = 3;
     
 
     //DIO Ports
@@ -69,17 +70,14 @@ public final class Constants {
     //Intake data
     public static final double GEAR_RATIO_INTAKE_LIFT = (15/54)*(1/20);
     public static final int ANGLE_INTAKE_DEPLOY = 80;
-    
-    
-    //Limit switches
-    public static final int INTAKE_LIMIT_UPPER_PORT = 15;
-    public static final int INTAKE_LIMIT_LOWER_PORT = 16;
-
-
-    //Enocder Values
-    /**this is the mininum value that the robot will consider the intake down. this will stop the intake. in rotations */
-    public static final double INTAKE_LOWER_ENCODER_VALUE = 0.2;
-    /**this is the mininum value that the robot will consider up */
-    public static final double INTAKE_UPPER_ENCODER_VALUE = .05;
+    //Drivetrain Data
+    public static final double DRIVETRAIN_KP = 0;
+    public static final double DRIVETRAIN_KI = 0;
+    public static final double DRIVETRAIN_KD = 0;
+    public static final int WHEEL_RADIUS = 4;//inches
+    public static final double WHEEL_GEAR_RATIO = 5/12;
+    public static final double DRIVETRAIN_ROTATIONAL_KP = 0;
+    public static final double DRIVETRAIN_ROTATIONAL_KI = 0;
+    public static final double DRIVETRAIN_ROTAIONAL_KD = 0;
 
 }

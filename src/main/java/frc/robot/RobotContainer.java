@@ -49,7 +49,6 @@ public class RobotContainer {
    commandLayout.add(new LoadTower(tower));
    commandLayout.add(new SpinShooter(shooter));
    commandLayout.add(new ShootBolls(shooter, tower));
-   commandLayout.add(new ToggleIntakeRotation(intake));
  //  tower.setDefaultCommand( new RunCommand(tower::stop, tower));  
    //intake.setDefaultCommand(new ResetIntakeForever(intake));
   }
@@ -70,10 +69,10 @@ public class RobotContainer {
      JoystickButton climberBottomFowardButton = new JoystickButton(driverController, Constants.CLIMBER_BOTTOM_FORWARD_BUTTON);
       JoystickButton climberBottomBackwardButton = new JoystickButton(driverController, Constants.CLIMBER_BOTTOM_BACKWARD_BUTTON);
 
-     climberTopFowardButton.whenHeld(new RaiseTopClimber(climber));
+     /*climberTopFowardButton.whenHeld(new RaiseTopClimber(climber));
      climberTopBackwordButton.whenHeld(new LowerTopClimber(climber));
      climberBottomFowardButton.whenHeld(new RaiseBottomClimber(climber));
-     climberBottomBackwardButton.whenHeld(new LowerBottomClimber(climber));
+     climberBottomBackwardButton.whenHeld(new LowerBottomClimber(climber));*/
 
      JoystickButton collectBallsButton = new JoystickButton(shooterController, Constants.COLLECT_BALLS_BUTTON);
      JoystickButton stopCollectBallsButton = new JoystickButton(shooterController, Constants.STOP_COLLECT_BALLS_BUTTON);
@@ -85,8 +84,7 @@ public class RobotContainer {
      stopCollectBallsButton.whenPressed(new InstantCommand(tower::stop,tower).andThen(new InstantCommand(() -> intake.setSpeedIntake(0),intake)));
      runTowerManualButton.whenHeld(new RunTower(tower));
      reverseTowerButton.whenHeld(new ReverseTower(tower));
-     shootBallButton.whenHeld(new ShootBolls(shooter, tower));
-     shootBallButton.whenReleased(new InstantCommand (() -> tower.setSpeedUpper(0),tower));    
+     shootBallButton.whenHeld(new ShootBolls(shooter, tower).andThen(new InstantCommand(tower::stop).andThen(new InstantCommand(shooter::stopShooter))));    
   }
 
 public Command getTeleOpDrive(){
