@@ -6,17 +6,11 @@ package frc.robot.subsystems;
 
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
-import com.revrobotics.SparkMaxPIDController;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import com.revrobotics.CANSparkMax.IdleMode;
 import frc.robot.Constants;
-import edu.wpi.first.wpilibj.SerialPort.Port;
 import edu.wpi.first.wpilibj.drive.MecanumDrive;
 import edu.wpi.first.wpilibj.smartdashboard.*;
-
-import java.util.function.Supplier;
-
-import com.kauailabs.navx.frc.AHRS;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
@@ -30,11 +24,6 @@ public class Drivetrain extends SubsystemBase {
   private final RelativeEncoder leftBackEncoder = leftBackMotor.getEncoder();
   private final RelativeEncoder rightBackEncoder = rightBackMotor.getEncoder();
   private final MecanumDrive drivetrain;
-  private final AHRS gyro = new AHRS(Port.kMXP);
-  private final SparkMaxPIDController leftFrontPIDController = leftFrontMotor.getPIDController();
-  private final SparkMaxPIDController rightFrontPIDController = rightFrontMotor.getPIDController();
-  private final SparkMaxPIDController leftBackPIDController = leftBackMotor.getPIDController();
-  private final SparkMaxPIDController rightBackPIDController = rightBackMotor.getPIDController();
 
   /** Creates a new Drivetrain. */
   public Drivetrain() {
@@ -51,12 +40,6 @@ public class Drivetrain extends SubsystemBase {
     rightBackMotor.setIdleMode(IdleMode.kCoast);
     drivetrain = new MecanumDrive(leftFrontMotor, leftBackMotor, rightFrontMotor, rightBackMotor);
     drivetrain.setMaxOutput(Constants.LOW_GEAR);
-    gyro.calibrate();
-    gyro.reset();
-    leftFrontEncoder.setPositionConversionFactor(Constants.WHEEL_GEAR_RATIO/(Math.PI*Constants.WHEEL_RADIUS*2));
-    rightFrontEncoder.setPositionConversionFactor(Constants.WHEEL_GEAR_RATIO/(Math.PI*Constants.WHEEL_RADIUS*2));
-    leftBackEncoder.setPositionConversionFactor(Constants.WHEEL_GEAR_RATIO/(Math.PI*Constants.WHEEL_RADIUS*2));
-    rightBackEncoder.setPositionConversionFactor(Constants.WHEEL_GEAR_RATIO/(Math.PI*Constants.WHEEL_RADIUS*2));
   }
   public void drive(double ySpeed, double xSpeed, double zRotation){
     drivetrain.driveCartesian(ySpeed, xSpeed, zRotation);
@@ -71,19 +54,6 @@ public class Drivetrain extends SubsystemBase {
     SmartDashboard.putNumber("Right Back Velocity", rightBackEncoder.getVelocity());
 
   }
-
-  public void resetGyro(){
-    gyro.reset();
-  }
-
-  public void calibrateGyro(){
-    gyro.calibrate();
-  }
-
-  public double getGyro(){
-    return gyro.getAngle();
-  }
-
   public void setMaxSpeed(double speed) {
     drivetrain.setMaxOutput(speed);
   }
