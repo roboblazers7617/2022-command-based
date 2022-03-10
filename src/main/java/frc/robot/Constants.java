@@ -35,7 +35,7 @@ public final class Constants {
     public static final int LEFT_BACK_WHEEL_PORT = 7;
     public static final int RIGHT_BACK_WHEEL_PORT =6;
     public static final int INTAKE_ROTATION_PORT = 10;
-    public static final int SHOOTER_PORT = 8;
+    public static final int SHOOTER_PORT = 1;
     public static final int LEFT_BOTTOM_CLIMBER_PORT = 4;
     public static final int LEFT_TOP_CLIMBER_PORT = 2;
     public static final int RIGHT_BOTTOM_CLIMBER_PORT = 5;
@@ -43,8 +43,10 @@ public final class Constants {
     
 
     //DIO Ports
-    public static final int LOWER_SENSOR_PORT_INPUT = 1;
-    public static final int UPPER_SENSOR_PORT_INPUT = 0;
+    public static final int TOWER_LOWER_SENSOR_PORT_INPUT = 1;
+    public static final int TOWER_UPPER_SENSOR_PORT_INPUT = 0;
+    public static final int INTAKE_LIMIT_UPPER_PORT = 2;
+    public static final int INTAKE_LIMIT_LOWER_PORT = 3;
     
 
     
@@ -70,6 +72,8 @@ public final class Constants {
     //Intake data
     public static final double GEAR_RATIO_INTAKE_LIFT = (15/54)*(1/20);
     public static final int ANGLE_INTAKE_DEPLOY = 80;
+    public static final double INTAKE_LOWER_ENCODER_VALUE = 0;
+    public static final double INTAKE_UPPER_ENCODER_VALUE = 1;
     //Drivetrain Data
     public static final double DRIVETRAIN_KP = 0;
     public static final double DRIVETRAIN_KI = 0;
@@ -79,9 +83,6 @@ public final class Constants {
     public static final double DRIVETRAIN_ROTATIONAL_KP = 0;
     public static final double DRIVETRAIN_ROTATIONAL_KI = 0;
     public static final double DRIVETRAIN_ROTAIONAL_KD = 0;
-	public static final int INTAKE_LIMIT_UPPER_PORT = 0;
-    public static final int INTAKE_LIMIT_LOWER_PORT = 0;
-    public static final double INTAKE_LOWER_ENCODER_VALUE = 0;
-    public static final double INTAKE_UPPER_ENCODER_VALUE = 0;
+
 
 }

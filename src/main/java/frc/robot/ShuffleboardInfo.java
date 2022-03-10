@@ -34,7 +34,7 @@ public class ShuffleboardInfo {
     private final NetworkTableEntry drivetrainLeftFrontMotorEntry, drivetrainLeftRearMotorEntry, drivetrainRightFrontMotorEntry, drivetrainRightRearMotorEntry;
     private final NetworkTableEntry towerUpperMotorEntry, towerLowerMotorEntry, towerLowerSensorEntry, towerUpperSensorEntry;
     private final NetworkTableEntry shooterMotorEntry, shooterStateEntry;
-    private final NetworkTableEntry intakeRotationMotorPosition;
+    private final NetworkTableEntry intakeRotationMotorPosition, intakeMotorSpeedEntry;
    
     // To better organize the data displayed, use Shuffleboard Layouts. These will all be setup in
     // ShuffleboardInfo except for the Layout for the Command buttons. These are used to unit test the functions
@@ -89,6 +89,7 @@ public class ShuffleboardInfo {
         
         //intake
         intakeRotationMotorPosition = intakeLayout.add("Intake rotation motor position", 0.0).getEntry();
+        intakeMotorSpeedEntry = intakeLayout.add("Intake speed", 0).getEntry();
     }
  
     // The public accessor method allows this to be a Singleton class
@@ -145,6 +146,9 @@ public class ShuffleboardInfo {
     }
     public NetworkTableEntry getIntakeRotationMotorPosition(){
         return intakeRotationMotorPosition;
+    }
+    public NetworkTableEntry getIntakeMotorSpeedEntry() {
+        return intakeMotorSpeedEntry;
     }
  
 }

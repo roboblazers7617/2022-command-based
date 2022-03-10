@@ -44,7 +44,6 @@ public class Drivetrain extends SubsystemBase {
     drivetrain = new MecanumDrive(leftFrontMotor, leftBackMotor, rightFrontMotor, rightBackMotor);
     drivetrain.setMaxOutput(Constants.LOW_GEAR);
     gyro.calibrate();
-    gyro.reset();
   }
   public void drive(double ySpeed, double xSpeed, double zRotation){
     drivetrain.driveCartesian(ySpeed, xSpeed, zRotation);

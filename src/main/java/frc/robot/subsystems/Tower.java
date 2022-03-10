@@ -18,8 +18,8 @@ public class Tower extends SubsystemBase {
   private final PWMVictorSPX lowerMotor = new PWMVictorSPX(Constants.LOWER_TOWER_MOTOR);
   private final PWMVictorSPX upperMotor = new PWMVictorSPX(Constants.UPPER_TOWER_MOTOR);
 
-  private DigitalInput lowerSensor = new DigitalInput(Constants.LOWER_SENSOR_PORT_INPUT);
-  private DigitalInput upperSensor = new DigitalInput(Constants.UPPER_SENSOR_PORT_INPUT);
+  private DigitalInput lowerSensor = new DigitalInput(Constants.TOWER_LOWER_SENSOR_PORT_INPUT);
+  private DigitalInput upperSensor = new DigitalInput(Constants.TOWER_UPPER_SENSOR_PORT_INPUT);
 
   public Tower() {
     lowerMotor.setInverted(true);
