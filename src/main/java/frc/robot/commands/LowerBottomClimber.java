@@ -24,7 +24,7 @@ public class LowerBottomClimber extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    climber.setSpeedBottom(-Constants.CLIMBER_SPEED_BOTTOM);
+    climber.setSpeedBottom(-Constants.CLIMBER_SPEED);
   }
 
   // Called once the command ends or is interrupted.

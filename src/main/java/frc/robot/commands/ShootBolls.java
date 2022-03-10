@@ -15,13 +15,13 @@ import frc.robot.subsystems.Tower;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class ShootBolls extends SequentialCommandGroup {
+public class ShootBolls extends ParallelCommandGroup {
   /** Creates a new ShootBolls. */
   public ShootBolls(Shooter shooter, Tower tower) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(new SpinShooter(shooter));
-
-    new InstantCommand(() ->tower.setSpeedUpper(Constants.TOWER_SPEED),tower);
+    //,new WaitUntilCommand(shooter::shooterReady), 
+    //new InstantCommand(() ->tower.setSpeedUpper(Constants.TOWER_SPEED),tower));
   }
 }

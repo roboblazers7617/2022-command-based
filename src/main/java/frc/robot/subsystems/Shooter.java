@@ -6,11 +6,9 @@ package frc.robot.subsystems;
 
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
-import com.revrobotics.SparkMaxPIDController;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
-import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.motorcontrol.PWMSparkMax;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
@@ -23,9 +21,7 @@ import frc.robot.commands.StopShooter;
 
 public class Shooter extends SubsystemBase {
   private final CANSparkMax shooterMotor = new CANSparkMax(Constants.SHOOTER_PORT, MotorType.kBrushless);
-  private final RelativeEncoder encoder;
-  private final SparkMaxPIDController pidController;
-  public final double kP, kI, kD, kIz, kFF, kMaxOutput, kMinOutput, maxRPM;
+
 
 
  // private final RelativeEncoder encoder = shooterMotor.getEncoder();
@@ -38,45 +34,21 @@ public class Shooter extends SubsystemBase {
     shooterMotor.setIdleMode(IdleMode.kCoast);
     shooterMotorEntry = ShuffleboardInfo.getInstance().getShooterMotorEntry();
     shooterStateEntry = ShuffleboardInfo.getInstance().getShooterStateEntry();
-    encoder = shooterMotor.getEncoder();
-    pidController = shooterMotor.getPIDController();
 
-    kP = Constants.SHOOTER_kP; 
-    kI = Constants.SHOOTER_kI;
-    kD = Constants.SHOOTER_kD; 
-    kIz = Constants.SHOOTER_kIz; 
-    kFF = Constants.SHOOTER_kFF; 
-    kMaxOutput = Constants.SHOOTER_kMaxOutput; 
-    kMinOutput = Constants.SHOOTER_kMinOutput;
-    maxRPM = Constants.SHOOTER_maxRPM;
-
-    pidController.setP(kP);
-    pidController.setI(kI);
-    pidController.setD(kD);
-    pidController.setD(kD);
-    pidController.setIZone(kIz);
-    pidController.setFF(kFF);
-    pidController.setOutputRange(kMinOutput, kMaxOutput);
-    
     /*toggleShooter.setDefaultOption("yes shoot", -1.0);
     toggleShooter.setDefaultOption("no shoot", 0.0);
     tab.add(toggleShooter);*/
   }
-  private void setVelocity(double speed){
-    if(speed == 0.0)
-      shooterMotor.set(0.0);
-    else{
-      double setPoint = speed * maxRPM;
-      pidController.setReference(setPoint, CANSparkMax.ControlType.kVelocity);
-    }
+  public void setSpeed(double speed){
+    shooterMotor.set(speed);
   }
 
   public void startShooter(){
-    setVelocity(Constants.SHOOTER_MOTOR_VELOCITY);
+    setSpeed(Constants.SHOOTER_MOTOR_SPEED);
   }
 
   public void stopShooter(){
-    setVelocity(0.0);
+    setSpeed(0.0);
   }
 
   public double getSpeed(){
@@ -85,11 +57,11 @@ public class Shooter extends SubsystemBase {
 
   /**returns whether shooter is at full speed */
   public boolean shooterReady(){
-    if(encoder.getVelocity() > Constants.SHOOTER_MOTOR_TARGET_MIN && encoder.getVelocity() < Constants.SHOOTER_MOTOR_TARGET_MAX){
+    /*if(encoder.getVelocity() > Constants.SHOOTER_MOTOR_SPEED_FULL){
       return true;
     }
-    return false;
-
+    return false;*/
+    return true;
   }
 
   
@@ -97,9 +69,6 @@ public class Shooter extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-
-
-
     shooterMotorEntry.setDouble(getSpeed());
     shooterStateEntry.setBoolean(shooterReady());
 
