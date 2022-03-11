@@ -35,7 +35,7 @@ public final class Constants {
     public static final int LEFT_BACK_WHEEL_PORT = 7;
     public static final int RIGHT_BACK_WHEEL_PORT =6;
     public static final int INTAKE_ROTATION_PORT = 10;
-    public static final int SHOOTER_PORT = 8;
+    public static final int SHOOTER_PORT = 1;
     public static final int LEFT_BOTTOM_CLIMBER_PORT = 4;
     public static final int LEFT_TOP_CLIMBER_PORT = 2;
     public static final int RIGHT_BOTTOM_CLIMBER_PORT = 5;
