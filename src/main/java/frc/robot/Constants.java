@@ -31,10 +31,7 @@ public final class Constants {
     public static final int LOWER_TOWER_MOTOR = 7;
     public static final int UPPER_TOWER_MOTOR = 5;
     public static final int INTAKE_PORT = 0;
-    public static final int LEFT_BOTTOM_CLIMBER_PORT = 4;
-    public static final int LEFT_TOP_CLIMBER_PORT = 2;
-    public static final int RIGHT_BOTTOM_CLIMBER_PORT = 1;
-    public static final int RIGHT_TOP_CLIMBER_PORT = 3;
+
     
     //CAN Ports
     public static final int LEFT_FRONT_WHEEL_PORT = 8;
@@ -43,6 +40,11 @@ public final class Constants {
     public static final int RIGHT_BACK_WHEEL_PORT =6;
     public static final int INTAKE_ROTATION_PORT = 10;
     public static final int SHOOTER_PORT = 1;
+    public static final int LEFT_BOTTOM_CLIMBER_PORT = 4;
+    public static final int LEFT_TOP_CLIMBER_PORT = 2;
+    public static final int RIGHT_BOTTOM_CLIMBER_PORT = 5;
+    public static final int RIGHT_TOP_CLIMBER_PORT = 3;
+    
 
     //DIO Ports
     public static final int LOWER_SENSOR_PORT_INPUT = 1;
