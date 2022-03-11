@@ -133,8 +133,8 @@ public class Intake extends SubsystemBase {
   }
   /**returns the encoder position for the intake rotation motor except for when testing */
   private double getEncoderPosition(){
-    return fakeEncoderPosition;
-    //return encoder.getPosition();
+    //return fakeEncoderPosition;
+    return encoder.getPosition();
   }
 
   private boolean getUpperLimitSwitch(){

@@ -21,31 +21,34 @@ public final class Constants {
     public static final double HIGH_GEAR = 1;
     public static final double LOW_GEAR = .5;
     public static final double CLIMBER_SPEED = 0.25;
-    public static final double SHOOTER_MOTOR_SPEED = .3;
+    public static final double SHOOTER_MOTOR_VELOCITY = .3;
     public static final int AUTO_SPEED = 0;
-    /**the speed relative to SHOOTER_MOTOR_SPEED that shooter will count as full speed for shooterReady() */
-    public static final double SHOOTER_MOTOR_SPEED_FULL = .95 * SHOOTER_MOTOR_SPEED;
+    /**the speed relative to SHOOTER_MOTOR_SPEED that shooter will count as the minunum speed for shooterReady() */
+    public static final double SHOOTER_MOTOR_TARGET_MIN = .95 * SHOOTER_MOTOR_VELOCITY;
+    /**the speed relative to SHOOTER_MOTOR_SPEED that shooter will count as the max speed for shooterReady() */
+    public static final double SHOOTER_MOTOR_TARGET_MAX = 1.05 * SHOOTER_MOTOR_VELOCITY;
     //PWM Ports
     public static final int LOWER_TOWER_MOTOR = 7;
     public static final int UPPER_TOWER_MOTOR = 5;
     public static final int INTAKE_PORT = 0;
+    public static final int LEFT_BOTTOM_CLIMBER_PORT = 4;
+    public static final int LEFT_TOP_CLIMBER_PORT = 2;
+    public static final int RIGHT_BOTTOM_CLIMBER_PORT = 1;
+    public static final int RIGHT_TOP_CLIMBER_PORT = 3;
+    
     //CAN Ports
     public static final int LEFT_FRONT_WHEEL_PORT = 8;
     public static final int RIGHT_FRONT_WHEEL_PORT = 9;
     public static final int LEFT_BACK_WHEEL_PORT = 7;
     public static final int RIGHT_BACK_WHEEL_PORT =6;
     public static final int INTAKE_ROTATION_PORT = 10;
-    public static final int SHOOTER_PORT = 8;
-    public static final int LEFT_BOTTOM_CLIMBER_PORT = 4;
-    public static final int LEFT_TOP_CLIMBER_PORT = 2;
-    public static final int RIGHT_BOTTOM_CLIMBER_PORT = 5;
-    public static final int RIGHT_TOP_CLIMBER_PORT = 3;
-    
+    public static final int SHOOTER_PORT = 1;
 
     //DIO Ports
     public static final int LOWER_SENSOR_PORT_INPUT = 1;
     public static final int UPPER_SENSOR_PORT_INPUT = 0;
-    
+    public static final int INTAKE_LIMIT_UPPER_PORT = 2;
+    public static final int INTAKE_LIMIT_LOWER_PORT = 3;
 
     
     public static final double INTAKE_ROTATION_MOTOR_SPEED = 0.25;
@@ -79,9 +82,17 @@ public final class Constants {
     public static final double DRIVETRAIN_ROTATIONAL_KP = 0;
     public static final double DRIVETRAIN_ROTATIONAL_KI = 0;
     public static final double DRIVETRAIN_ROTAIONAL_KD = 0;
-	public static final int INTAKE_LIMIT_UPPER_PORT = 0;
-    public static final int INTAKE_LIMIT_LOWER_PORT = 0;
+
     public static final double INTAKE_LOWER_ENCODER_VALUE = 0;
     public static final double INTAKE_UPPER_ENCODER_VALUE = 0;
-
+    
+    //PID Values
+    public static final double SHOOTER_kP = 6e-5; 
+    public static final double SHOOTER_kI = 0;
+    public static final double SHOOTER_kD = 0; 
+    public static final double SHOOTER_kIz = 0; 
+    public static final double SHOOTER_kFF = 0.000015; 
+    public static final double SHOOTER_kMaxOutput = 1; 
+    public static final double SHOOTER_kMinOutput = -1;
+    public static final double SHOOTER_maxRPM = 5700;
 }
