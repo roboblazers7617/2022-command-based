@@ -174,12 +174,12 @@ public class Intake extends SubsystemBase {
       }
     }
 
-
-    if(raisingIntake){
-      fakeEncoderPosition -= 0.05;
-    }
-    if(loweringIntake){
-      fakeEncoderPosition += 0.05;
-    }
+    //used for testing purposes
+    // if(raisingIntake){
+    //   fakeEncoderPosition -= 0.05;
+    // }
+    // if(loweringIntake){
+    //   fakeEncoderPosition += 0.05;
+    // }
   }
 }
