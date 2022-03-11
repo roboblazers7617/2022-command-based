@@ -42,7 +42,7 @@ public final class Constants {
     public static final int SHOOTER_PORT = 1;
     public static final int LEFT_BOTTOM_CLIMBER_PORT = 4;
     public static final int LEFT_TOP_CLIMBER_PORT = 2;
-    public static final int RIGHT_BOTTOM_CLIMBER_PORT = 5;
+    public static final int RIGHT_BOTTOM_CLIMBER_PORT = 1;
     public static final int RIGHT_TOP_CLIMBER_PORT = 3;
     
 
