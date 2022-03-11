@@ -37,8 +37,8 @@ public class Intake extends SubsystemBase {
   private boolean raisingIntake;
   private boolean loweringIntake;
   private ShuffleboardTab tab = Shuffleboard.getTab("Debug");
-  private NetworkTableEntry speedDisplay = tab.add("Intake Motor Speed: ", 0).getEntry();
-  private final NetworkTableEntry intakeRotationMotorPositionEntry;
+  //private NetworkTableEntry speedDisplay = tab.add("Intake Motor Speed: ", 0).getEntry();
+  private final NetworkTableEntry intakeRotationMotorPositionEntry, intakeMotorSpeedEntry;
   
   private double fakeEncoderPosition;
   
@@ -56,6 +56,7 @@ public class Intake extends SubsystemBase {
     raisingIntake = false;
     loweringIntake = false;
     intakeRotationMotorPositionEntry = ShuffleboardInfo.getInstance().getIntakeRotationMotorPosition();
+    intakeMotorSpeedEntry = ShuffleboardInfo.getInstance().getIntakeRotationMotorSpeed();
     tab.add("toggle intake rotation: ", new ToggleIntakeRotation(this));
     upperLimitSwitch = new DigitalInput(Constants.INTAKE_LIMIT_UPPER_PORT);
     lowerLimitSwitch = new DigitalInput(Constants.INTAKE_LIMIT_LOWER_PORT);
@@ -151,6 +152,7 @@ public class Intake extends SubsystemBase {
   public void periodic() {
     // This method will be called once per scheduler run
     intakeRotationMotorPositionEntry.setDouble(getEncoderPosition());
+    intakeMotorSpeedEntry.setDouble(getSpeedIntake());
 
     //intakeRotationSpeedDisplay.setDouble(intakeRotationMotor.get());//updates the display for the intake rotation motor speed
     //manage raise and lower intake
