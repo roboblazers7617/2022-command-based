@@ -32,6 +32,7 @@ public class Intake extends SubsystemBase {
   private final CANSparkMax intakeRotationMotor = new CANSparkMax(Constants.INTAKE_ROTATION_PORT,MotorType.kBrushless);
   private boolean intakeRotationMotorRaised;
   //private boolean movingIntakeRotationMotor;
+  //CLOSED IS CLOSED
   private DigitalInput upperLimitSwitch;
   private DigitalInput lowerLimitSwitch;
   private boolean raisingIntake;
