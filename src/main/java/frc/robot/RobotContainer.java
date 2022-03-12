@@ -82,7 +82,7 @@ public class RobotContainer {
      JoystickButton shootBallButton = new JoystickButton(shooterController, Constants.SHOOT_BOLL_BUTTON);
 
      collectBallsButton.whenPressed(new LoadBalls(intake, tower));
-     stopCollectBallsButton.whenPressed(new InstantCommand(tower::stop,tower).andThen(new InstantCommand(() -> intake.setSpeedIntake(0),intake)));
+     stopCollectBallsButton.whenPressed(new InstantCommand(tower::stop,tower).andThen(new ResetIntake(intake)));
      runTowerManualButton.whenHeld(new RunTower(tower));
      reverseTowerButton.whenHeld(new ReverseTower(tower));
      shootBallButton.whenHeld(new ShootBolls(shooter, tower));

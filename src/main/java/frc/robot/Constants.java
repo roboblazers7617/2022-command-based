@@ -89,12 +89,12 @@ public final class Constants {
     public static final double INTAKE_UPPER_ENCODER_VALUE = 0;
     
     //PID Values
-    public static final double SHOOTER_kP = 6e-5; 
+    public static final double SHOOTER_kP = .0004; 
     public static final double SHOOTER_kI = 0;
     public static final double SHOOTER_kD = 0; 
     public static final double SHOOTER_kIz = 0; 
-    public static final double SHOOTER_kFF = 0.000015; 
+    public static final double SHOOTER_kFF = 0.00018; 
     public static final double SHOOTER_kMaxOutput = 1; 
     public static final double SHOOTER_kMinOutput = -1;
-    public static final double SHOOTER_maxRPM = 5700;
+    public static final double SHOOTER_maxRPM = 1750;
 }

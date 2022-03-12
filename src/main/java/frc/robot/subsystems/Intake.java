@@ -39,12 +39,13 @@ public class Intake extends SubsystemBase {
   private boolean loweringIntake;
   private ShuffleboardTab tab = Shuffleboard.getTab("Debug");
   //private NetworkTableEntry speedDisplay = tab.add("Intake Motor Speed: ", 0).getEntry();
-  private final NetworkTableEntry intakeRotationMotorPositionEntry, intakeMotorSpeedEntry;
+  private final NetworkTableEntry intakeRotationMotorPositionEntry, intakeMotorSpeedEntry, intakeRotationMotorSpeedEntry, intakeUpperLimitSwitchEntry, intakeLowerLimitSwitchEntry;
   
   private double fakeEncoderPosition;
   
   //private NetworkTableEntry intakeRotationSpeedDisplay = tab.add("Intake Rotation Motor Speed: ", 0).getEntry();
   private RelativeEncoder encoder = intakeRotationMotor.getEncoder();
+
   /** Creates a new Intake. */
   public Intake() {
     //intakeMotor.restoreFactoryDefaults();
@@ -57,7 +58,10 @@ public class Intake extends SubsystemBase {
     raisingIntake = false;
     loweringIntake = false;
     intakeRotationMotorPositionEntry = ShuffleboardInfo.getInstance().getIntakeRotationMotorPosition();
-    intakeMotorSpeedEntry = ShuffleboardInfo.getInstance().getIntakeRotationMotorSpeed();
+    intakeMotorSpeedEntry = ShuffleboardInfo.getInstance().getIntakeMotorSpeed();
+    intakeRotationMotorSpeedEntry = ShuffleboardInfo.getInstance().getIntakeRotationMotorSpeed();
+    intakeUpperLimitSwitchEntry = ShuffleboardInfo.getInstance().getIntakeUpperLimitSwitch();
+    intakeLowerLimitSwitchEntry = ShuffleboardInfo.getInstance().getIntakeLowerLimitSwich();
     tab.add("toggle intake rotation: ", new ToggleIntakeRotation(this));
     upperLimitSwitch = new DigitalInput(Constants.INTAKE_LIMIT_UPPER_PORT);
     lowerLimitSwitch = new DigitalInput(Constants.INTAKE_LIMIT_LOWER_PORT);
@@ -119,6 +123,8 @@ public class Intake extends SubsystemBase {
     
     // intakeRotationMotorRaised = true;
     raisingIntake = true;
+    intakeRotationMotor.set(-Constants.INTAKE_ROTATION_MOTOR_SPEED);
+    setSpeedIntake(0.0);
 
   }
 
@@ -131,6 +137,7 @@ public class Intake extends SubsystemBase {
     // intakeRotationMotor.setSoftLimit(CANSparkMax.SoftLimitDirection.kForward, (float) 0.0);
     // intakeRotationMotorRaised = false;
     loweringIntake = true;
+    intakeRotationMotor.set(Constants.INTAKE_ROTATION_MOTOR_SPEED);
 
   }
   /**returns the encoder position for the intake rotation motor except for when testing */
@@ -154,23 +161,29 @@ public class Intake extends SubsystemBase {
     // This method will be called once per scheduler run
     intakeRotationMotorPositionEntry.setDouble(getEncoderPosition());
     intakeMotorSpeedEntry.setDouble(getSpeedIntake());
+    intakeRotationMotorSpeedEntry.setDouble(encoder.getVelocity());
+    intakeLowerLimitSwitchEntry.setBoolean(lowerLimitSwitch.get());
+    intakeUpperLimitSwitchEntry.setBoolean(upperLimitSwitch.get());
 
     //intakeRotationSpeedDisplay.setDouble(intakeRotationMotor.get());//updates the display for the intake rotation motor speed
     //manage raise and lower intake
     //raise intake
     if(raisingIntake){
-      intakeRotationMotor.set(-Constants.INTAKE_ROTATION_MOTOR_SPEED);
-      if(getUpperLimitSwitch() || getEncoderPosition() < Constants.INTAKE_UPPER_ENCODER_VALUE){
+      
+      if(getUpperLimitSwitch() || getEncoderPosition() <= Constants.INTAKE_UPPER_ENCODER_VALUE){
         raisingIntake = false;
         intakeRotationMotorRaised = true;
+        intakeRotationMotor.set(0.0);
       }
       
     }
     else if(loweringIntake){
-      intakeRotationMotor.set(Constants.INTAKE_ROTATION_MOTOR_SPEED);
-      if(getLowerLimitSwitch() || getEncoderPosition() > Constants.INTAKE_LOWER_ENCODER_VALUE){
+      
+      if(getLowerLimitSwitch() || getEncoderPosition() >= Constants.INTAKE_LOWER_ENCODER_VALUE){
         loweringIntake = false;
         intakeRotationMotorRaised = false;
+        intakeRotationMotor.set(0.0);
+        setSpeedIntake(Constants.INTAKE_MOTOR_SPEED);
       }
     }
 
