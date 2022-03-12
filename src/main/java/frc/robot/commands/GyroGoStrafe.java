@@ -13,7 +13,7 @@ import frc.robot.subsystems.Drivetrain;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class GyroGoStraight extends CommandBase {
+public class GyroGoStrafe extends CommandBase {
   /** Creates a new GyroGoStraight. */
   private final Drivetrain m_drivetrain;
   private final double m_distance;
@@ -26,16 +26,16 @@ public class GyroGoStraight extends CommandBase {
   private final double m_positionAdjustment;
   private double speed;
 
-  public GyroGoStraight(Drivetrain drivetrain, String direction, double distance) {
+  public GyroGoStrafe(Drivetrain drivetrain, String direction, double distance) {
         m_angleController = new PIDController(Constants.DRIVETRAIN_ROTATIONAL_KP,Constants.DRIVETRAIN_ROTATIONAL_KI,Constants.DRIVETRAIN_ROTAIONAL_KD);
         m_positionController = new PIDController(Constants.DRIVETRAIN_KP, Constants.DRIVETRAIN_KI, Constants.DRIVETRAIN_KD);
     // Use addRequirements() here to declare subsystem dependencies.
       m_drivetrain = drivetrain;
       finished = false;
-      if(direction.equals("forward") || direction.equals("Forward")){
+      if(direction.equals("left") || direction.equals("Left")){
         m_direction = 1;
       }
-      else if(direction.equals("backward") || direction.equals("Backward")){
+      else if(direction.equals("right") || direction.equals("Right")){
         m_direction = -1;
       }
       else{
@@ -64,7 +64,7 @@ public class GyroGoStraight extends CommandBase {
     m_angleAddjustment = m_angleController.calculate(m_drivetrain.getGyro());
     speed = (m_positionController.calculate(Units.inchesToMeters(m_drivetrain.getAverageEncoderPosition())));
     if(!finished){
-    m_drivetrain.setSpeeds(speed-m_angleAddjustment, speed+m_angleAddjustment, speed-m_angleAddjustment, speed+m_angleAddjustment);
+    m_drivetrain.setSpeeds(speed-m_angleAddjustment, -speed+m_angleAddjustment,speed-m_angleAddjustment, -speed+m_angleAddjustment);
     if(m_positionController.atSetpoint()){
       finished = true;
     }
