@@ -63,7 +63,7 @@ public class ShuffleboardInfo {
         ShuffleboardLayout drivetrainRightLayout = testTab.getLayout("Drivetrain Right", BuiltInLayouts.kList).withPosition(4,0).withSize(1, 1).withProperties(Map.of("Label position", "HIDDEN"));
         ShuffleboardLayout towerLayout = testTab.getLayout("Tower", BuiltInLayouts.kList).withPosition(2,0).withSize(1, 6);
         ShuffleboardLayout shooterLayout = testTab.getLayout("Shooter", BuiltInLayouts.kList).withPosition(6, 0).withSize(1, 2).withProperties(Map.of("Label position", "HIDDEN"));
-        ShuffleboardLayout intakeLayout = testTab.getLayout("Intake", BuiltInLayouts.kList).withPosition(7, 0).withSize(1, 2);
+        ShuffleboardLayout intakeLayout = testTab.getLayout("Intake", BuiltInLayouts.kList).withPosition(7, 0).withSize(2, 4);
 
         // Create the layout for the Command buttons that are used for testing
         commandLayout = testTab.getLayout("Commands", BuiltInLayouts.kList).withPosition(0, 0).withSize(2,8).withProperties(Map.of("Label position", "HIDDEN"));

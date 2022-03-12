@@ -15,6 +15,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import frc.robot.ShuffleboardInfo;
 
 public class Climber extends SubsystemBase {
  // private final PWMSparkMax leftClimber = new PWMSparkMax(Constants.LEFT_CLIMBER_PORT);
@@ -22,6 +23,8 @@ public class Climber extends SubsystemBase {
   private final CANSparkMax rightTopClimber = new CANSparkMax(Constants.RIGHT_TOP_CLIMBER_PORT, MotorType.kBrushless);
   private final CANSparkMax bottomClimber = new CANSparkMax(Constants.LEFT_BOTTOM_CLIMBER_PORT, MotorType.kBrushless);
   private final CANSparkMax leftTopClimber = new CANSparkMax(Constants.LEFT_TOP_CLIMBER_PORT, MotorType.kBrushless);
+  private final NetworkTableEntry climberTopSpeedEntry;
+  private final NetworkTableEntry climberBottomSpeedEntry;
   // private ShuffleboardTab tab = Shuffleboard.getTab("Debug");
   // private NetworkTableEntry leftClimberDisplay = tab.add("Left Climber Display: ", 0.0).getEntry();
   // private NetworkTableEntry rightClimberDisplay = tab.add("Right Climber Display: ", 0.0).getEntry();
@@ -36,6 +39,9 @@ public class Climber extends SubsystemBase {
     rightTopClimber.restoreFactoryDefaults();
     bottomClimber.restoreFactoryDefaults();
     leftTopClimber.restoreFactoryDefaults();
+
+    climberBottomSpeedEntry = ShuffleboardInfo.getInstance().getBottomClimbEntry();
+    climberTopSpeedEntry = ShuffleboardInfo.getInstance().getTopClimbEntry();
   }
 
   public void setSpeedTop(double speed){
@@ -64,6 +70,8 @@ public class Climber extends SubsystemBase {
 
   @Override
   public void periodic() {
+    climberBottomSpeedEntry.setDouble(getSpeedBottom());
+    climberTopSpeedEntry.setDouble(getSpeedTop());
     //leftClimberDisplay.setDouble(getSpeedLeft());
     //rightClimberDisplay.setDouble(getSpeedRight());
     //setSpeed(climberToggle.getSelected());

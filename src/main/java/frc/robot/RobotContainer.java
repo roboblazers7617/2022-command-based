@@ -44,6 +44,8 @@ public class RobotContainer {
    commandLayout = ShuffleboardInfo.getInstance().getCommandLayout();
    commandLayout.add(new RaiseBottomClimber(climber));
    commandLayout.add(new RaiseTopClimber(climber));
+   commandLayout.add(new LowerBottomClimber(climber));
+   commandLayout.add(new LowerTopClimber(climber));
    commandLayout.add(new ReverseTower(tower));
    commandLayout.add(new RunTower(tower));
    commandLayout.add(new LoadTower(tower));

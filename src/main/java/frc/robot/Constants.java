@@ -20,7 +20,8 @@ public final class Constants {
     public static final double INTAKE_MOTOR_SPEED = 0.4;
     public static final double HIGH_GEAR = 1;
     public static final double LOW_GEAR = .5;
-    public static final double CLIMBER_SPEED = 0.25;
+    public static final double UPPER_CLIMBER_SPEED = 0.25;
+    public static final double LOWER_CLIMBER_SPEED = 0.25;
     public static final double SHOOTER_MOTOR_VELOCITY = .3;
     public static final int AUTO_SPEED = 0;
     /**the speed relative to SHOOTER_MOTOR_SPEED that shooter will count as the minunum speed for shooterReady() */
