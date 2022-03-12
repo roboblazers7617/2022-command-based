@@ -19,7 +19,7 @@ public class Climber extends SubsystemBase {
   
   private final CANSparkMax rightTopClimber = new CANSparkMax(Constants.RIGHT_TOP_CLIMBER_PORT, MotorType.kBrushless);
   private final RelativeEncoder rightTopClimberEncoder;
-  private final CANSparkMax bottomClimber = new CANSparkMax(Constants.LEFT_BOTTOM_CLIMBER_PORT, MotorType.kBrushless);
+  private final CANSparkMax bottomClimber = new CANSparkMax(Constants.BOTTOM_CLIMBER_PORT, MotorType.kBrushless);
   private final RelativeEncoder bottomClimberEncoder;
   private final CANSparkMax leftTopClimber = new CANSparkMax(Constants.LEFT_TOP_CLIMBER_PORT, MotorType.kBrushless);
   private final RelativeEncoder leftTopClimberEncoder;
