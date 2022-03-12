@@ -37,12 +37,12 @@ public class LoadTower extends CommandBase {
   @Override
   public void execute() {
     //sensor to check if balls are in stored position
-    if(tower.getUpperSensor()){
+    if(tower.isBallHereUpper()){
         
       tower.setSpeedUpper(0);
     }
     
-      if(tower.getLowerSensor() && tower.getUpperSensor()){
+      if(tower.isBallHereLower() && tower.isBallHereUpper()){
         tower.setSpeedLower(0);
         finished = true;
       }

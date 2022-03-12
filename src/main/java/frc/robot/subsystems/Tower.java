@@ -51,12 +51,12 @@ public class Tower extends SubsystemBase {
     return lowerMotor.get();
   }
 
-  public boolean getUpperSensor() {
-    return false;//upperSensor.get();
+  public boolean isBallHereUpper() {
+    return !upperSensor.get();
   }
 
-  public boolean getLowerSensor() {
-    return false;//lowerSensor.get();
+  public boolean isBallHereLower() {
+    return !lowerSensor.get();
   }
 
   public void stop() {
@@ -69,8 +69,8 @@ public class Tower extends SubsystemBase {
     // This method will be called once per scheduler run
     towerUpperMotorEntry.setDouble(getSpeedUpper());
     towerLowerMotorEntry.setDouble(getSpeedLower());
-    towerUpperSensorEntry.setBoolean(getUpperSensor());
-    towerLowerSensorEntry.setBoolean(getLowerSensor());
+    towerUpperSensorEntry.setBoolean(isBallHereUpper());
+    towerLowerSensorEntry.setBoolean(isBallHereLower());
 
   }
 }
