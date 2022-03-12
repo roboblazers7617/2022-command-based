@@ -18,9 +18,9 @@ import frc.robot.Constants;
 
 public class Climber extends SubsystemBase {
  // private final PWMSparkMax leftClimber = new PWMSparkMax(Constants.LEFT_CLIMBER_PORT);
-  private final CANSparkMax rightBottomClimber = new CANSparkMax(Constants.RIGHT_BOTTOM_CLIMBER_PORT, MotorType.kBrushless);
+  
   private final CANSparkMax rightTopClimber = new CANSparkMax(Constants.RIGHT_TOP_CLIMBER_PORT, MotorType.kBrushless);
-  private final CANSparkMax leftBottomClimber = new CANSparkMax(Constants.LEFT_BOTTOM_CLIMBER_PORT, MotorType.kBrushless);
+  private final CANSparkMax bottomClimber = new CANSparkMax(Constants.LEFT_BOTTOM_CLIMBER_PORT, MotorType.kBrushless);
   private final CANSparkMax leftTopClimber = new CANSparkMax(Constants.LEFT_TOP_CLIMBER_PORT, MotorType.kBrushless);
   // private ShuffleboardTab tab = Shuffleboard.getTab("Debug");
   // private NetworkTableEntry leftClimberDisplay = tab.add("Left Climber Display: ", 0.0).getEntry();
@@ -32,9 +32,9 @@ public class Climber extends SubsystemBase {
     // climberToggle.setDefaultOption("un climb ", -0.1);
     // climberToggle.setDefaultOption("no climb no", 0.0);
     // tab.add(climberToggle);
-    rightBottomClimber.restoreFactoryDefaults();
+
     rightTopClimber.restoreFactoryDefaults();
-    leftBottomClimber.restoreFactoryDefaults();
+    bottomClimber.restoreFactoryDefaults();
     leftTopClimber.restoreFactoryDefaults();
   }
 
@@ -47,8 +47,8 @@ public class Climber extends SubsystemBase {
   }
 
   public void setSpeedBottom(double speed){
-    rightBottomClimber.set(speed);
-    leftBottomClimber.set(speed);
+
+    bottomClimber.set(speed);
   }
 
   
@@ -59,7 +59,7 @@ public class Climber extends SubsystemBase {
   }
   
   public double getSpeedBottom(){
-    return rightBottomClimber.get();
+    return bottomClimber.get();
   }
 
   @Override
