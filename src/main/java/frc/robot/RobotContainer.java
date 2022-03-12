@@ -87,7 +87,8 @@ public class RobotContainer {
 
      collectBallsButton.whenPressed(new LoadBalls(intake, tower));
      stopCollectBallsButton.whenPressed(new InstantCommand(tower::stop,tower).andThen(new ResetIntake(intake)));
-     runTowerManualButton.whenHeld(new RunTower(tower));
+     runTowerManualButton.whenHeld(new SpinShooter(shooter)).whenHeld(new RunTower(tower));
+     runTowerManualButton.whenReleased(new StopShooter(shooter));
      reverseTowerButton.whenHeld(new ReverseTower(tower));
      shootBallButton.whenHeld(new ShootBolls(shooter, tower));
      shootBallButton.whenReleased(new InstantCommand (() -> tower.setSpeedUpper(0),tower).andThen(new StopShooter(shooter)));    
