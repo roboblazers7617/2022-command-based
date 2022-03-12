@@ -18,6 +18,7 @@ public class LoadBalls extends SequentialCommandGroup {
   public LoadBalls(Intake intake, Tower tower) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
-    addCommands(new InstantCommand(() -> intake.setSpeedIntake(Constants.INTAKE_MOTOR_SPEED)), new LoadTower(tower),new InstantCommand(() -> intake.setSpeedIntake(0)));
+    
+    addCommands(new DeployIntake(intake), new LoadTower(tower), new ResetIntake(intake));
   }
 }

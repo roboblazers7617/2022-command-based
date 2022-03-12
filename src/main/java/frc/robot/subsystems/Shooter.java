@@ -70,7 +70,7 @@ public class Shooter extends SubsystemBase {
       shooterMotor.set(0.0);
     else{
       
-      double setPoint = speed * maxRPM;
+      double setPoint = speed;
       pidController.setReference(setPoint, CANSparkMax.ControlType.kVelocity);
       
     }
