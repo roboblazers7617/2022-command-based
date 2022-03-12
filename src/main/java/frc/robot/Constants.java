@@ -22,12 +22,12 @@ public final class Constants {
     public static final double LOW_GEAR = .5;
     public static final double UPPER_CLIMBER_SPEED = 0.25;
     public static final double LOWER_CLIMBER_SPEED = 0.25;
-    public static final double SHOOTER_MOTOR_VELOCITY = .3;
+    public static final double SHOOTER_SETPOINT = 1750;
     public static final int AUTO_SPEED = 0;
     /**the speed relative to SHOOTER_MOTOR_SPEED that shooter will count as the minunum speed for shooterReady() */
-    public static final double SHOOTER_MOTOR_TARGET_MIN = .95 * SHOOTER_MOTOR_VELOCITY;
+    public static final double SHOOTER_MOTOR_TARGET_MIN = .95 * SHOOTER_SETPOINT;
     /**the speed relative to SHOOTER_MOTOR_SPEED that shooter will count as the max speed for shooterReady() */
-    public static final double SHOOTER_MOTOR_TARGET_MAX = 1.05 * SHOOTER_MOTOR_VELOCITY;
+    public static final double SHOOTER_MOTOR_TARGET_MAX = 1.05 * SHOOTER_SETPOINT;
     //PWM Ports
     public static final int LOWER_TOWER_MOTOR = 7;
     public static final int UPPER_TOWER_MOTOR = 5;
@@ -97,5 +97,5 @@ public final class Constants {
     public static final double SHOOTER_kFF = 0.00018; 
     public static final double SHOOTER_kMaxOutput = 1; 
     public static final double SHOOTER_kMinOutput = -1;
-    public static final double SHOOTER_maxRPM = 1750;
+
 }

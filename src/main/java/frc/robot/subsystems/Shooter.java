@@ -25,8 +25,8 @@ public class Shooter extends SubsystemBase {
   private final CANSparkMax shooterMotor = new CANSparkMax(Constants.SHOOTER_PORT, MotorType.kBrushless);
   private final RelativeEncoder encoder;
   private final SparkMaxPIDController pidController;
-  public final double kP, kI, kD, kIz, kFF, kMaxOutput, kMinOutput, maxRPM;
-  private double shooterMotorSpeed;
+  public final double kP, kI, kD, kIz, kFF, kMaxOutput, kMinOutput;
+
 
 
  // private final RelativeEncoder encoder = shooterMotor.getEncoder();
@@ -41,7 +41,7 @@ public class Shooter extends SubsystemBase {
     shooterStateEntry = ShuffleboardInfo.getInstance().getShooterStateEntry();
     encoder = shooterMotor.getEncoder();
     pidController = shooterMotor.getPIDController();
-    shooterMotorSpeed = 0.0;
+
 
     kP = Constants.SHOOTER_kP; 
     kI = Constants.SHOOTER_kI;
@@ -50,7 +50,7 @@ public class Shooter extends SubsystemBase {
     kFF = Constants.SHOOTER_kFF; 
     kMaxOutput = Constants.SHOOTER_kMaxOutput; 
     kMinOutput = Constants.SHOOTER_kMinOutput;
-    maxRPM = Constants.SHOOTER_maxRPM;
+
 
     pidController.setP(kP);
     pidController.setI(kI);
@@ -65,7 +65,7 @@ public class Shooter extends SubsystemBase {
     tab.add(toggleShooter);*/
   }
   private void setVelocity(double speed){
-    shooterMotorSpeed = speed;
+
     if(speed == 0.0)
       shooterMotor.set(0.0);
     else{
@@ -77,7 +77,7 @@ public class Shooter extends SubsystemBase {
   }
 
   public void startShooter(){
-    setVelocity(Constants.SHOOTER_MOTOR_VELOCITY);
+    setVelocity(Constants.SHOOTER_SETPOINT);
   }
 
   public void stopShooter(){
@@ -85,7 +85,7 @@ public class Shooter extends SubsystemBase {
   }
 
   public double getSpeed(){
-    return shooterMotorSpeed;
+    return encoder.getVelocity();
   }
 
   /**returns whether shooter is at full speed */

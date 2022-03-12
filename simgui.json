@@ -35,12 +35,15 @@
       "/Shuffleboard/Debug/ToggleIntakeReverse": "Command",
       "/Shuffleboard/Debug/toggle intake rotation: ": "Command",
       "/Shuffleboard/Test/Commands/LoadTower": "Command",
+      "/Shuffleboard/Test/Commands/LowerBottomClimber": "Command",
+      "/Shuffleboard/Test/Commands/LowerTopClimber": "Command",
       "/Shuffleboard/Test/Commands/RaiseBottomClimber": "Command",
       "/Shuffleboard/Test/Commands/RaiseTopClimber": "Command",
       "/Shuffleboard/Test/Commands/ReverseTower": "Command",
       "/Shuffleboard/Test/Commands/RunTower": "Command",
       "/Shuffleboard/Test/Commands/ShootBolls": "Command",
       "/Shuffleboard/Test/Commands/SpinShooter": "Command",
+      "/Shuffleboard/Test/Commands/StopShooter": "Command",
       "/Shuffleboard/Test/Commands/ToggleIntakeRotation": "Command"
     }
   },

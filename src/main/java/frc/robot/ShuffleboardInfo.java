@@ -30,7 +30,7 @@ public class ShuffleboardInfo {
     private  final ShuffleboardTab testTab;
    
     // Create NetworkTableEntry for each data that is to be tracked/displayed
-    private final NetworkTableEntry bottomClimbEntry, topClimbEntry;
+    private final NetworkTableEntry bottomClimbEntry, topRightClimbEntry, topLeftClimbEntry;
     private final NetworkTableEntry drivetrainLeftFrontMotorEntry, drivetrainLeftRearMotorEntry, drivetrainRightFrontMotorEntry, drivetrainRightRearMotorEntry;
     private final NetworkTableEntry towerUpperMotorEntry, towerLowerMotorEntry, towerLowerSensorEntry, towerUpperSensorEntry;
     private final NetworkTableEntry shooterMotorEntry, shooterStateEntry;
@@ -69,7 +69,8 @@ public class ShuffleboardInfo {
         commandLayout = testTab.getLayout("Commands", BuiltInLayouts.kList).withPosition(0, 0).withSize(2,8).withProperties(Map.of("Label position", "HIDDEN"));
  
         // Climber Entries
-        topClimbEntry = climberLayout.add("Climb Top", 0).getEntry();
+        topRightClimbEntry = climberLayout.add("Climb Top Right", 0).getEntry();
+        topLeftClimbEntry = climberLayout.add("Climb Top Left", 0).getEntry();
         bottomClimbEntry = climberLayout.add("Climb Bottom", 0).getEntry();
  
         // Tower
@@ -114,8 +115,11 @@ public class ShuffleboardInfo {
     public NetworkTableEntry getBottomClimbEntry() {
         return bottomClimbEntry;
     }
-    public NetworkTableEntry getTopClimbEntry() {
-        return topClimbEntry;
+    public NetworkTableEntry getTopRightClimbEntry() {
+        return topRightClimbEntry;
+    }
+    public NetworkTableEntry getTopLeftClimbEntry() {
+        return topLeftClimbEntry;
     }
      public NetworkTableEntry getDrivetrainLeftFrontMotorEntry() {
         return drivetrainLeftFrontMotorEntry;

@@ -5,14 +5,11 @@
 package frc.robot.subsystems;
 
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.RelativeEncoder;
+import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.networktables.NetworkTableEntry;
-import edu.wpi.first.wpilibj.motorcontrol.PWMSparkMax;
-import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
-import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
-import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.ShuffleboardInfo;
@@ -21,10 +18,15 @@ public class Climber extends SubsystemBase {
  // private final PWMSparkMax leftClimber = new PWMSparkMax(Constants.LEFT_CLIMBER_PORT);
   
   private final CANSparkMax rightTopClimber = new CANSparkMax(Constants.RIGHT_TOP_CLIMBER_PORT, MotorType.kBrushless);
+  private final RelativeEncoder rightTopClimberEncoder;
   private final CANSparkMax bottomClimber = new CANSparkMax(Constants.LEFT_BOTTOM_CLIMBER_PORT, MotorType.kBrushless);
+  private final RelativeEncoder bottomClimberEncoder;
   private final CANSparkMax leftTopClimber = new CANSparkMax(Constants.LEFT_TOP_CLIMBER_PORT, MotorType.kBrushless);
-  private final NetworkTableEntry climberTopSpeedEntry;
+  private final RelativeEncoder leftTopClimberEncoder;
+  private final NetworkTableEntry climberTopLeftSpeedEntry;
+  private final NetworkTableEntry climberTopRightSpeedEntry;
   private final NetworkTableEntry climberBottomSpeedEntry;
+  
   // private ShuffleboardTab tab = Shuffleboard.getTab("Debug");
   // private NetworkTableEntry leftClimberDisplay = tab.add("Left Climber Display: ", 0.0).getEntry();
   // private NetworkTableEntry rightClimberDisplay = tab.add("Right Climber Display: ", 0.0).getEntry();
@@ -39,17 +41,28 @@ public class Climber extends SubsystemBase {
     rightTopClimber.restoreFactoryDefaults();
     bottomClimber.restoreFactoryDefaults();
     leftTopClimber.restoreFactoryDefaults();
+    
+    rightTopClimber.setIdleMode(IdleMode.kBrake);
+    bottomClimber.setIdleMode(IdleMode.kBrake);
+    leftTopClimber.setIdleMode(IdleMode.kBrake);
+
+    rightTopClimber.setInverted(true);
+
+    leftTopClimberEncoder = leftTopClimber.getEncoder();
+    rightTopClimberEncoder = rightTopClimber.getEncoder();
+    bottomClimberEncoder = bottomClimber.getEncoder();
 
     climberBottomSpeedEntry = ShuffleboardInfo.getInstance().getBottomClimbEntry();
-    climberTopSpeedEntry = ShuffleboardInfo.getInstance().getTopClimbEntry();
+    climberTopRightSpeedEntry = ShuffleboardInfo.getInstance().getTopRightClimbEntry();
+    climberTopLeftSpeedEntry = ShuffleboardInfo.getInstance().getTopRightClimbEntry();
   }
 
   public void setSpeedTop(double speed){
-    SmartDashboard.putNumber("Climber speed bghhf", speed);
+
    // leftClimber.set(speed);
     rightTopClimber.set(speed);
     leftTopClimber.set(speed);
-  //  SmartDashboard.putNumber("LeftClimber Speed Read", leftClimber.get());
+
   }
 
   public void setSpeedBottom(double speed){
@@ -59,19 +72,25 @@ public class Climber extends SubsystemBase {
 
   
 
-  public double getSpeedTop(){
-  //  return leftClimber.get();
-  return rightTopClimber.get();
+  public double getSpeedTopRight(){
+    //  return leftClimber.get();
+    return rightTopClimberEncoder.getVelocity();
+  }
+
+  public double getSpeedTopLeft(){
+    //  return leftClimber.get();
+    return leftTopClimberEncoder.getVelocity();
   }
   
   public double getSpeedBottom(){
-    return bottomClimber.get();
+    return bottomClimberEncoder.getVelocity();
   }
 
   @Override
   public void periodic() {
     climberBottomSpeedEntry.setDouble(getSpeedBottom());
-    climberTopSpeedEntry.setDouble(getSpeedTop());
+    climberTopRightSpeedEntry.setDouble(getSpeedTopRight());
+    climberTopLeftSpeedEntry.setDouble(getSpeedTopLeft());
     //leftClimberDisplay.setDouble(getSpeedLeft());
     //rightClimberDisplay.setDouble(getSpeedRight());
     //setSpeed(climberToggle.getSelected());

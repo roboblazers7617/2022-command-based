@@ -62,7 +62,7 @@ public class Intake extends SubsystemBase {
     intakeRotationMotorSpeedEntry = ShuffleboardInfo.getInstance().getIntakeRotationMotorSpeed();
     intakeUpperLimitSwitchEntry = ShuffleboardInfo.getInstance().getIntakeUpperLimitSwitch();
     intakeLowerLimitSwitchEntry = ShuffleboardInfo.getInstance().getIntakeLowerLimitSwich();
-    tab.add("toggle intake rotation: ", new ToggleIntakeRotation(this));
+
     upperLimitSwitch = new DigitalInput(Constants.INTAKE_LIMIT_UPPER_PORT);
     lowerLimitSwitch = new DigitalInput(Constants.INTAKE_LIMIT_LOWER_PORT);
     fakeEncoderPosition = 0.0;
@@ -123,8 +123,9 @@ public class Intake extends SubsystemBase {
     
     // intakeRotationMotorRaised = true;
     raisingIntake = true;
-    intakeRotationMotor.set(-Constants.INTAKE_ROTATION_MOTOR_SPEED);
     setSpeedIntake(0.0);
+    intakeRotationMotor.set(-Constants.INTAKE_ROTATION_MOTOR_SPEED);
+    
 
   }
 
@@ -145,13 +146,13 @@ public class Intake extends SubsystemBase {
     //return fakeEncoderPosition;
     return encoder.getPosition();
   }
-
-  private boolean getUpperLimitSwitch(){
+  /**intake is raised */
+  private boolean isUpperLimitSwitchTriped(){
     //return false;
     return upperLimitSwitch.get();
   }
 
-  private boolean getLowerLimitSwitch(){
+  private boolean isLowerLimitSwitchTriped(){
     //return false;
     return lowerLimitSwitch.get();
   }
@@ -170,7 +171,7 @@ public class Intake extends SubsystemBase {
     //raise intake
     if(raisingIntake){
       
-      if(getUpperLimitSwitch() || getEncoderPosition() <= Constants.INTAKE_UPPER_ENCODER_VALUE){
+      if(isUpperLimitSwitchTriped() || getEncoderPosition() <= Constants.INTAKE_UPPER_ENCODER_VALUE){
         raisingIntake = false;
         intakeRotationMotorRaised = true;
         intakeRotationMotor.set(0.0);
@@ -179,7 +180,7 @@ public class Intake extends SubsystemBase {
     }
     else if(loweringIntake){
       
-      if(getLowerLimitSwitch() || getEncoderPosition() >= Constants.INTAKE_LOWER_ENCODER_VALUE){
+      if(isLowerLimitSwitchTriped() || getEncoderPosition() >= Constants.INTAKE_LOWER_ENCODER_VALUE){
         loweringIntake = false;
         intakeRotationMotorRaised = false;
         intakeRotationMotor.set(0.0);
