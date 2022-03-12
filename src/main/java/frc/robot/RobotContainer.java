@@ -50,6 +50,8 @@ public class RobotContainer {
    commandLayout.add(new SpinShooter(shooter));
    commandLayout.add(new ShootBolls(shooter, tower));
    commandLayout.add(new ToggleIntakeRotation(intake));
+   commandLayout.add(new StopShooter(shooter));
+
  //  tower.setDefaultCommand( new RunCommand(tower::stop, tower));  
    //intake.setDefaultCommand(new ResetIntakeForever(intake));
   }
@@ -86,7 +88,7 @@ public class RobotContainer {
      runTowerManualButton.whenHeld(new RunTower(tower));
      reverseTowerButton.whenHeld(new ReverseTower(tower));
      shootBallButton.whenHeld(new ShootBolls(shooter, tower));
-     shootBallButton.whenReleased(new InstantCommand (() -> tower.setSpeedUpper(0),tower));    
+     shootBallButton.whenReleased(new InstantCommand (() -> tower.setSpeedUpper(0),tower).andThen(new StopShooter(shooter)));    
   }
 
 public Command getTeleOpDrive(){
