@@ -87,15 +87,16 @@ public class RobotContainer {
 
      collectBallsButton.whenPressed(new LoadBalls(intake, tower));
      stopCollectBallsButton.whenPressed(new InstantCommand(tower::stop,tower).andThen(new ResetIntake(intake)));
-     runTowerManualButton.whenHeld(new SpinShooter(shooter)).whenHeld(new RunTower(tower));
-     runTowerManualButton.whenReleased(new StopShooter(shooter));
-     reverseTowerButton.whenHeld(new ReverseTower(tower));
+     runTowerManualButton.whenHeld(new RunTower(tower)).whenHeld(new InstantCommand(()->intake.setSpeedIntake(Constants.INTAKE_MOTOR_SPEED), intake))
+     .whenReleased(new InstantCommand(() ->intake.setSpeedIntake(0)));
+     reverseTowerButton.whenHeld(new ReverseTower(tower)).whenHeld(new InstantCommand(()->intake.setSpeedIntake(-Constants.INTAKE_MOTOR_SPEED), intake))
+     .whenReleased(new InstantCommand(() ->intake.setSpeedIntake(0)));
      shootBallButton.whenHeld(new ShootBolls(shooter, tower));
      shootBallButton.whenReleased(new InstantCommand (() -> tower.setSpeedUpper(0),tower).andThen(new StopShooter(shooter)));    
   }
 
 public Command getTeleOpDrive(){
-    return new RunCommand(() -> drivetrain.drive(driverController.getLeftY(),driverController.getLeftX(),driverController.getRightX()), drivetrain);
+    return new RunCommand(() -> drivetrain.drive(driverController.getLeftY(),driverController.getLeftX(),-driverController.getRightX()), drivetrain);
   }
 
   /**

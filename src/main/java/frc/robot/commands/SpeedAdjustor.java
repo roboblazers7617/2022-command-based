@@ -23,13 +23,13 @@ public class SpeedAdjustor extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_drivetrain.setMaxSpeed(Constants.HIGH_GEAR);
+    m_drivetrain.setMaxSpeed(Constants.LOW_GEAR);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    m_drivetrain.setMaxSpeed(Constants.LOW_GEAR);
+    m_drivetrain.setMaxSpeed(Constants.HIGH_GEAR);
   }
 
   // Returns true when the command should end.

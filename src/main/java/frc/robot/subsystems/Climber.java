@@ -57,11 +57,11 @@ public class Climber extends SubsystemBase {
     climberTopLeftSpeedEntry = ShuffleboardInfo.getInstance().getTopRightClimbEntry();
   }
 
-  public void setSpeedTop(double speed){
+  public void setSpeedTop(double leftSpeed, double rightSpeed){
 
    // leftClimber.set(speed);
-    rightTopClimber.set(speed);
-    leftTopClimber.set(speed);
+    rightTopClimber.set(rightSpeed);
+    leftTopClimber.set(leftSpeed);
 
   }
 

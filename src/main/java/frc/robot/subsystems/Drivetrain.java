@@ -42,7 +42,7 @@ public class Drivetrain extends SubsystemBase {
     leftBackMotor.setIdleMode(IdleMode.kCoast);
     rightBackMotor.setIdleMode(IdleMode.kCoast);
     drivetrain = new MecanumDrive(leftFrontMotor, leftBackMotor, rightFrontMotor, rightBackMotor);
-    drivetrain.setMaxOutput(Constants.LOW_GEAR);
+    drivetrain.setMaxOutput(Constants.HIGH_GEAR);
     gyro.calibrate();
     gyro.reset();
   }

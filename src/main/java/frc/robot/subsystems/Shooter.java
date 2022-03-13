@@ -35,7 +35,7 @@ public class Shooter extends SubsystemBase {
   /** Creates a new Shooter. */
   public Shooter() {
     shooterMotor.restoreFactoryDefaults();
-    shooterMotor.setInverted(false);
+    shooterMotor.setInverted(true);
     shooterMotor.setIdleMode(IdleMode.kCoast);
     shooterMotorEntry = ShuffleboardInfo.getInstance().getShooterMotorEntry();
     shooterStateEntry = ShuffleboardInfo.getInstance().getShooterStateEntry();

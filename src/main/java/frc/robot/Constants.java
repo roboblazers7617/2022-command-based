@@ -16,11 +16,13 @@ public final class Constants {
 
 
     //Speeds
-    public static final double TOWER_SPEED = 0.6;
-    public static final double INTAKE_MOTOR_SPEED = 0.4;
-    public static final double HIGH_GEAR = 1;
-    public static final double LOW_GEAR = .5;
-    public static final double UPPER_CLIMBER_SPEED = 0.25;
+    public static final double TOWER_SPEED = 0.25;
+    public static final double UPPER_TOWER_SPEED = .75;
+    public static final double INTAKE_MOTOR_SPEED = 0.6;
+    public static final double LOW_GEAR = .25;
+    public static final double HIGH_GEAR = .5;
+    public static final double RIGHT_UPPER_CLIMBER_SPEED = 0.6;
+    public static final double LEFT_UPPER_CLIMBER_SPEED = .75;
     public static final double LOWER_CLIMBER_SPEED = 0.25;
     public static final double SHOOTER_SETPOINT = 1750;
     public static final int AUTO_SPEED = 0;
@@ -28,16 +30,17 @@ public final class Constants {
     public static final double SHOOTER_MOTOR_TARGET_MIN = .95 * SHOOTER_SETPOINT;
     /**the speed relative to SHOOTER_MOTOR_SPEED that shooter will count as the max speed for shooterReady() */
     public static final double SHOOTER_MOTOR_TARGET_MAX = 1.05 * SHOOTER_SETPOINT;
+    public static final double INTAKE_ROTATION_MOTOR_SPEED = 0.5;   
     //PWM Ports
     
     public static final int INTAKE_PORT = 5;
 
     
     //CAN Ports
-    public static final int LEFT_FRONT_WHEEL_PORT = 6;
-    public static final int RIGHT_FRONT_WHEEL_PORT = 7;
-    public static final int LEFT_BACK_WHEEL_PORT = 9;
-    public static final int RIGHT_BACK_WHEEL_PORT =9;
+    public static final int LEFT_FRONT_WHEEL_PORT = 8;
+    public static final int RIGHT_FRONT_WHEEL_PORT = 9;
+    public static final int LEFT_BACK_WHEEL_PORT = 7;
+    public static final int RIGHT_BACK_WHEEL_PORT =6;
     public static final int INTAKE_ROTATION_PORT = 10;
     public static final int SHOOTER_PORT = 1;
     public static final int BOTTOM_CLIMBER_PORT = 4;
@@ -53,7 +56,6 @@ public final class Constants {
     public static final int INTAKE_LIMIT_LOWER_PORT = 4;
 
     
-    public static final double INTAKE_ROTATION_MOTOR_SPEED = 0.25;
     public static final double INTAKE_ROTATION_MOTOR_DISTANCE = 0.25;
     
     //Controller Ports
@@ -85,7 +87,8 @@ public final class Constants {
     public static final double DRIVETRAIN_ROTATIONAL_KI = 0;
     public static final double DRIVETRAIN_ROTAIONAL_KD = 0;
 
-    public static final double INTAKE_LOWER_ENCODER_VALUE = 0;
+    //Intake Data
+    public static final double INTAKE_LOWER_ENCODER_VALUE = -13;
     public static final double INTAKE_UPPER_ENCODER_VALUE = 0;
     
     //PID Values

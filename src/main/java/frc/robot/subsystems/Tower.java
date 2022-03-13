@@ -4,6 +4,11 @@
 
 package frc.robot.subsystems;
 
+import com.fasterxml.jackson.annotation.JsonTypeInfo.Id;
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMax.IdleMode;
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.motorcontrol.PWMVictorSPX;
@@ -15,15 +20,19 @@ public class Tower extends SubsystemBase {
   private final NetworkTableEntry towerUpperMotorEntry, towerLowerMotorEntry, towerLowerSensorEntry,
       towerUpperSensorEntry;
 
-  private final PWMVictorSPX lowerMotor = new PWMVictorSPX(Constants.LOWER_TOWER_MOTOR);
-  private final PWMVictorSPX upperMotor = new PWMVictorSPX(Constants.UPPER_TOWER_MOTOR);
+  private final CANSparkMax lowerMotor = new CANSparkMax(Constants.LOWER_TOWER_MOTOR,MotorType.kBrushless);
+  private final CANSparkMax upperMotor = new CANSparkMax(Constants.UPPER_TOWER_MOTOR,MotorType.kBrushless);
 
   private DigitalInput lowerSensor = new DigitalInput(Constants.LOWER_SENSOR_PORT_INPUT);
   private DigitalInput upperSensor = new DigitalInput(Constants.UPPER_SENSOR_PORT_INPUT);
 
   public Tower() {
+    lowerMotor.restoreFactoryDefaults();
+    upperMotor.restoreFactoryDefaults();
     lowerMotor.setInverted(true);
     upperMotor.setInverted(true);
+    lowerMotor.setIdleMode(IdleMode.kBrake);
+    upperMotor.setIdleMode(IdleMode.kBrake);
     towerUpperMotorEntry = ShuffleboardInfo.getInstance().getTowerUpperMotorEntry();
     towerLowerMotorEntry = ShuffleboardInfo.getInstance().getTowerLowerMotorEntry();
     towerUpperSensorEntry = ShuffleboardInfo.getInstance().getTowerUpperMotorEntry();
@@ -52,11 +61,11 @@ public class Tower extends SubsystemBase {
   }
 
   public boolean isBallHereUpper() {
-    return !upperSensor.get();
+    return upperSensor.get();
   }
 
   public boolean isBallHereLower() {
-    return !lowerSensor.get();
+    return lowerSensor.get();
   }
 
   public void stop() {

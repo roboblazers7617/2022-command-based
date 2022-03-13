@@ -53,7 +53,7 @@ public class Intake extends SubsystemBase {
     intakeMotor.setInverted(true);
     intakeRotationMotor.setInverted(true);
     intakeRotationMotorRaised = true;
-    intakeRotationMotor.setIdleMode(IdleMode.kBrake);
+    intakeRotationMotor.setIdleMode(IdleMode.kCoast);
     //intakeMotor.setIdleMode(IdleMode.kCoast);
     raisingIntake = false;
     loweringIntake = false;
@@ -65,6 +65,7 @@ public class Intake extends SubsystemBase {
 
     upperLimitSwitch = new DigitalInput(Constants.INTAKE_LIMIT_UPPER_PORT);
     lowerLimitSwitch = new DigitalInput(Constants.INTAKE_LIMIT_LOWER_PORT);
+    encoder.setPosition(0);
     fakeEncoderPosition = 0.0;
 
     
@@ -171,7 +172,7 @@ public class Intake extends SubsystemBase {
     //raise intake
     if(raisingIntake){
       
-      if(isUpperLimitSwitchTriped() || getEncoderPosition() <= Constants.INTAKE_UPPER_ENCODER_VALUE){
+      if(isUpperLimitSwitchTriped() || getEncoderPosition() >= Constants.INTAKE_UPPER_ENCODER_VALUE){
         raisingIntake = false;
         intakeRotationMotorRaised = true;
         intakeRotationMotor.set(0.0);
@@ -180,7 +181,7 @@ public class Intake extends SubsystemBase {
     }
     else if(loweringIntake){
       
-      if(isLowerLimitSwitchTriped() || getEncoderPosition() >= Constants.INTAKE_LOWER_ENCODER_VALUE){
+      if(isLowerLimitSwitchTriped() || getEncoderPosition() <= Constants.INTAKE_LOWER_ENCODER_VALUE){
         loweringIntake = false;
         intakeRotationMotorRaised = false;
         intakeRotationMotor.set(0.0);
