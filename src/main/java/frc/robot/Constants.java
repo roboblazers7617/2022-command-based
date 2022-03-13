@@ -76,7 +76,7 @@ public final class Constants {
     public static final int REVERSE_TOWER_BUTTON = 1; //green button
     //Intake data
     //public static final double GEAR_RATIO_INTAKE_LIFT = (15/54)*(1/20);
-    public static final int ANGLE_INTAKE_DEPLOY = 80;
+    //public static final int ANGLE_INTAKE_DEPLOY = 80;
     //Drivetrain Data
     public static final double DRIVETRAIN_KP = 0;
     public static final double DRIVETRAIN_KI = 0;
@@ -88,7 +88,9 @@ public final class Constants {
     public static final double DRIVETRAIN_ROTAIONAL_KD = 0;
 
     //Intake Data
-    public static final double INTAKE_LOWER_ENCODER_VALUE = -13;
+    //this is the value for the intake rotation motor being down SHOULD BE HIGHER
+    public static final double INTAKE_LOWER_ENCODER_VALUE = 13;
+    //this is the value for the intake rotation motor being up SHOULD BE LOWER
     public static final double INTAKE_UPPER_ENCODER_VALUE = 0;
     
     //PID Values
