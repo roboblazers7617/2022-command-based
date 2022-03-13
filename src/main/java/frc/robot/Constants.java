@@ -21,8 +21,8 @@ public final class Constants {
     public static final double INTAKE_MOTOR_SPEED = 0.6;
     public static final double LOW_GEAR = .25;
     public static final double HIGH_GEAR = .5;
-    public static final double RIGHT_UPPER_CLIMBER_SPEED = 0.6;
-    public static final double LEFT_UPPER_CLIMBER_SPEED = .75;
+    public static final double RIGHT_UPPER_CLIMBER_SPEED = 0.7;
+    public static final double LEFT_UPPER_CLIMBER_SPEED = .85;
     public static final double LOWER_CLIMBER_SPEED = 0.25;
     public static final double SHOOTER_SETPOINT = 1750;
     public static final int AUTO_SPEED = 0;
