@@ -123,9 +123,11 @@ public class Intake extends SubsystemBase {
     // intakeRotationMotor.setSoftLimit(CANSparkMax.SoftLimitDirection.kReverse, (float) Constants.INTAKE_ROTATION_MOTOR_DISTANCE);
     
     // intakeRotationMotorRaised = true;
-    raisingIntake = true;
-    setSpeedIntake(0.0);
-    intakeRotationMotor.set(-Constants.INTAKE_ROTATION_MOTOR_SPEED);
+    if(!intakeRotationMotorRaised){
+      raisingIntake = true;
+      setSpeedIntake(0.0);
+      intakeRotationMotor.set(-Constants.INTAKE_ROTATION_MOTOR_SPEED);
+    }
     
 
   }
@@ -138,8 +140,10 @@ public class Intake extends SubsystemBase {
     // intakeRotationMotor.enableSoftLimit(CANSparkMax.SoftLimitDirection.kForward, true);
     // intakeRotationMotor.setSoftLimit(CANSparkMax.SoftLimitDirection.kForward, (float) 0.0);
     // intakeRotationMotorRaised = false;
-    loweringIntake = true;
-    intakeRotationMotor.set(Constants.INTAKE_ROTATION_MOTOR_SPEED);
+    if(intakeRotationMotorRaised){
+      loweringIntake = true;
+      intakeRotationMotor.set(Constants.INTAKE_ROTATION_MOTOR_SPEED);
+    }
 
   }
   /**returns the encoder position for the intake rotation motor except for when testing */
