@@ -23,8 +23,8 @@ public class Tower extends SubsystemBase {
   private final CANSparkMax lowerMotor = new CANSparkMax(Constants.LOWER_TOWER_MOTOR,MotorType.kBrushless);
   private final CANSparkMax upperMotor = new CANSparkMax(Constants.UPPER_TOWER_MOTOR,MotorType.kBrushless);
 
-  private DigitalInput lowerSensor = new DigitalInput(Constants.LOWER_SENSOR_PORT_INPUT);
-  private DigitalInput upperSensor = new DigitalInput(Constants.UPPER_SENSOR_PORT_INPUT);
+  public final DigitalInput lowerSensor = new DigitalInput(Constants.LOWER_SENSOR_PORT_INPUT);
+  public final DigitalInput upperSensor = new DigitalInput(Constants.UPPER_SENSOR_PORT_INPUT);
 
   public Tower() {
     lowerMotor.restoreFactoryDefaults();

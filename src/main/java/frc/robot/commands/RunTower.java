@@ -22,7 +22,7 @@ public class RunTower extends CommandBase {
   @Override
   public void initialize() {
     m_tower.setSpeedLower(Constants.TOWER_SPEED);
-    m_tower.setSpeedUpper(Constants.TOWER_SPEED);
+    m_tower.setSpeedUpper(Constants.UPPER_TOWER_SPEED);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
