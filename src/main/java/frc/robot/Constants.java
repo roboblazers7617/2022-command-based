@@ -45,13 +45,12 @@ public final class Constants {
     public static final int CLIMBER_BOTTOM_FORWARD_BUTTON = 3;  // blue button
     public static final int CLIMBER_BOTTOM_BACKWARD_BUTTON = 1; //green button
     public static final int SPEED_ADJUSTOR_TRIGGER = 5; // left bumper
-    //shooter controller button bindings
+    //shooter button bindings
     public static final int SHOOT_BOLL_BUTTON = 6;//right bumper
-    public static final int COLLECT_BALLS_BUTTON = 4; // yellow button
-    public static final int STOP_COLLECT_BALLS_BUTTON = 3; //blue button
-    public static final int RUN_TOWER_BUTTON = 2; //red button    
-    public static final int REVERSE_TOWER_BUTTON = 1; //green button
-    public static final int DEPLOY_INTAKE_BUTTON = 5; // left bumper
+    public static final int COLLECT_BALLS_BUTTON = 1; // green button
+    public static final int STOP_COLLECT_BALLS_BUTTON = 2; //red button
+    public static final int RUN_TOWER_BUTTON = 3; //blue button    
+    public static final int REVERSE_TOWER_BUTTON = 4; //yellow button
 
 
     
@@ -81,8 +80,6 @@ public final class Constants {
     public static final double INTAKE_MOTOR_SPEED = 0.4;
     //public static final double GEAR_RATIO_INTAKE_LIFT = (15/54)*(1/20);
     public static final int ANGLE_INTAKE_DEPLOY = 80;
-    /**this is the number of miliseconds the intake rotation motor will run before shutting off when using gravity deploy */
-    public static final int INTAKE_GRAVITY_LOWER_TIME = 500;
 
     //Shooter data
     public static final double SHOOTER_SETPOINT = 1750;
