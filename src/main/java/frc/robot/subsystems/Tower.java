@@ -78,8 +78,8 @@ public class Tower extends SubsystemBase {
     // This method will be called once per scheduler run
     towerUpperMotorEntry.setDouble(getSpeedUpper());
     towerLowerMotorEntry.setDouble(getSpeedLower());
-    towerUpperSensorEntry.setBoolean(isBallHereUpper());
-    towerLowerSensorEntry.setBoolean(isBallHereLower());
+    towerUpperSensorEntry.setBoolean(upperSensor.get());
+    towerLowerSensorEntry.setBoolean(lowerSensor.get());
 
   }
 }
