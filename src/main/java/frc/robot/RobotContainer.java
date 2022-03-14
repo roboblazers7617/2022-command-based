@@ -41,6 +41,7 @@ public class RobotContainer {
     // Configure the button bindings
     configureButtonBindings();
    drivetrain.setDefaultCommand(getTeleOpDrive());
+   tower.setDefaultCommand(new moveTowerIndividual(tower, shooterController::getLeftY, shooterController::getRightY));
    commandLayout = ShuffleboardInfo.getInstance().getCommandLayout();
    commandLayout.add(new RaiseBottomClimber(climber));
    commandLayout.add(new RaiseTopClimber(climber));
@@ -109,5 +110,5 @@ public Command getTeleOpDrive(){
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
     return autoCommand;
-  }
+  } 
 }
