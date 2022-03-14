@@ -45,12 +45,13 @@ public final class Constants {
     public static final int CLIMBER_BOTTOM_FORWARD_BUTTON = 3;  // blue button
     public static final int CLIMBER_BOTTOM_BACKWARD_BUTTON = 1; //green button
     public static final int SPEED_ADJUSTOR_TRIGGER = 5; // left bumper
-    //shooter button bindings
+    //shooter controller button bindings
     public static final int SHOOT_BOLL_BUTTON = 6;//right bumper
     public static final int COLLECT_BALLS_BUTTON = 4; // yellow button
     public static final int STOP_COLLECT_BALLS_BUTTON = 3; //blue button
     public static final int RUN_TOWER_BUTTON = 2; //red button    
     public static final int REVERSE_TOWER_BUTTON = 1; //green button
+    public static final int DEPLOY_INTAKE_BUTTON = 5; // left bumper
 
 
     
