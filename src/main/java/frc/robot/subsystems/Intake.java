@@ -109,6 +109,10 @@ public class Intake extends SubsystemBase {
     return loweringIntake;
   }
 
+  public boolean isIntakeGravityLowering(){
+    return gravityLoweringIntake;
+  }
+
   public void stopIntakeRotation(){
     intakeRotationMotor.set(0.0);
   }
