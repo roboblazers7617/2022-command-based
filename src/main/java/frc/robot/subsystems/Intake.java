@@ -125,7 +125,9 @@ public class Intake extends SubsystemBase {
     // intakeRotationMotorRaised = true;
     raisingIntake = true;
     setSpeedIntake(0.0);
-    intakeRotationMotor.set(-Constants.INTAKE_ROTATION_MOTOR_SPEED);
+
+    //Raising the instake is a positive direction
+    intakeRotationMotor.set(Constants.INTAKE_ROTATION_MOTOR_SPEED_UP);
     
 
   }
@@ -139,7 +141,9 @@ public class Intake extends SubsystemBase {
     // intakeRotationMotor.setSoftLimit(CANSparkMax.SoftLimitDirection.kForward, (float) 0.0);
     // intakeRotationMotorRaised = false;
     loweringIntake = true;
-    intakeRotationMotor.set(Constants.INTAKE_ROTATION_MOTOR_SPEED);
+
+    //Lowering the intake is a negative direction
+    intakeRotationMotor.set(-Constants.INTAKE_ROTATION_MOTOR_SPEED_DOWN);
 
   }
   /**returns the encoder position for the intake rotation motor except for when testing */
@@ -148,7 +152,7 @@ public class Intake extends SubsystemBase {
     return encoder.getPosition();
   }
   /**intake is raised */
-  private boolean isUpperLimitSwitchTriped(){
+  /*private boolean isUpperLimitSwitchTriped(){
     //return false;
     return upperLimitSwitch.get();
   }
@@ -157,11 +161,11 @@ public class Intake extends SubsystemBase {
     //return false;
     return lowerLimitSwitch.get();
   }
-
+*/
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    intakeRotationMotorPositionEntry.setDouble(getEncoderPosition());
+    intakeRotationMotorPositionEntry.setDouble(encoder.getPosition());
     intakeMotorSpeedEntry.setDouble(getSpeedIntake());
     intakeRotationMotorSpeedEntry.setDouble(encoder.getVelocity());
     intakeLowerLimitSwitchEntry.setBoolean(lowerLimitSwitch.get());
@@ -172,7 +176,7 @@ public class Intake extends SubsystemBase {
     //raise intake
     if(raisingIntake){
       
-      if(isUpperLimitSwitchTriped() || getEncoderPosition() >= Constants.INTAKE_UPPER_ENCODER_VALUE){
+      if(!upperLimitSwitch.get() || (getEncoderPosition() >= Constants.INTAKE_UPPER_ENCODER_VALUE)){
         raisingIntake = false;
         intakeRotationMotorRaised = true;
         intakeRotationMotor.set(0.0);
@@ -181,7 +185,7 @@ public class Intake extends SubsystemBase {
     }
     else if(loweringIntake){
       
-      if(isLowerLimitSwitchTriped() || getEncoderPosition() <= Constants.INTAKE_LOWER_ENCODER_VALUE){
+      if(!lowerLimitSwitch.get() || (getEncoderPosition() <= Constants.INTAKE_LOWER_ENCODER_VALUE)){
         loweringIntake = false;
         intakeRotationMotorRaised = false;
         intakeRotationMotor.set(0.0);

@@ -53,6 +53,8 @@ public class RobotContainer {
    commandLayout.add(new ShootBolls(shooter, tower));
    commandLayout.add(new ToggleIntakeRotation(intake));
    commandLayout.add(new StopShooter(shooter));
+   commandLayout.add(new DeployIntake(intake));
+   commandLayout.add(new ResetIntake(intake));
 
  //  tower.setDefaultCommand( new RunCommand(tower::stop, tower));  
    //intake.setDefaultCommand(new ResetIntakeForever(intake));
