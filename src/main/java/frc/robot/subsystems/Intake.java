@@ -37,6 +37,8 @@ public class Intake extends SubsystemBase {
   private DigitalInput lowerLimitSwitch;
   private boolean raisingIntake;
   private boolean loweringIntake;
+  private boolean gravityLoweringIntake;
+  private long timeUntilLowered;
   private ShuffleboardTab tab = Shuffleboard.getTab("Debug");
   //private NetworkTableEntry speedDisplay = tab.add("Intake Motor Speed: ", 0).getEntry();
   private final NetworkTableEntry intakeRotationMotorPositionEntry, intakeMotorSpeedEntry, intakeRotationMotorSpeedEntry, intakeUpperLimitSwitchEntry, intakeLowerLimitSwitchEntry;
@@ -57,6 +59,8 @@ public class Intake extends SubsystemBase {
     //intakeMotor.setIdleMode(IdleMode.kCoast);
     raisingIntake = false;
     loweringIntake = false;
+    gravityLoweringIntake = false;
+    timeUntilLowered = 0;
     intakeRotationMotorPositionEntry = ShuffleboardInfo.getInstance().getIntakeRotationMotorPosition();
     intakeMotorSpeedEntry = ShuffleboardInfo.getInstance().getIntakeMotorSpeed();
     intakeRotationMotorSpeedEntry = ShuffleboardInfo.getInstance().getIntakeRotationMotorSpeed();
@@ -110,7 +114,7 @@ public class Intake extends SubsystemBase {
   }
 
 
-  
+
 
   /** will raise the intake up within the robot */
   public void raiseIntake(){
@@ -124,6 +128,7 @@ public class Intake extends SubsystemBase {
     
     // intakeRotationMotorRaised = true;
     if(!intakeRotationMotorRaised){
+      intakeRotationMotor.setIdleMode(IdleMode.kBrake);
       raisingIntake = true;
       setSpeedIntake(0.0);
 
@@ -149,6 +154,14 @@ public class Intake extends SubsystemBase {
       intakeRotationMotor.set(-Constants.INTAKE_ROTATION_MOTOR_SPEED_DOWN);
     }
 
+  }
+
+  public void gravityLowerIntake(){
+    if(intakeRotationMotorRaised){
+      loweringIntake = true;
+      intakeRotationMotor.set(-Constants.INTAKE_ROTATION_MOTOR_SPEED_DOWN);
+      timeUntilLowered = System.currentTimeMillis() + Constants.INTAKE_GRAVITY_LOWER_TIME;
+    }
   }
   /**returns the encoder position for the intake rotation motor except for when testing */
   private double getEncoderPosition(){
@@ -193,7 +206,18 @@ public class Intake extends SubsystemBase {
         loweringIntake = false;
         intakeRotationMotorRaised = false;
         intakeRotationMotor.set(0.0);
-        setSpeedIntake(Constants.INTAKE_MOTOR_SPEED);
+        intakeRotationMotor.setIdleMode(IdleMode.kCoast);
+        
+      }
+    }
+    else if(gravityLoweringIntake){
+      if(timeUntilLowered <= System.currentTimeMillis()){
+        intakeRotationMotor.set(0.0);
+      }
+      if(!lowerLimitSwitch.get() || (getEncoderPosition() <= Constants.INTAKE_LOWER_ENCODER_VALUE)){
+        gravityLoweringIntake = false;
+        intakeRotationMotorRaised = false;
+
       }
     }
 

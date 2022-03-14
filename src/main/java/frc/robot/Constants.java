@@ -81,6 +81,8 @@ public final class Constants {
     public static final double INTAKE_MOTOR_SPEED = 0.4;
     //public static final double GEAR_RATIO_INTAKE_LIFT = (15/54)*(1/20);
     public static final int ANGLE_INTAKE_DEPLOY = 80;
+    /**this is the number of miliseconds the intake rotation motor will run before shutting off when using gravity deploy */
+    public static final int INTAKE_GRAVITY_LOWER_TIME = 500;
 
     //Shooter data
     public static final double SHOOTER_SETPOINT = 1750;
