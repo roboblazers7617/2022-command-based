@@ -51,6 +51,10 @@ public final class Constants {
     public static final int STOP_COLLECT_BALLS_BUTTON = 2; //red button
     public static final int RUN_TOWER_BUTTON = 3; //blue button    
     public static final int REVERSE_TOWER_BUTTON = 4; //yellow button
+    public static final int DEPLOY_INTAKE_BUTTON = 50;
+    public static final int RESET_INTAKE_BUTTON = 51;
+    public static final int RUN_INTAKE_BUTTON = 52;
+    public static final int REVERSE_INTAKE_BUTTON = 53;
 
 
     
@@ -80,6 +84,7 @@ public final class Constants {
     public static final double INTAKE_MOTOR_SPEED = 0.4;
     //public static final double GEAR_RATIO_INTAKE_LIFT = (15/54)*(1/20);
     public static final int ANGLE_INTAKE_DEPLOY = 80;
+    public static final int INTAKE_GRAVITY_LOWER_TIME = 500;
 
     //Shooter data
     public static final double SHOOTER_SETPOINT = 1750;

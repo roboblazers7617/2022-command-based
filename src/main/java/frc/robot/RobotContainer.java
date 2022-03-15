@@ -87,7 +87,11 @@ public class RobotContainer {
      JoystickButton runTowerManualButton = new JoystickButton(shooterController, Constants.RUN_TOWER_BUTTON);
      JoystickButton reverseTowerButton = new JoystickButton(shooterController, Constants.REVERSE_TOWER_BUTTON);
      JoystickButton shootBallButton = new JoystickButton(shooterController, Constants.SHOOT_BOLL_BUTTON);
-     JoystickButton deployIntakeButton = new JoystickButton(shooterController, Constants.DEPLOY_INTAKE_BUTTON);
+     JoystickButton resetIntakeButton = new JoystickButton(shooterController, Constants.RESET_INTAKE_BUTTON);
+     JoystickButton runIntakeButton = new JoystickButton(shooterController, Constants.RUN_INTAKE_BUTTON);
+     JoystickButton reverseIntakeButton = new JoystickButton(shooterController, Constants.REVERSE_INTAKE_BUTTON);
+     //JoystickButton deployIntakeButton = new JoystickButton(shooterController, Constants.DEPLOY_INTAKE_BUTTON);
+
 
      collectBallsButton.whenPressed(new LoadBalls(intake, tower));
      stopCollectBallsButton.whenPressed(new InstantCommand(tower::stop,tower).andThen(new ResetIntake(intake)));
@@ -97,7 +101,10 @@ public class RobotContainer {
      .whenReleased(new InstantCommand(() ->intake.setSpeedIntake(0)));
      shootBallButton.whenHeld(new ShootBolls(shooter, tower));
      shootBallButton.whenReleased(new InstantCommand (() -> tower.setSpeedUpper(0),tower).andThen(new StopShooter(shooter)));
-     deployIntakeButton.whenPressed(new DeployIntake(intake));    
+     resetIntakeButton.whenPressed(new ResetIntake(intake));
+     runIntakeButton.whileHeld(new RunIntake(intake));
+     reverseIntakeButton.whileHeld(new ReverseIntake(intake));
+     //deployIntakeButton.whenPressed(new DeployIntake(intake));    
   }
 
 public Command getTeleOpDrive(){
