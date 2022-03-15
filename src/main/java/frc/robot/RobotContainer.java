@@ -88,8 +88,8 @@ public class RobotContainer {
      JoystickButton reverseTowerButton = new JoystickButton(shooterController, Constants.REVERSE_TOWER_BUTTON);
      JoystickButton shootBallButton = new JoystickButton(shooterController, Constants.SHOOT_BOLL_BUTTON);
      JoystickButton resetIntakeButton = new JoystickButton(shooterController, Constants.RESET_INTAKE_BUTTON);
-     JoystickButton runIntakeButton = new JoystickButton(shooterController, Constants.RUN_INTAKE_BUTTON);
-     JoystickButton reverseIntakeButton = new JoystickButton(shooterController, Constants.REVERSE_INTAKE_BUTTON);
+     JoystickButton activateIntakeButton = new JoystickButton(shooterController, Constants.RUN_INTAKE_BUTTON);
+     JoystickButton stopIntakeButton = new JoystickButton(shooterController, Constants.REVERSE_INTAKE_BUTTON);
      //JoystickButton deployIntakeButton = new JoystickButton(shooterController, Constants.DEPLOY_INTAKE_BUTTON);
 
 
@@ -102,8 +102,8 @@ public class RobotContainer {
      shootBallButton.whenHeld(new ShootBolls(shooter, tower));
      shootBallButton.whenReleased(new InstantCommand (() -> tower.setSpeedUpper(0),tower).andThen(new StopShooter(shooter)));
      resetIntakeButton.whenPressed(new ResetIntake(intake));
-     runIntakeButton.whileHeld(new RunIntake(intake));
-     reverseIntakeButton.whileHeld(new ReverseIntake(intake));
+     activateIntakeButton.whenPressed(new ActivateIntake(intake));
+     stopIntakeButton.whenPressed(new StopIntake(intake));
      //deployIntakeButton.whenPressed(new DeployIntake(intake));    
   }
 
