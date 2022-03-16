@@ -88,9 +88,14 @@ public class RobotContainer {
      JoystickButton reverseTowerButton = new JoystickButton(shooterController, Constants.REVERSE_TOWER_BUTTON);
      JoystickButton shootBallButton = new JoystickButton(shooterController, Constants.SHOOT_BOLL_BUTTON);
      JoystickButton resetIntakeButton = new JoystickButton(shooterController, Constants.RESET_INTAKE_BUTTON);
-     JoystickButton activateIntakeButton = new JoystickButton(shooterController, Constants.RUN_INTAKE_BUTTON);
-     JoystickButton stopIntakeButton = new JoystickButton(shooterController, Constants.REVERSE_INTAKE_BUTTON);
-     //JoystickButton deployIntakeButton = new JoystickButton(shooterController, Constants.DEPLOY_INTAKE_BUTTON);
+     JoystickButton activateIntakeButton = new JoystickButton(shooterController, Constants.ACTIVATE_INTAKE_BUTTON);
+     JoystickButton stopIntakeButton = new JoystickButton(shooterController, Constants.STOP_INTAKE_BUTTON);
+     JoystickButton deployIntake = new JoystickButton(shooterController, Constants.DEPLOY_INTAKE_BUTTON);//MAY NOT WORK (TRIGGER)
+     JoystickButton gravityDeployIntake = new JoystickButton(shooterController, Constants.GRAVITY_DEPLOY_INTAKE_BUTTON);//MAY NOT WORK (TRIGGER)
+     JoystickButton shortArmUp = new JoystickButton(driverController, Constants.SHORT_ARM_UP_BUTTON);
+     JoystickButton shortArmDown = new JoystickButton(driverController, Constants.SHORT_ARM_DOWN_BUTTON);
+     JoystickButton longArmUp = new JoystickButton(driverController, Constants.LONG_ARM_UP_BUTTON);
+     
 
 
      collectBallsButton.whenPressed(new LoadBalls(intake, tower));
@@ -104,7 +109,12 @@ public class RobotContainer {
      resetIntakeButton.whenPressed(new ResetIntake(intake));
      activateIntakeButton.whenPressed(new ActivateIntake(intake));
      stopIntakeButton.whenPressed(new StopIntake(intake));
-     //deployIntakeButton.whenPressed(new DeployIntake(intake));    
+     deployIntake.whenPressed(new DeployIntake(intake));//MAY NOT WORK (TRIGGER)
+     gravityDeployIntake.whenPressed(new GravityIntake(intake));//MAY NOT WORK (TRIGGER)
+     //  shortArmUp.whenPressed(new Command());
+     //shortArmDown.whenPressed(new Command());
+    // longArmUp.whenPressed(new Command());
+    
   }
 
 public Command getTeleOpDrive(){
