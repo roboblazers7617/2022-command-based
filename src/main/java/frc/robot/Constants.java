@@ -66,7 +66,7 @@ public final class Constants {
     
     //Tower
     public static final double TOWER_SPEED = 0.25;
-    public static final double UPPER_TOWER_SPEED = .75;
+    public static final double UPPER_TOWER_SPEED = .5;
 
     //Drivetrain Data
     public static final double DRIVETRAIN_KP = 0;
