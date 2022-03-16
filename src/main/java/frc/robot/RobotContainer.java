@@ -111,9 +111,9 @@ public class RobotContainer {
      stopIntakeButton.whenPressed(new StopIntake(intake));
      deployIntake.whenPressed(new DeployIntake(intake));//MAY NOT WORK (TRIGGER)
      gravityDeployIntake.whenPressed(new GravityIntake(intake));//MAY NOT WORK (TRIGGER)
-     //  shortArmUp.whenPressed(new Command());
-     //shortArmDown.whenPressed(new Command());
-    // longArmUp.whenPressed(new Command());
+     shortArmUp.whenPressed(new RaiseBottomClimber(climber));
+     shortArmDown.whenPressed(new LowerBottomClimber(climber));
+     longArmUp.whenPressed(new RaiseTopClimber(climber));
     
   }
 
