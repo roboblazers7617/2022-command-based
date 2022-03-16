@@ -41,7 +41,7 @@ public class RobotContainer {
     // Configure the button bindings
     configureButtonBindings();
    drivetrain.setDefaultCommand(getTeleOpDrive());
-   tower.setDefaultCommand(new moveTowerIndividual(tower, shooterController::getLeftY, shooterController::getRightY));
+//   tower.setDefaultCommand(new moveTowerIndividual(tower, shooterController::getLeftY, shooterController::getRightY));
    commandLayout = ShuffleboardInfo.getInstance().getCommandLayout();
    commandLayout.add(new RaiseBottomClimber(climber));
    commandLayout.add(new RaiseTopClimber(climber));
@@ -81,39 +81,44 @@ public class RobotContainer {
      climberTopBackwordButton.whenHeld(new LowerTopClimber(climber));
      climberBottomFowardButton.whenHeld(new RaiseBottomClimber(climber));
      climberBottomBackwardButton.whenHeld(new LowerBottomClimber(climber));
-
+     
      JoystickButton collectBallsButton = new JoystickButton(shooterController, Constants.COLLECT_BALLS_BUTTON);
      JoystickButton stopCollectBallsButton = new JoystickButton(shooterController, Constants.STOP_COLLECT_BALLS_BUTTON);
-     JoystickButton runTowerManualButton = new JoystickButton(shooterController, Constants.RUN_TOWER_BUTTON);
-     JoystickButton reverseTowerButton = new JoystickButton(shooterController, Constants.REVERSE_TOWER_BUTTON);
      JoystickButton shootBallButton = new JoystickButton(shooterController, Constants.SHOOT_BOLL_BUTTON);
-     JoystickButton resetIntakeButton = new JoystickButton(shooterController, Constants.RESET_INTAKE_BUTTON);
+     JoystickButton reverseIntakeButton = new JoystickButton(shooterController, Constants.REVERSE_INTAKE_BUTTON);
      JoystickButton activateIntakeButton = new JoystickButton(shooterController, Constants.ACTIVATE_INTAKE_BUTTON);
-     JoystickButton stopIntakeButton = new JoystickButton(shooterController, Constants.STOP_INTAKE_BUTTON);
-     JoystickButton deployIntake = new JoystickButton(shooterController, Constants.DEPLOY_INTAKE_BUTTON);//MAY NOT WORK (TRIGGER)
-     JoystickButton gravityDeployIntake = new JoystickButton(shooterController, Constants.GRAVITY_DEPLOY_INTAKE_BUTTON);//MAY NOT WORK (TRIGGER)
+     JoystickButton resetIntakeButton = new JoystickButton(shooterController, Constants.RESET_INTAKE_BUTTON);
+
+
+
+
      JoystickButton shortArmUp = new JoystickButton(driverController, Constants.SHORT_ARM_UP_BUTTON);
      JoystickButton shortArmDown = new JoystickButton(driverController, Constants.SHORT_ARM_DOWN_BUTTON);
      JoystickButton longArmUp = new JoystickButton(driverController, Constants.LONG_ARM_UP_BUTTON);
      
 
+     
 
      collectBallsButton.whenPressed(new LoadBalls(intake, tower));
      stopCollectBallsButton.whenPressed(new InstantCommand(tower::stop,tower).andThen(new ResetIntake(intake)));
-     runTowerManualButton.whenHeld(new RunTower(tower)).whenHeld(new InstantCommand(()->intake.setSpeedIntake(Constants.INTAKE_MOTOR_SPEED), intake))
-     .whenReleased(new InstantCommand(() ->intake.setSpeedIntake(0)));
-     reverseTowerButton.whenHeld(new ReverseTower(tower)).whenHeld(new InstantCommand(()->intake.setSpeedIntake(-Constants.INTAKE_MOTOR_SPEED), intake))
-     .whenReleased(new InstantCommand(() ->intake.setSpeedIntake(0)));
      shootBallButton.whenHeld(new ShootBolls(shooter, tower));
-     shootBallButton.whenReleased(new InstantCommand (() -> tower.setSpeedUpper(0),tower).andThen(new StopShooter(shooter)));
+     shootBallButton.whenReleased(new InstantCommand (() -> tower.setSpeedUpper(0),tower).andThen(() -> tower.setSpeedLower(0)).andThen(new StopShooter(shooter)));
+     reverseIntakeButton.whenHeld(new ReverseIntake(intake));
+     activateIntakeButton.whenHeld(new ActivateIntake(intake));
      resetIntakeButton.whenPressed(new ResetIntake(intake));
-     activateIntakeButton.whenPressed(new ActivateIntake(intake));
-     stopIntakeButton.whenPressed(new StopIntake(intake));
-     deployIntake.whenPressed(new DeployIntake(intake));//MAY NOT WORK (TRIGGER)
-     gravityDeployIntake.whenPressed(new GravityIntake(intake));//MAY NOT WORK (TRIGGER)
+
+
+
+
      shortArmUp.whenPressed(new RaiseBottomClimber(climber));
      shortArmDown.whenPressed(new LowerBottomClimber(climber));
      longArmUp.whenPressed(new RaiseTopClimber(climber));
+
+     Trigger leftTriggerButton = new Trigger(() -> shooterController.getLeftTriggerAxis() >= 0.5);
+     leftTriggerButton.whenActive(new DeployIntake(intake));
+
+     Trigger rightTriggerButton = new Trigger(() -> shooterController.getRightTriggerAxis() >= 0.5);
+     rightTriggerButton.whenActive(new GravityIntakeDeploy(intake));
     
   }
 

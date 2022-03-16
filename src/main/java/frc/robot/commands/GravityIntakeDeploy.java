@@ -9,16 +9,17 @@ import frc.robot.subsystems.Intake;
 
 public class GravityIntakeDeploy extends CommandBase {
   private final Intake intake;
-  /** Creates a new GravityIntakeDeploy. */
+  /** Creates a new GravityIntake. */
   public GravityIntakeDeploy(Intake intake) {
     this.intake = intake;
-    addRequirements(intake);
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+    intake.gravityLowerIntake();
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
@@ -31,6 +32,6 @@ public class GravityIntakeDeploy extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return intake.isIntakeGravityLowering();
   }
 }

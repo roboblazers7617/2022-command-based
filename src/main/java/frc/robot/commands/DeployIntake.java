@@ -27,9 +27,6 @@ public class DeployIntake extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if(!intake.getIntakeRotationMotorRaised()){
-      intake.setSpeedIntake(Constants.INTAKE_MOTOR_SPEED);
-    }
   }
 
   // Called once the command ends or is interrupted.

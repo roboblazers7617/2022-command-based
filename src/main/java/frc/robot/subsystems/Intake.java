@@ -217,6 +217,7 @@ public class Intake extends SubsystemBase {
     else if(gravityLoweringIntake){
       if(timeUntilLowered <= System.currentTimeMillis()){
         intakeRotationMotor.set(0.0);
+        timeUntilLowered = 0;
       }
       if(!lowerLimitSwitch.get() || (getEncoderPosition() <= Constants.INTAKE_LOWER_ENCODER_VALUE)){
         gravityLoweringIntake = false;
