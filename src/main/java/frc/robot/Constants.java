@@ -84,7 +84,7 @@ public final class Constants {
     public static final double INTAKE_LOWER_ENCODER_VALUE = -13;
     public static final double INTAKE_UPPER_ENCODER_VALUE = 0;
     public static final double INTAKE_ROTATION_MOTOR_DISTANCE = 0.25;
-    public static final double INTAKE_ROTATION_MOTOR_SPEED_UP = 0.25;   
+    public static final double INTAKE_ROTATION_MOTOR_SPEED_UP = 0.125;   
     public static final double INTAKE_ROTATION_MOTOR_SPEED_DOWN = 0.25;   
     public static final double INTAKE_MOTOR_SPEED = 0.4;
     //public static final double GEAR_RATIO_INTAKE_LIFT = (15/54)*(1/20);
