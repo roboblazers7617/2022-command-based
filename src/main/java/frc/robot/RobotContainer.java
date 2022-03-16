@@ -122,7 +122,7 @@ public class RobotContainer {
      leftTriggerButton.whenActive(new DeployIntake(intake));
 
      Trigger rightTriggerButton = new Trigger(() -> shooterController.getRightTriggerAxis() >= 0.5);
-     rightTriggerButton.whenActive(new GravityIntake(intake));
+     rightTriggerButton.whenActive(new GravityIntakeDeploy(intake));
     
   }
 
