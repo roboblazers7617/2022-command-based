@@ -41,7 +41,6 @@ public class RobotContainer {
     // Configure the button bindings
     configureButtonBindings();
    drivetrain.setDefaultCommand(getTeleOpDrive());
-//   tower.setDefaultCommand(new moveTowerIndividual(tower, shooterController::getLeftY, shooterController::getRightY));
    commandLayout = ShuffleboardInfo.getInstance().getCommandLayout();
    commandLayout.add(new RaiseBottomClimber(climber));
    commandLayout.add(new RaiseTopClimber(climber));
@@ -119,7 +118,9 @@ public class RobotContainer {
 
      Trigger rightTriggerButton = new Trigger(() -> shooterController.getRightTriggerAxis() >= 0.5);
      rightTriggerButton.whenActive(new GravityIntakeDeploy(intake));
-    
+
+     Trigger moveTowerIndividualJoysticks = new Trigger(() -> shooterController.getLeftY() >.2 || shooterController.getRightY() >.2);
+     moveTowerIndividualJoysticks.whenActive(new moveTowerIndividual(tower, shooterController::getLeftY, shooterController::getRightY));
   }
 
 public Command getTeleOpDrive(){
