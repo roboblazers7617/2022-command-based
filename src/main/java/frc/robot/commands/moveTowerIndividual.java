@@ -40,11 +40,10 @@ public class moveTowerIndividual extends CommandBase {
       m_tower.setSpeedUpper(0);
 
     if(Math.abs(m_speedLower.get())>.2){
-      m_tower.setSpeedLower(m_speedLower.get());
+      m_tower.setSpeedLower(m_speedLower.get()/3);
     }
     else{
       m_tower.setSpeedLower(0);
-      m_tower.setSpeedUpper(0);
     }
   }
 
