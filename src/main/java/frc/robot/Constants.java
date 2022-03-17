@@ -82,6 +82,7 @@ public final class Constants {
     public static final double DRIVETRAIN_ROTAIONAL_KD = 0;
     public static final double LOW_GEAR = .25;
     public static final double HIGH_GEAR = .5;
+    public static final double DRIVETRAIN_ENCODER_DISTANCE_PER_ROTATION = 2*Math.PI*WHEEL_RADIUS*WHEEL_GEAR_RATIO;
 
     //Intake Data
     public static final double INTAKE_LOWER_ENCODER_VALUE = -13;
