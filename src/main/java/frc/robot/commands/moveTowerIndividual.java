@@ -32,15 +32,15 @@ public class moveTowerIndividual extends CommandBase {
   public void execute() {
     if(Math.abs(m_speedUpper.get())>.2){
       if(m_speedUpper.get()>0)
-      m_tower.setSpeedUpper(Constants.UPPER_TOWER_SPEED);
-      else 
         m_tower.setSpeedUpper(-Constants.UPPER_TOWER_SPEED);
+      else 
+        m_tower.setSpeedUpper(Constants.UPPER_TOWER_SPEED);
     }
     else
       m_tower.setSpeedUpper(0);
 
     if(Math.abs(m_speedLower.get())>.2){
-      m_tower.setSpeedLower(m_speedLower.get()/3);
+      m_tower.setSpeedLower(m_speedLower.get()/-3);
     }
     else{
       m_tower.setSpeedLower(0);

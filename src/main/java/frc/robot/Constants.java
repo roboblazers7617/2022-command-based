@@ -68,8 +68,8 @@ public final class Constants {
     public static final double TRIGGER_THRESHOLD = 0.5;
     
     //Tower
-    public static final double TOWER_SPEED = 0.25;
-    public static final double UPPER_TOWER_SPEED = .5;
+    public static final double TOWER_SPEED = 0.23;
+    public static final double UPPER_TOWER_SPEED = .4;
 
     //Drivetrain Data
     public static final double DRIVETRAIN_KP = 0;
@@ -89,7 +89,7 @@ public final class Constants {
     public static final double INTAKE_ROTATION_MOTOR_DISTANCE = 0.25;
     public static final double INTAKE_ROTATION_MOTOR_SPEED_UP = 0.125;   
     public static final double INTAKE_ROTATION_MOTOR_SPEED_DOWN = 0.25;   
-    public static final double INTAKE_MOTOR_SPEED = 0.4;
+    public static final double INTAKE_MOTOR_SPEED = 0.7;
     //public static final double GEAR_RATIO_INTAKE_LIFT = (15/54)*(1/20);
     public static final int ANGLE_INTAKE_DEPLOY = 80;
     public static final int INTAKE_GRAVITY_LOWER_TIME = 500;

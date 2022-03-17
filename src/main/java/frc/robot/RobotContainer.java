@@ -119,12 +119,12 @@ public class RobotContainer {
      Trigger rightTriggerButton = new Trigger(() -> shooterController.getRightTriggerAxis() >= 0.5);
      rightTriggerButton.whenActive(new GravityIntakeDeploy(intake));
 
-     Trigger moveTowerIndividualJoysticks = new Trigger(() -> shooterController.getLeftY() >.2 || shooterController.getRightY() >.2);
-     moveTowerIndividualJoysticks.whenActive(new moveTowerIndividual(tower, shooterController::getLeftY, shooterController::getRightY));
+     Trigger moveTowerIndividualJoysticks = new Trigger(() -> Math.abs(shooterController.getLeftY()) >.2 || Math.abs(shooterController.getRightY()) >.2);
+     moveTowerIndividualJoysticks.whenActive(new moveTowerIndividual(tower, shooterController::getRightY, shooterController::getLeftY));
   }
 
 public Command getTeleOpDrive(){
-    return new RunCommand(() -> drivetrain.drive(driverController.getLeftY(),driverController.getLeftX(),-driverController.getRightX()), drivetrain);
+    return new RunCommand(() -> drivetrain.drive(driverController.getLeftY(),0,-driverController.getRightX()), drivetrain);
   }
 
   /**
