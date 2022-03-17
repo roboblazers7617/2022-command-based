@@ -49,9 +49,9 @@ public final class Constants {
     public static final int CLIMBER_BOTTOM_FORWARD_BUTTON = XboxController.Button.kB.value;  // blue button
     public static final int CLIMBER_BOTTOM_BACKWARD_BUTTON = XboxController.Button.kA.value; //green button
     public static final int SPEED_ADJUSTOR_TRIGGER = XboxController.Button.kLeftBumper.value; // left bumper
-    public static final int SHORT_ARM_UP_BUTTON = 55;
-    public static final int SHORT_ARM_DOWN_BUTTON = 56;
-    public static final int LONG_ARM_UP_BUTTON = 57;
+    //public static final int SHORT_ARM_UP_BUTTON = 55;
+    //public static final int SHORT_ARM_DOWN_BUTTON = 56;
+    //public static final int LONG_ARM_UP_BUTTON = 57;
     
     //shooter button bindings
     public static final int SHOOT_BOLL_BUTTON = XboxController.Button.kRightBumper.value;//right bumper

@@ -33,7 +33,7 @@ public class RobotContainer {
   private final Shooter shooter = new Shooter();
   private final Climber climber = new Climber();
   private final ShuffleboardLayout commandLayout;
-
+  private final AutoEasy autoEasyCommand;
 
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
@@ -58,6 +58,8 @@ public class RobotContainer {
    commandLayout.add(new RunIntake(intake));
  //  tower.setDefaultCommand( new RunCommand(tower::stop, tower));  
    //intake.setDefaultCommand(new ResetIntakeForever(intake));
+
+   autoEasyCommand = new AutoEasy(drivetrain, shooter, tower);
   }
 
   /**
@@ -78,8 +80,8 @@ public class RobotContainer {
 
      climberTopFowardButton.whenHeld(new RaiseTopClimber(climber));
      climberTopBackwordButton.whenHeld(new LowerTopClimber(climber));
-     climberBottomFowardButton.whenHeld(new RaiseBottomClimber(climber));
-     climberBottomBackwardButton.whenHeld(new LowerBottomClimber(climber));
+//     climberBottomFowardButton.whenHeld(new RaiseBottomClimber(climber));
+//     climberBottomBackwardButton.whenHeld(new LowerBottomClimber(climber));
      
      JoystickButton collectBallsButton = new JoystickButton(shooterController, Constants.COLLECT_BALLS_BUTTON);
      JoystickButton stopCollectBallsButton = new JoystickButton(shooterController, Constants.STOP_COLLECT_BALLS_BUTTON);
@@ -91,9 +93,9 @@ public class RobotContainer {
 
 
 
-     JoystickButton shortArmUp = new JoystickButton(driverController, Constants.SHORT_ARM_UP_BUTTON);
-     JoystickButton shortArmDown = new JoystickButton(driverController, Constants.SHORT_ARM_DOWN_BUTTON);
-     JoystickButton longArmUp = new JoystickButton(driverController, Constants.LONG_ARM_UP_BUTTON);
+     //JoystickButton shortArmUp = new JoystickButton(driverController, Constants.SHORT_ARM_UP_BUTTON);
+     //JoystickButton shortArmDown = new JoystickButton(driverController, Constants.SHORT_ARM_DOWN_BUTTON);
+     //JoystickButton longArmUp = new JoystickButton(driverController, Constants.LONG_ARM_UP_BUTTON);
      
 
      
@@ -109,9 +111,9 @@ public class RobotContainer {
 
 
 
-     shortArmUp.whenPressed(new RaiseBottomClimber(climber));
-     shortArmDown.whenPressed(new LowerBottomClimber(climber));
-     longArmUp.whenPressed(new RaiseTopClimber(climber));
+     //shortArmUp.whenPressed(new RaiseBottomClimber(climber));
+     //shortArmDown.whenPressed(new LowerBottomClimber(climber));
+     //longArmUp.whenPressed(new RaiseTopClimber(climber));
 
      Trigger leftTriggerButton = new Trigger(() -> shooterController.getLeftTriggerAxis() >= 0.5);
      leftTriggerButton.whenActive(new DeployIntake(intake));
@@ -134,6 +136,6 @@ public Command getTeleOpDrive(){
    */
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    return autoCommand;
+    return autoEasyCommand;
   } 
 }
