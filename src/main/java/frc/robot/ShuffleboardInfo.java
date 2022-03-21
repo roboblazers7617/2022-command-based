@@ -33,7 +33,7 @@ public class ShuffleboardInfo {
     private final NetworkTableEntry bottomClimbEntry, topRightClimbEntry, topLeftClimbEntry;
     private final NetworkTableEntry drivetrainLeftFrontMotorEntry, drivetrainLeftRearMotorEntry, drivetrainRightFrontMotorEntry, drivetrainRightRearMotorEntry;
     private final NetworkTableEntry towerUpperMotorEntry, towerLowerMotorEntry, towerLowerSensorEntry, towerUpperSensorEntry;
-    private final NetworkTableEntry shooterMotorEntry, shooterStateEntry;
+    private final NetworkTableEntry shooterMotorEntry, shooterStateEntry, shooterSensorEntry;
     private final NetworkTableEntry intakeRotationMotorPosition, intakeRotationMotorSpeed, intakeMotorSpeed, intakeUpperLimitSwtich, intakeLowerLimitSwitch;
 
    
@@ -88,6 +88,7 @@ public class ShuffleboardInfo {
         //shooter
         shooterMotorEntry = shooterLayout.add("Shooter motor speed", 0).getEntry();
         shooterStateEntry = shooterLayout.add("Shooter Ready", false).getEntry();
+        shooterSensorEntry = shooterLayout.add("Shooter Beam Break", false).getEntry();
         
         //intake
         intakeRotationMotorPosition = intakeLayout.add("Intake rotation motor position", 0.0).getEntry();
@@ -168,6 +169,9 @@ public class ShuffleboardInfo {
     }
     public NetworkTableEntry getIntakeLowerLimitSwich(){
         return intakeLowerLimitSwitch;
+    }
+    public NetworkTableEntry getShooterSensorEntry() {
+        return shooterSensorEntry;
     }
  
 }

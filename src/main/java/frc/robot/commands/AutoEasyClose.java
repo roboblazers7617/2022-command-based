@@ -23,13 +23,12 @@ public class AutoEasyClose extends SequentialCommandGroup {
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(new SpinShooter(shooter),
                 new WaitUntilCommand(shooter::shooterReady),
-                new InstantCommand(() ->tower.setSpeedUpper(Constants.UPPER_TOWER_SPEED)),
-                new InstantCommand(() ->tower.setSpeedLower(Constants.TOWER_SPEED)), 
+                new RunTower(tower),
                 new WaitCommand(2),
                  new InstantCommand(() ->tower.setSpeedUpper(0.0)),
                 new InstantCommand(() ->tower.setSpeedLower(0.0)), 
                 new StopShooter(shooter),
-                new DriveWithEncoders(drivetrain, 0.25, 110)   
+                new DriveWithEncoders(drivetrain, Constants.AUTO_SPEED, Constants.DISTANCE_FROM_FENDER_TO_TAXI)   
               );
   }
 }

@@ -13,10 +13,6 @@ public class DriveWithEncoders extends CommandBase {
   private double endDistance;
   private Drivetrain dt;
  
-  //For simulation
-  private double startTime;
-  private double endTime;
- 
   public DriveWithEncoders(Drivetrain drivetrain, double speed, double distanceInches) {
       addRequirements(drivetrain);
       dt = drivetrain;
@@ -29,10 +25,6 @@ public class DriveWithEncoders extends CommandBase {
     // When this command is started, determine how far we want to drive
    
     endDistance = dt.getEncoderDistance() + driveDistance;
- 
-    // For simulation
-    startTime = System.currentTimeMillis();
-    //endTime = startTime + 3000;
   }
  
   // Called repeatedly when this Command is scheduled to run
@@ -51,9 +43,6 @@ public class DriveWithEncoders extends CommandBase {
   public boolean isFinished() {
     // Stop once we've moved to or past the end distance
     return (dt.getEncoderDistance() >= endDistance);
- 
-    //For simulation
-    //return (System.currentTimeMillis() >= endTime);
   }
  
 }

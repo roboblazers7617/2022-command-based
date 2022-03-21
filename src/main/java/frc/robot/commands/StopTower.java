@@ -19,8 +19,7 @@ public class StopTower extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    tower.setSpeedUpper(0.0);
-    tower.setSpeedLower(0.0);
+   tower.stop();
   }
 
   // Called every time the scheduler runs while the command is scheduled.

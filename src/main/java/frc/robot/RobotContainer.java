@@ -6,7 +6,6 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardLayout;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -46,8 +45,6 @@ public class RobotContainer {
    commandLayout.add(new RaiseTopClimber(climber));
    commandLayout.add(new LowerBottomClimber(climber));
    commandLayout.add(new LowerTopClimber(climber));
-   commandLayout.add(new ReverseTower(tower));
-   commandLayout.add(new RunTower(tower));
    commandLayout.add(new LoadTower(tower));
    commandLayout.add(new SpinShooter(shooter));
    commandLayout.add(new ShootBolls(shooter, tower));
@@ -74,10 +71,12 @@ public class RobotContainer {
     SmartDashboard.putData(autoChooser);
 
      JoystickButton speedButton = new JoystickButton(driverController, Constants.SPEED_ADJUSTOR_TRIGGER);
-     speedButton.whenHeld(new SpeedAdjustor(drivetrain));
+     speedButton.whenPressed(new InstantCommand(()-> drivetrain.setMaxSpeed(Constants.LOW_GEAR)));
+     speedButton.whenReleased(new InstantCommand(()-> drivetrain.setMaxSpeed(Constants.SUPER_HIGH_GEAR)));
+
 
     JoystickButton highSpeedButton = new JoystickButton(driverController, XboxController.Button.kRightBumper.value);
-    highSpeedButton.whenHeld(new InstantCommand(()-> drivetrain.setMaxSpeed(Constants.SUPER_HIGH_GEAR)));
+    highSpeedButton.whenPressed(new InstantCommand(()-> drivetrain.setMaxSpeed(Constants.SUPER_HIGH_GEAR)));
     highSpeedButton.whenReleased(new InstantCommand(()-> drivetrain.setMaxSpeed(Constants.HIGH_GEAR)));
 
      JoystickButton climberTopFowardButton = new JoystickButton(driverController, Constants.CLIMBER_TOP_FOWARD_BUTTON);
@@ -100,7 +99,7 @@ public class RobotContainer {
      collectBallsButton.whenPressed(new LoadBalls(intake, tower));
      stopCollectBallsButton.whenPressed(new InstantCommand(tower::stop,tower).andThen(new ResetIntake(intake)));
      shootBallButton.whenHeld(new ShootBolls(shooter, tower));
-     shootBallButton.whenReleased(new InstantCommand (() -> tower.setSpeedUpper(0),tower).andThen(() -> tower.setSpeedLower(0)).andThen(new StopShooter(shooter)));
+     shootBallButton.whenReleased(new InstantCommand (() -> tower.stop()).andThen(new StopShooter(shooter)));
      reverseIntakeButton.whenHeld(new ReverseIntake(intake));
      activateIntakeButton.whenHeld(new ActivateIntake(intake));
      resetIntakeButton.whenPressed(new ResetIntake(intake));

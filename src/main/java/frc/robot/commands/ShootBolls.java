@@ -7,6 +7,7 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.WaitUntilCommand;
 import frc.robot.Constants;
 import frc.robot.subsystems.Shooter;
@@ -20,10 +21,18 @@ public class ShootBolls extends SequentialCommandGroup {
   public ShootBolls(Shooter shooter, Tower tower) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
-    addCommands(new SpinShooter(shooter));
-    //,new WaitUntilCommand(shooter::shooterReady); 
-    //new InstantCommand(() -> tower.setSpeedLower(Constants.TOWER_SPEED),tower),
-    //new InstantCommand(() ->tower.setSpeedUpper(Constants.UPPER_TOWER_SPEED),tower))
-    //
+    addCommands(new SpinShooter(shooter),
+    new WaitUntilCommand(shooter::shooterReady),
+    new InstantCommand(() ->tower.setSpeedUpper(Constants.UPPER_TOWER_SPEED),tower),
+    new WaitUntilCommand(shooter::getShooterSensor),
+    new InstantCommand(() ->tower.setSpeedLower(Constants.LOWER_TOWER_SPEED),tower),
+    new WaitUntilCommand(tower::isBallHereUpper),
+    new InstantCommand(() -> tower.stop()),
+    new WaitUntilCommand(shooter::shooterReady),
+    new InstantCommand(() ->tower.setSpeedUpper(Constants.UPPER_TOWER_SPEED),tower),
+    new WaitCommand(.2),
+    new InstantCommand(shooter::stopShooter, shooter),
+    new InstantCommand(tower::stop, tower)
+    );
   }
 }

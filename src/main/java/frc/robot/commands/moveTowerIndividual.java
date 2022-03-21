@@ -30,6 +30,7 @@ public class moveTowerIndividual extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    //if the joystick is pressed enough, the upper tower can be mannually controlled at fixed speeds
     if(Math.abs(m_speedUpper.get())>.2){
       if(m_speedUpper.get()>0)
         m_tower.setSpeedUpper(-Constants.UPPER_TOWER_SPEED);
@@ -38,9 +39,9 @@ public class moveTowerIndividual extends CommandBase {
     }
     else
       m_tower.setSpeedUpper(0);
-
+    //if the joystick is pressed enough, the lower tower can be mannually controlled with variable speed
     if(Math.abs(m_speedLower.get())>.2){
-      m_tower.setSpeedLower(m_speedLower.get()/-3);
+      m_tower.setSpeedLower(m_speedLower.get()/Constants.NERF_LOWER_TOWER);
     }
     else{
       m_tower.setSpeedLower(0);
@@ -50,13 +51,14 @@ public class moveTowerIndividual extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    m_tower.setSpeedLower(0);
-    m_tower.setSpeedUpper(0);
+    // if interupped, stop the tower
+    m_tower.stop();
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
+    //never end since it is effectivly a default command
     return false;
   }
 }

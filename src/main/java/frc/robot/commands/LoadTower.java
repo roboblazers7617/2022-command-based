@@ -28,8 +28,8 @@ public class LoadTower extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    tower.setSpeedLower(Constants.TOWER_SPEED);
-    tower.setSpeedUpper(Constants.TOWER_SPEED);
+    tower.setSpeedLower(Constants.LOWER_TOWER_SPEED);
+    tower.setSpeedUpper(Constants.UPPER_TOWER_SPEED);
     finished = false;
   }
 

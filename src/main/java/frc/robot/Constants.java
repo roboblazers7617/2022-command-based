@@ -39,6 +39,8 @@ public final class Constants {
     public static final int UPPER_SENSOR_PORT_INPUT = 9;
     public static final int INTAKE_LIMIT_UPPER_PORT = 5;
     public static final int INTAKE_LIMIT_LOWER_PORT = 4;
+    /**need to change */
+    public static final int SHOOTER_SENSOR_PORT_INPUT = 7;
 
     //Controller Ports
     public static final int DRIVER_CONTROLLER_PORT = 0;
@@ -68,8 +70,9 @@ public final class Constants {
     public static final double TRIGGER_THRESHOLD = 0.5;
     
     //Tower
-    public static final double TOWER_SPEED = 0.25;
+    public static final double LOWER_TOWER_SPEED = 0.25;
     public static final double UPPER_TOWER_SPEED = .4;
+    public static final double NERF_LOWER_TOWER = -3;
 
     //Drivetrain Data
     public static final double DRIVETRAIN_KP = 0;
@@ -84,6 +87,8 @@ public final class Constants {
     public static final double HIGH_GEAR = .75;
     public static final double SUPER_HIGH_GEAR = .55;
     public static final double DRIVETRAIN_ENCODER_DISTANCE_PER_ROTATION = 2*Math.PI*WHEEL_RADIUS*WHEEL_GEAR_RATIO;
+    public static final double DISTANCE_FROM_FENDER_TO_TAXI = 110;
+    public static final double AUTO_SPEED = .4;
 
     //Intake Data
     public static final double INTAKE_LOWER_ENCODER_VALUE = -13;
@@ -92,7 +97,6 @@ public final class Constants {
     public static final double INTAKE_ROTATION_MOTOR_SPEED_UP = 0.125;   
     public static final double INTAKE_ROTATION_MOTOR_SPEED_DOWN = 0.25;   
     public static final double INTAKE_MOTOR_SPEED = 0.7;
-    //public static final double GEAR_RATIO_INTAKE_LIFT = (15/54)*(1/20);
     public static final int ANGLE_INTAKE_DEPLOY = 80;
     public static final int INTAKE_GRAVITY_LOWER_TIME = 500;
 

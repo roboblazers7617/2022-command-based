@@ -12,6 +12,7 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.networktables.NetworkTableEntry;
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.motorcontrol.PWMSparkMax;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
@@ -23,14 +24,14 @@ import frc.robot.commands.StopShooter;
 
 public class Shooter extends SubsystemBase {
   private final CANSparkMax shooterMotor = new CANSparkMax(Constants.SHOOTER_PORT, MotorType.kBrushless);
+  public final DigitalInput shooterSensor = new DigitalInput(Constants.SHOOTER_SENSOR_PORT_INPUT);
   private final RelativeEncoder encoder;
   private final SparkMaxPIDController pidController;
   public final double kP, kI, kD, kIz, kFF, kMaxOutput, kMinOutput;
 
 
 
- // private final RelativeEncoder encoder = shooterMotor.getEncoder();
-  private final NetworkTableEntry shooterMotorEntry, shooterStateEntry;
+  private final NetworkTableEntry shooterMotorEntry, shooterStateEntry, shooterSensorEntry;
  
   /** Creates a new Shooter. */
   public Shooter() {
@@ -39,6 +40,7 @@ public class Shooter extends SubsystemBase {
     shooterMotor.setIdleMode(IdleMode.kCoast);
     shooterMotorEntry = ShuffleboardInfo.getInstance().getShooterMotorEntry();
     shooterStateEntry = ShuffleboardInfo.getInstance().getShooterStateEntry();
+    shooterSensorEntry = ShuffleboardInfo.getInstance().getShooterSensorEntry();
     encoder = shooterMotor.getEncoder();
     pidController = shooterMotor.getPIDController();
 
@@ -101,6 +103,10 @@ public class Shooter extends SubsystemBase {
 
   }
 
+  public boolean getShooterSensor(){
+    return !shooterSensor.get();
+  }
+
   
 
   @Override
@@ -108,6 +114,7 @@ public class Shooter extends SubsystemBase {
     // This method will be called once per scheduler run
     shooterMotorEntry.setDouble(getSpeed());
     shooterStateEntry.setBoolean(shooterReady());
+    shooterSensorEntry.setBoolean(shooterSensor.get());
 
   }
 }

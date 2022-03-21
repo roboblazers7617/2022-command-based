@@ -4,14 +4,12 @@
 
 package frc.robot.subsystems;
 
-import com.fasterxml.jackson.annotation.JsonTypeInfo.Id;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.DigitalInput;
-import edu.wpi.first.wpilibj.motorcontrol.PWMVictorSPX;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.ShuffleboardInfo;
@@ -60,18 +58,19 @@ public class Tower extends SubsystemBase {
     return lowerMotor.get();
   }
 
-  public boolean isBallHereUpper() {
-    return upperSensor.get();
-  }
-
-  public boolean isBallHereLower() {
-    return lowerSensor.get();
-  }
-
   public void stop() {
     lowerMotor.set(0);
     upperMotor.set(0);
   }
+
+  public boolean isBallHereLower(){
+    return !lowerSensor.get();
+  }
+
+  public boolean isBallHereUpper(){
+    return !upperSensor.get();
+  }
+
 
   @Override
   public void periodic() {
