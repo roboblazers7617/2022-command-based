@@ -21,7 +21,7 @@ public class AutoEasy extends SequentialCommandGroup {
   public AutoEasy(Drivetrain drivetrain, Shooter shooter, Tower tower) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
-    addCommands(new DriveWithEncoders(drivetrain, -0.25, 60),
+    addCommands(new DriveWithEncoders(drivetrain, -0.25, 40),
                 new SpinShooter(shooter),
                 new WaitUntilCommand(shooter::shooterReady),
                 new InstantCommand(() ->tower.setSpeedUpper(Constants.UPPER_TOWER_SPEED)),
@@ -30,7 +30,7 @@ public class AutoEasy extends SequentialCommandGroup {
                 new InstantCommand(() ->tower.setSpeedUpper(0.0)),
                 new InstantCommand(() ->tower.setSpeedLower(0.0)), 
                 new StopShooter(shooter),
-                new DriveWithEncoders(drivetrain, 0.25, 80)   
+                new DriveWithEncoders(drivetrain, 0.25, 110)
               );
   }
 }

@@ -11,6 +11,9 @@
       "/LiveWindow/Ungrouped/DigitalInput[1]": "Digital Input",
       "/LiveWindow/Ungrouped/DigitalInput[2]": "Digital Input",
       "/LiveWindow/Ungrouped/DigitalInput[3]": "Digital Input",
+      "/LiveWindow/Ungrouped/DigitalInput[4]": "Digital Input",
+      "/LiveWindow/Ungrouped/DigitalInput[5]": "Digital Input",
+      "/LiveWindow/Ungrouped/DigitalInput[9]": "Digital Input",
       "/LiveWindow/Ungrouped/MecanumDrive[1]": "MecanumDrive",
       "/LiveWindow/Ungrouped/PWMSparkMax[13]": "Motor Controller",
       "/LiveWindow/Ungrouped/PWMSparkMax[14]": "Motor Controller",
@@ -34,17 +37,21 @@
       "/Shuffleboard/Debug/ToggleIntake": "Command",
       "/Shuffleboard/Debug/ToggleIntakeReverse": "Command",
       "/Shuffleboard/Debug/toggle intake rotation: ": "Command",
+      "/Shuffleboard/Test/Commands/DeployIntake": "Command",
       "/Shuffleboard/Test/Commands/LoadTower": "Command",
       "/Shuffleboard/Test/Commands/LowerBottomClimber": "Command",
       "/Shuffleboard/Test/Commands/LowerTopClimber": "Command",
       "/Shuffleboard/Test/Commands/RaiseBottomClimber": "Command",
       "/Shuffleboard/Test/Commands/RaiseTopClimber": "Command",
+      "/Shuffleboard/Test/Commands/ResetIntake": "Command",
       "/Shuffleboard/Test/Commands/ReverseTower": "Command",
+      "/Shuffleboard/Test/Commands/RunIntake": "Command",
       "/Shuffleboard/Test/Commands/RunTower": "Command",
       "/Shuffleboard/Test/Commands/ShootBolls": "Command",
       "/Shuffleboard/Test/Commands/SpinShooter": "Command",
       "/Shuffleboard/Test/Commands/StopShooter": "Command",
-      "/Shuffleboard/Test/Commands/ToggleIntakeRotation": "Command"
+      "/Shuffleboard/Test/Commands/ToggleIntakeRotation": "Command",
+      "/SmartDashboard/SendableChooser[0]": "String Chooser"
     }
   },
   "NetworkTables": {

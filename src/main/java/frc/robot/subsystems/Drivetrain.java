@@ -13,7 +13,7 @@ import frc.robot.Constants;
 import edu.wpi.first.wpilibj.SPI.Port;
 import edu.wpi.first.wpilibj.drive.MecanumDrive;
 import edu.wpi.first.wpilibj.smartdashboard.*;
-
+import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Drivetrain extends SubsystemBase {
@@ -26,7 +26,7 @@ public class Drivetrain extends SubsystemBase {
   private final RelativeEncoder leftBackEncoder = leftBackMotor.getEncoder();
   private final RelativeEncoder rightBackEncoder = rightBackMotor.getEncoder();
   private final MecanumDrive drivetrain;
-  private final AHRS gyro = new AHRS(Port.kMXP);
+  //private final AHRS gyro = new AHRS(Port.kMXP);
 
   /** Creates a new Drivetrain. */
   public Drivetrain() {
@@ -34,17 +34,18 @@ public class Drivetrain extends SubsystemBase {
     rightFrontMotor.restoreFactoryDefaults();
     leftBackMotor.restoreFactoryDefaults();
     rightBackMotor.restoreFactoryDefaults();
-    //Original Inversions
+    ///Original Inversions
     leftFrontMotor.setInverted(true);
     leftBackMotor.setInverted(true);
     leftFrontMotor.setIdleMode(IdleMode.kCoast);
     rightFrontMotor.setIdleMode(IdleMode.kCoast);
     leftBackMotor.setIdleMode(IdleMode.kCoast);
-    rightBackMotor.setIdleMode(IdleMode.kCoast);
+  rightBackMotor.setIdleMode(IdleMode.kCoast);
     drivetrain = new MecanumDrive(leftFrontMotor, leftBackMotor, rightFrontMotor, rightBackMotor);
+    
     drivetrain.setMaxOutput(Constants.HIGH_GEAR);
-    gyro.calibrate();
-    gyro.reset();
+    //gyro.calibrate();
+    //gyro.reset();
   }
   public void drive(double ySpeed, double xSpeed, double zRotation){
     drivetrain.driveCartesian(ySpeed, xSpeed, zRotation);
@@ -63,10 +64,10 @@ public class Drivetrain extends SubsystemBase {
     drivetrain.setMaxOutput(speed);
   }
   public double getGyro(){
-    return gyro.getAngle();
+    return 0;//gyro.getAngle();
   }
   public void resetGyro(){
-    gyro.reset();
+    //gyro.reset();
   }
   public void setSpeeds(double leftFrontSpeed, double rightFrontSpeed, double leftBackSpeed, double rightBackSpeed){
     leftFrontMotor.set(leftFrontSpeed);

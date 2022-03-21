@@ -5,17 +5,17 @@
     "extensions": [
       {
         "name": "Sim DriverStation",
-        "libName": "/Users/brandonclague/Documents/GitHub/2022-command-based/build/jni/release/libhalsim_ds_socket.dylib",
+        "libName": "C:\\Users\\Loaner R11\\Documents\\GitHub\\2022-command-based\\build\\jni\\release\\halsim_ds_socket.dll",
         "defaultEnabled": false
       },
       {
         "name": "Sim GUI",
-        "libName": "/Users/brandonclague/Documents/GitHub/2022-command-based/build/jni/release/libhalsim_gui.dylib",
+        "libName": "C:\\Users\\Loaner R11\\Documents\\GitHub\\2022-command-based\\build\\jni\\release\\halsim_gui.dll",
         "defaultEnabled": true
       }
     ],
     "environment": {},
-    "libraryDir": "/Users/brandonclague/Documents/GitHub/2022-command-based/build/jni/release",
+    "libraryDir": "C:\\Users\\Loaner R11\\Documents\\GitHub\\2022-command-based\\build\\jni\\release",
     "mainClassName": "frc.robot.Main"
   }
 ]

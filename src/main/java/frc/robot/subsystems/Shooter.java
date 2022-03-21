@@ -80,6 +80,10 @@ public class Shooter extends SubsystemBase {
     setVelocity(Constants.SHOOTER_SETPOINT);
   }
 
+  public void startShooterFast(){
+    pidController.setReference(1850, CANSparkMax.ControlType.kVelocity);
+  }
+
   public void stopShooter(){
     setVelocity(0.0);
   }

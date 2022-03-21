@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardLayout;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
@@ -27,13 +28,12 @@ public class RobotContainer {
   private final XboxController driverController = new XboxController(Constants.DRIVER_CONTROLLER_PORT);
   private final XboxController shooterController = new XboxController(Constants.SHOOTER_CONTROLLER_PORT);
   private final Drivetrain drivetrain = new Drivetrain();
-  private final AutoCommand autoCommand = new AutoCommand();
   private final Intake intake = new Intake();
   private final Tower tower = new Tower();
   private final Shooter shooter = new Shooter();
   private final Climber climber = new Climber();
   private final ShuffleboardLayout commandLayout;
-  private final AutoEasy autoEasyCommand;
+  private SendableChooser<Command> autoChooser = new SendableChooser<>();
 
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
@@ -58,8 +58,6 @@ public class RobotContainer {
    commandLayout.add(new RunIntake(intake));
  //  tower.setDefaultCommand( new RunCommand(tower::stop, tower));  
    //intake.setDefaultCommand(new ResetIntakeForever(intake));
-
-   autoEasyCommand = new AutoEasy(drivetrain, shooter, tower);
   }
 
   /**
@@ -70,8 +68,17 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
 
+    autoChooser.setDefaultOption("Close Auto", new AutoEasyClose(drivetrain, shooter, tower));
+    autoChooser.addOption("Farther Auto", new AutoEasy(drivetrain, shooter, tower));
+    autoChooser.addOption("Do Nothing", new AutoCommand());
+    SmartDashboard.putData(autoChooser);
+
      JoystickButton speedButton = new JoystickButton(driverController, Constants.SPEED_ADJUSTOR_TRIGGER);
      speedButton.whenHeld(new SpeedAdjustor(drivetrain));
+
+    JoystickButton highSpeedButton = new JoystickButton(driverController, XboxController.Button.kRightBumper.value);
+    highSpeedButton.whenHeld(new InstantCommand(()-> drivetrain.setMaxSpeed(Constants.SUPER_HIGH_GEAR)));
+    highSpeedButton.whenReleased(new InstantCommand(()-> drivetrain.setMaxSpeed(Constants.HIGH_GEAR)));
 
      JoystickButton climberTopFowardButton = new JoystickButton(driverController, Constants.CLIMBER_TOP_FOWARD_BUTTON);
      JoystickButton climberTopBackwordButton = new JoystickButton(driverController, Constants.CLIMBER_TOP_BACKWARD_BUTTON);
@@ -80,8 +87,8 @@ public class RobotContainer {
 
      climberTopFowardButton.whenHeld(new RaiseTopClimber(climber));
      climberTopBackwordButton.whenHeld(new LowerTopClimber(climber));
-//     climberBottomFowardButton.whenHeld(new RaiseBottomClimber(climber));
-//     climberBottomBackwardButton.whenHeld(new LowerBottomClimber(climber));
+     climberBottomFowardButton.whenHeld(new RaiseBottomClimber(climber));
+   climberBottomBackwardButton.whenHeld(new LowerBottomClimber(climber));
      
      JoystickButton collectBallsButton = new JoystickButton(shooterController, Constants.COLLECT_BALLS_BUTTON);
      JoystickButton stopCollectBallsButton = new JoystickButton(shooterController, Constants.STOP_COLLECT_BALLS_BUTTON);
@@ -89,17 +96,7 @@ public class RobotContainer {
      JoystickButton reverseIntakeButton = new JoystickButton(shooterController, Constants.REVERSE_INTAKE_BUTTON);
      JoystickButton activateIntakeButton = new JoystickButton(shooterController, Constants.ACTIVATE_INTAKE_BUTTON);
      JoystickButton resetIntakeButton = new JoystickButton(shooterController, Constants.RESET_INTAKE_BUTTON);
-
-
-
-
-     //JoystickButton shortArmUp = new JoystickButton(driverController, Constants.SHORT_ARM_UP_BUTTON);
-     //JoystickButton shortArmDown = new JoystickButton(driverController, Constants.SHORT_ARM_DOWN_BUTTON);
-     //JoystickButton longArmUp = new JoystickButton(driverController, Constants.LONG_ARM_UP_BUTTON);
-     
-
-     
-
+    
      collectBallsButton.whenPressed(new LoadBalls(intake, tower));
      stopCollectBallsButton.whenPressed(new InstantCommand(tower::stop,tower).andThen(new ResetIntake(intake)));
      shootBallButton.whenHeld(new ShootBolls(shooter, tower));
@@ -108,25 +105,21 @@ public class RobotContainer {
      activateIntakeButton.whenHeld(new ActivateIntake(intake));
      resetIntakeButton.whenPressed(new ResetIntake(intake));
 
-
-
-
-     //shortArmUp.whenPressed(new RaiseBottomClimber(climber));
-     //shortArmDown.whenPressed(new LowerBottomClimber(climber));
-     //longArmUp.whenPressed(new RaiseTopClimber(climber));
-
      Trigger leftTriggerButton = new Trigger(() -> shooterController.getLeftTriggerAxis() >= 0.5);
      leftTriggerButton.whenActive(new DeployIntake(intake));
 
      Trigger rightTriggerButton = new Trigger(() -> shooterController.getRightTriggerAxis() >= 0.5);
      rightTriggerButton.whenActive(new GravityIntakeDeploy(intake));
 
+     Trigger dPadDown = new Trigger(() ->shooterController.getPOV() == 180);
+     dPadDown.whenActive(new SpinShooterFast(shooter));
+
      Trigger moveTowerIndividualJoysticks = new Trigger(() -> Math.abs(shooterController.getLeftY()) >.2 || Math.abs(shooterController.getRightY()) >.2);
      moveTowerIndividualJoysticks.whenActive(new moveTowerIndividual(tower, shooterController::getRightY, shooterController::getLeftY));
   }
 
 public Command getTeleOpDrive(){
-    return new RunCommand(() -> drivetrain.drive(driverController.getLeftY(),0,-driverController.getRightX()), drivetrain);
+    return new RunCommand(() -> drivetrain.drive(driverController.getLeftY(),-driverController.getLeftX(),-driverController.getRightX()), drivetrain);
   }
 
   /**
@@ -136,6 +129,6 @@ public Command getTeleOpDrive(){
    */
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    return autoEasyCommand;
+    return autoChooser.getSelected();
   } 
 }

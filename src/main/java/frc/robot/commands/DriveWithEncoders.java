@@ -32,7 +32,7 @@ public class DriveWithEncoders extends CommandBase {
  
     // For simulation
     startTime = System.currentTimeMillis();
-    endTime = startTime + 3000;
+    //endTime = startTime + 3000;
   }
  
   // Called repeatedly when this Command is scheduled to run
@@ -50,10 +50,10 @@ public class DriveWithEncoders extends CommandBase {
   // Make this return true when this Command no longer needs to run execute()
   public boolean isFinished() {
     // Stop once we've moved to or past the end distance
-    //return (dt.getEncoderDistance() >= endDistance);
+    return (dt.getEncoderDistance() >= endDistance);
  
     //For simulation
-    return (System.currentTimeMillis() >= endTime);
+    //return (System.currentTimeMillis() >= endTime);
   }
  
 }

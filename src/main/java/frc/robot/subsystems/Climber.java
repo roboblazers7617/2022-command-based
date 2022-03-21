@@ -19,40 +19,31 @@ public class Climber extends SubsystemBase {
   
   private final CANSparkMax rightTopClimber = new CANSparkMax(Constants.RIGHT_TOP_CLIMBER_PORT, MotorType.kBrushless);
   private final RelativeEncoder rightTopClimberEncoder;
-//  private final CANSparkMax bottomClimber = new CANSparkMax(Constants.BOTTOM_CLIMBER_PORT, MotorType.kBrushless);
-//  private final RelativeEncoder bottomClimberEncoder;
+  private final CANSparkMax bottomClimber = new CANSparkMax(Constants.BOTTOM_CLIMBER_PORT, MotorType.kBrushless);
+ private final RelativeEncoder bottomClimberEncoder;
   private final CANSparkMax leftTopClimber = new CANSparkMax(Constants.LEFT_TOP_CLIMBER_PORT, MotorType.kBrushless);
   private final RelativeEncoder leftTopClimberEncoder;
   private final NetworkTableEntry climberTopLeftSpeedEntry;
   private final NetworkTableEntry climberTopRightSpeedEntry;
-//  private final NetworkTableEntry climberBottomSpeedEntry;
-  
-  // private ShuffleboardTab tab = Shuffleboard.getTab("Debug");
-  // private NetworkTableEntry leftClimberDisplay = tab.add("Left Climber Display: ", 0.0).getEntry();
-  // private NetworkTableEntry rightClimberDisplay = tab.add("Right Climber Display: ", 0.0).getEntry();
-  // private final SendableChooser<Double> climberToggle = new SendableChooser<Double>();
+  private final NetworkTableEntry climberBottomSpeedEntry;
   /** Creates a new Climber. */
   public Climber() {
-    // climberToggle.setDefaultOption("go climb ", 0.1);
-    // climberToggle.setDefaultOption("un climb ", -0.1);
-    // climberToggle.setDefaultOption("no climb no", 0.0);
-    // tab.add(climberToggle);
 
     rightTopClimber.restoreFactoryDefaults();
-  //  bottomClimber.restoreFactoryDefaults();
+     bottomClimber.restoreFactoryDefaults();
     leftTopClimber.restoreFactoryDefaults();
     
     rightTopClimber.setIdleMode(IdleMode.kBrake);
-   // bottomClimber.setIdleMode(IdleMode.kBrake);
+    bottomClimber.setIdleMode(IdleMode.kBrake);
     leftTopClimber.setIdleMode(IdleMode.kBrake);
 
     rightTopClimber.setInverted(true);
 
     leftTopClimberEncoder = leftTopClimber.getEncoder();
     rightTopClimberEncoder = rightTopClimber.getEncoder();
-  //  bottomClimberEncoder = bottomClimber.getEncoder();
+    bottomClimberEncoder = bottomClimber.getEncoder();
 
-  //  climberBottomSpeedEntry = ShuffleboardInfo.getInstance().getBottomClimbEntry();
+     climberBottomSpeedEntry = ShuffleboardInfo.getInstance().getBottomClimbEntry();
     climberTopRightSpeedEntry = ShuffleboardInfo.getInstance().getTopRightClimbEntry();
     climberTopLeftSpeedEntry = ShuffleboardInfo.getInstance().getTopRightClimbEntry();
   }
@@ -67,7 +58,7 @@ public class Climber extends SubsystemBase {
 
   public void setSpeedBottom(double speed){
 
-   // bottomClimber.set(speed);
+    bottomClimber.set(speed);
   }
 
   
@@ -83,13 +74,12 @@ public class Climber extends SubsystemBase {
   }
   
   public double getSpeedBottom(){
-   // return bottomClimberEncoder.getVelocity();
-   return 0.0;
+    return bottomClimberEncoder.getVelocity();
   }
 
   @Override
   public void periodic() {
-   // climberBottomSpeedEntry.setDouble(getSpeedBottom());
+    climberBottomSpeedEntry.setDouble(getSpeedBottom());
     climberTopRightSpeedEntry.setDouble(getSpeedTopRight());
     climberTopLeftSpeedEntry.setDouble(getSpeedTopLeft());
     //leftClimberDisplay.setDouble(getSpeedLeft());

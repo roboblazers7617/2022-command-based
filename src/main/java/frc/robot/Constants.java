@@ -68,7 +68,7 @@ public final class Constants {
     public static final double TRIGGER_THRESHOLD = 0.5;
     
     //Tower
-    public static final double TOWER_SPEED = 0.23;
+    public static final double TOWER_SPEED = 0.25;
     public static final double UPPER_TOWER_SPEED = .4;
 
     //Drivetrain Data
@@ -76,12 +76,13 @@ public final class Constants {
     public static final double DRIVETRAIN_KI = 0;
     public static final double DRIVETRAIN_KD = 0;
     public static final int WHEEL_RADIUS = 4;//inches
-    public static final double WHEEL_GEAR_RATIO = 5/12;
+    public static final double WHEEL_GEAR_RATIO = 1/12.75;
     public static final double DRIVETRAIN_ROTATIONAL_KP = 0;
     public static final double DRIVETRAIN_ROTATIONAL_KI = 0;
     public static final double DRIVETRAIN_ROTAIONAL_KD = 0;
     public static final double LOW_GEAR = .25;
-    public static final double HIGH_GEAR = .5;
+    public static final double HIGH_GEAR = .75;
+    public static final double SUPER_HIGH_GEAR = .55;
     public static final double DRIVETRAIN_ENCODER_DISTANCE_PER_ROTATION = 2*Math.PI*WHEEL_RADIUS*WHEEL_GEAR_RATIO;
 
     //Intake Data
@@ -96,9 +97,9 @@ public final class Constants {
     public static final int INTAKE_GRAVITY_LOWER_TIME = 500;
 
     //Shooter data
-    public static final double SHOOTER_SETPOINT = 1750;
+    public static final double SHOOTER_SETPOINT = 2100;
     /**the speed relative to SHOOTER_MOTOR_SPEED that shooter will count as the minunum speed for shooterReady() */
-    public static final double SHOOTER_MOTOR_TARGET_MIN = .95 * SHOOTER_SETPOINT;
+    public static final double SHOOTER_MOTOR_TARGET_MIN = .98 * SHOOTER_SETPOINT;
     /**the speed relative to SHOOTER_MOTOR_SPEED that shooter will count as the max speed for shooterReady() */
     public static final double SHOOTER_MOTOR_TARGET_MAX = 1.05 * SHOOTER_SETPOINT;
     
@@ -111,7 +112,7 @@ public final class Constants {
     public static final double SHOOTER_kMinOutput = -1;
 
     //Climber
-    public static final double RIGHT_UPPER_CLIMBER_SPEED = 0.7;
+    public static final double RIGHT_UPPER_CLIMBER_SPEED = 0.85;
     public static final double LEFT_UPPER_CLIMBER_SPEED = .85;
-    public static final double LOWER_CLIMBER_SPEED = 0.25;
+    public static final double LOWER_CLIMBER_SPEED = 1;
 }
