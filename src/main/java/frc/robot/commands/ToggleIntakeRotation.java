@@ -10,7 +10,7 @@ import frc.robot.subsystems.Intake;
 
 public class ToggleIntakeRotation extends CommandBase {
   private final Intake intake;
-  private boolean finished;
+
   private boolean raising;
   /** Creates a new ToggleIntakeRotation. */
   public ToggleIntakeRotation(Intake intake) {
@@ -22,11 +22,11 @@ public class ToggleIntakeRotation extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    finished = false;
+
     //starts raised
     //rotating down is positive
-    if(intake.getIntakeRotationMotorRaised()){
-      intake.lowerIntake();
+    if(intake.isIntakeRotationMotorRaised()){
+      intake.lowerIntake(false);
     }
     else{
       intake.raiseIntake();

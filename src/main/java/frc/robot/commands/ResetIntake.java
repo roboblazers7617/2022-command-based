@@ -19,7 +19,7 @@ public class ResetIntake extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    intake.setSpeedIntake(0.0);
+    intake.stopIntake();
     intake.raiseIntake();
   }
 

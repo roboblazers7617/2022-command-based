@@ -20,7 +20,7 @@ public class ActivateIntake extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    intake.setSpeedIntake(Constants.INTAKE_MOTOR_SPEED);
+    intake.startIntake();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -30,7 +30,7 @@ public class ActivateIntake extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    intake.setSpeedIntake(0);
+    intake.stopIntake();
   }
 
   // Returns true when the command should end.

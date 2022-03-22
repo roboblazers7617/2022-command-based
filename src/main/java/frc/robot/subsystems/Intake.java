@@ -30,20 +30,18 @@ public class Intake extends SubsystemBase {
   // private SparkMaxLimitSwitch backwordsLimit;
   //intake rotation motor is the motor that raises the intake off ground
   private final CANSparkMax intakeRotationMotor = new CANSparkMax(Constants.INTAKE_ROTATION_PORT,MotorType.kBrushless);
-  private boolean intakeRotationMotorRaised;
+
   //private boolean movingIntakeRotationMotor;
   //CLOSED IS CLOSED
   private DigitalInput upperLimitSwitch;
   private DigitalInput lowerLimitSwitch;
-  private boolean raisingIntake;
-  private boolean loweringIntake;
+
+
   private boolean gravityLoweringIntake;
   private long timeUntilLowered;
-  private ShuffleboardTab tab = Shuffleboard.getTab("Debug");
+
   //private NetworkTableEntry speedDisplay = tab.add("Intake Motor Speed: ", 0).getEntry();
   private final NetworkTableEntry intakeRotationMotorPositionEntry, intakeMotorSpeedEntry, intakeRotationMotorSpeedEntry, intakeUpperLimitSwitchEntry, intakeLowerLimitSwitchEntry;
-  
-  private double fakeEncoderPosition;
   
   //private NetworkTableEntry intakeRotationSpeedDisplay = tab.add("Intake Rotation Motor Speed: ", 0).getEntry();
   private RelativeEncoder encoder = intakeRotationMotor.getEncoder();
@@ -54,11 +52,11 @@ public class Intake extends SubsystemBase {
     intakeRotationMotor.restoreFactoryDefaults();
     intakeMotor.setInverted(true);
     intakeRotationMotor.setInverted(true);
-    intakeRotationMotorRaised = true;
+
     intakeRotationMotor.setIdleMode(IdleMode.kCoast);
     //intakeMotor.setIdleMode(IdleMode.kCoast);
-    raisingIntake = false;
-    loweringIntake = false;
+
+
     gravityLoweringIntake = false;
     timeUntilLowered = 0;
     intakeRotationMotorPositionEntry = ShuffleboardInfo.getInstance().getIntakeRotationMotorPosition();
@@ -70,43 +68,49 @@ public class Intake extends SubsystemBase {
     upperLimitSwitch = new DigitalInput(Constants.INTAKE_LIMIT_UPPER_PORT);
     lowerLimitSwitch = new DigitalInput(Constants.INTAKE_LIMIT_LOWER_PORT);
     encoder.setPosition(0);
-    fakeEncoderPosition = 0.0;
 
     
   }
   /**sets the speed for the intake motor not the intake rotation motor */
-  public void setSpeedIntake(double speed){//for intake motor
-    if(!intakeRotationMotorRaised){
+  private void setSpeedIntake(double speed){//for intake motor
+    if(!isIntakeRotationMotorRaised() && isIntakeRasing()){
       intakeMotor.set(speed);
     }
+  }
+  public void startIntake(){
+    setSpeedIntake(Constants.INTAKE_MOTOR_SPEED);
+  }
+  public void startIntakeReverse(){
+    setSpeedIntake(-Constants.INTAKE_MOTOR_SPEED);
+  }
+  public void stopIntake(){
+    setSpeedIntake(0.0);
   }
   /**gets the speed for the intake motor not the intake rotation motor */
   public double getSpeedIntake(){//for intake motor
     return intakeMotor.get();
   }
 
-  public boolean getIntakeRotationMotorRaised(){
-    return intakeRotationMotorRaised;
+  public boolean isIntakeRotationMotorRaised(){
+    return !upperLimitSwitch.get() || (getEncoderPosition() >= Constants.INTAKE_UPPER_ENCODER_VALUE);
   }
+
+  public boolean isIntakeRotationMotorLowered(){
+    return !lowerLimitSwitch.get() || (getEncoderPosition() <= Constants.INTAKE_LOWER_ENCODER_VALUE);
+  }
+
+
 
   // public boolean isIntakeRotationMotorMoving(){
   //   return movingIntakeRotationMotor;
   // }
 
   public boolean isIntakeRasing(){
-    // if(getUpperLimitSwitch() || getEncoderPosition()() < Constants.INTAKE_UPPER_ENCODER_VALUE){
-    //   return false;
-    // }
-    // return true;
-    return raisingIntake;
+    return getSpeedIntake() == Constants.INTAKE_ROTATION_MOTOR_SPEED_UP;
   }
 
   public boolean isIntakeLowering(){
-    // if(getLowerLimitSwitch() || getEncoderPosition()() > Constants.INTAKE_LOWER_ENCODER_VALUE){
-    //   return false;
-    // }
-    // return true;
-    return loweringIntake;
+    return getSpeedIntake() == -Constants.INTAKE_ROTATION_MOTOR_SPEED_DOWN;
   }
 
   public boolean isIntakeGravityLowering(){
@@ -118,23 +122,12 @@ public class Intake extends SubsystemBase {
   }
 
 
-
-
   /** will raise the intake up within the robot */
   public void raiseIntake(){
-    //SparkMaxLimitSwitch limit = intakeRotationMotor.getReverseLimitSwitch(SparkMaxLimitSwitch.Type.kNormallyOpen);
-
-    // intakeRotationMotor.set(Constants.INTAKE_ROTATION_MOTOR_SPEED);
-
-    // //used this for help https://github.com/REVrobotics/SPARK-MAX-Examples/blob/master/Java/Soft%20Limits/src/main/java/frc/robot/Robot.java 
-    // intakeRotationMotor.enableSoftLimit(CANSparkMax.SoftLimitDirection.kReverse, true);
-    // intakeRotationMotor.setSoftLimit(CANSparkMax.SoftLimitDirection.kReverse, (float) Constants.INTAKE_ROTATION_MOTOR_DISTANCE);
-    
-    // intakeRotationMotorRaised = true;
-    if(!intakeRotationMotorRaised){
+    if(!isIntakeRotationMotorRaised() || isIntakeLowering()){
       intakeRotationMotor.setIdleMode(IdleMode.kBrake);
-      raisingIntake = true;
-      setSpeedIntake(0.0);
+
+      stopIntake();
 
       //Raising the instake is a positive direction
       intakeRotationMotor.set(Constants.INTAKE_ROTATION_MOTOR_SPEED_UP);
@@ -143,30 +136,21 @@ public class Intake extends SubsystemBase {
 
   }
 
-  /** will lower the intake down to the ground */
-  public void lowerIntake(){
-    //SparkMaxLimitSwitch limit = intakeRotationMotor.getReverseLimitSwitch(SparkMaxLimitSwitch.Type.kNormallyOpen);
-    // intakeRotationMotor.set(Constants.INTAKE_ROTATION_MOTOR_SPEED);
-    // //used this for help https://github.com/REVrobotics/SPARK-MAX-Examples/blob/master/Java/Soft%20Limits/src/main/java/frc/robot/Robot.java 
-    // intakeRotationMotor.enableSoftLimit(CANSparkMax.SoftLimitDirection.kForward, true);
-    // intakeRotationMotor.setSoftLimit(CANSparkMax.SoftLimitDirection.kForward, (float) 0.0);
-    // intakeRotationMotorRaised = false;
-    if(intakeRotationMotorRaised){
-      loweringIntake = true;
-
+  /** will lower the intake down to the ground, peramtor determines weather it will be a gravity deploy */
+  public void lowerIntake(boolean gravity){
+    if(isIntakeRotationMotorRaised() || isIntakeRasing()){
+      intakeRotationMotor.setIdleMode(IdleMode.kCoast);
       //Lowering the intake is a negative direction
       intakeRotationMotor.set(-Constants.INTAKE_ROTATION_MOTOR_SPEED_DOWN);
+      if(gravity){
+        gravityLoweringIntake = true;
+        timeUntilLowered = System.currentTimeMillis() + Constants.INTAKE_GRAVITY_LOWER_TIME;
+      }
     }
 
   }
 
-  public void gravityLowerIntake(){
-    if(intakeRotationMotorRaised){
-      loweringIntake = true;
-      intakeRotationMotor.set(-Constants.INTAKE_ROTATION_MOTOR_SPEED_DOWN);
-      timeUntilLowered = System.currentTimeMillis() + Constants.INTAKE_GRAVITY_LOWER_TIME;
-    }
-  }
+
   /**returns the encoder position for the intake rotation motor except for when testing */
   private double getEncoderPosition(){
     //return fakeEncoderPosition;
@@ -195,37 +179,40 @@ public class Intake extends SubsystemBase {
     //intakeRotationSpeedDisplay.setDouble(intakeRotationMotor.get());//updates the display for the intake rotation motor speed
     //manage raise and lower intake
     //raise intake
-    if(raisingIntake){
+    if(isIntakeRasing()){
       
-      if(!upperLimitSwitch.get() || (getEncoderPosition() >= Constants.INTAKE_UPPER_ENCODER_VALUE)){
-        raisingIntake = false;
-        intakeRotationMotorRaised = true;
-        intakeRotationMotor.set(0.0);
+      if(isIntakeRotationMotorRaised()){
+
+        stopIntakeRotation();
       }
       
     }
-    else if(loweringIntake){
+    else if(isIntakeLowering()){
       
-      if(!lowerLimitSwitch.get() || (getEncoderPosition() <= Constants.INTAKE_LOWER_ENCODER_VALUE)){
-        loweringIntake = false;
-        intakeRotationMotorRaised = false;
+      if(isIntakeRotationMotorLowered() && !gravityLoweringIntake){
+
+
         intakeRotationMotor.set(0.0);
-        intakeRotationMotor.setIdleMode(IdleMode.kCoast);
+
         
       }
     }
     else if(gravityLoweringIntake){
       if(timeUntilLowered <= System.currentTimeMillis()){
-        intakeRotationMotor.set(0.0);
+        stopIntakeRotation();
         timeUntilLowered = 0;
       }
-      if(!lowerLimitSwitch.get() || (getEncoderPosition() <= Constants.INTAKE_LOWER_ENCODER_VALUE)){
+      if(isIntakeRotationMotorLowered()){
         gravityLoweringIntake = false;
-        intakeRotationMotorRaised = false;
+
 
       }
     }
 
+    if(isIntakeRotationMotorLowered() && encoder.getPosition() > Constants.INTAKE_LOWER_ENCODER_VALUE){
+      intakeRotationMotor.setIdleMode(IdleMode.kCoast);
+      encoder.setPosition(Constants.INTAKE_LOWER_ENCODER_VALUE);
+    }
     //used for testing purposes
     // if(raisingIntake){
     //   fakeEncoderPosition -= 0.05;

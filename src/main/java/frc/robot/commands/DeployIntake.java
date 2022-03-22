@@ -20,7 +20,7 @@ public class DeployIntake extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    intake.lowerIntake();
+    intake.lowerIntake(false);
 
   }
 
@@ -36,7 +36,7 @@ public class DeployIntake extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if(!intake.getIntakeRotationMotorRaised()){
+    if(!intake.isIntakeRotationMotorRaised()){
       return true;
     }
     return false;
