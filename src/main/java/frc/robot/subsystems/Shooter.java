@@ -28,6 +28,7 @@ public class Shooter extends SubsystemBase {
   private final RelativeEncoder encoder;
   private final SparkMaxPIDController pidController;
   public final double kP, kI, kD, kIz, kFF, kMaxOutput, kMinOutput;
+  private double setPoint;
 
 
 
@@ -72,14 +73,17 @@ public class Shooter extends SubsystemBase {
       shooterMotor.set(0.0);
     else{
       
-      double setPoint = speed;
-      pidController.setReference(setPoint, CANSparkMax.ControlType.kVelocity);
+       setPoint = speed;
       
     }
   }
 
+  public void setSetPoint(double setPoint) {
+      this.setPoint = setPoint;
+  }
+
   public void startShooter(){
-    setVelocity(Constants.SHOOTER_SETPOINT);
+    setVelocity(setPoint);
   }
 
   public void startShooterFast(){
@@ -96,7 +100,7 @@ public class Shooter extends SubsystemBase {
 
   /**returns whether shooter is at full speed */
   public boolean shooterReady(){
-    if(encoder.getVelocity() > Constants.SHOOTER_MOTOR_TARGET_MIN && encoder.getVelocity() < Constants.SHOOTER_MOTOR_TARGET_MAX){
+    if(encoder.getVelocity() > Constants.SHOOTER_MOTOR_TARGET_MIN*setPoint && encoder.getVelocity() < Constants.SHOOTER_MOTOR_TARGET_MAX*setPoint){
       return true;
     }
     return false;
@@ -115,6 +119,7 @@ public class Shooter extends SubsystemBase {
     shooterMotorEntry.setDouble(getSpeed());
     shooterStateEntry.setBoolean(shooterReady());
     shooterSensorEntry.setBoolean(shooterSensor.get());
+    pidController.setReference(setPoint, CANSparkMax.ControlType.kVelocity);
 
   }
 }

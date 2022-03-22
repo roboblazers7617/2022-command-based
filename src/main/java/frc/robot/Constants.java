@@ -101,11 +101,13 @@ public final class Constants {
     public static final int INTAKE_GRAVITY_LOWER_TIME = 500;
 
     //Shooter data
-    public static final double SHOOTER_SETPOINT = 2100;
     /**the speed relative to SHOOTER_MOTOR_SPEED that shooter will count as the minunum speed for shooterReady() */
-    public static final double SHOOTER_MOTOR_TARGET_MIN = .98 * SHOOTER_SETPOINT;
+    public static final double SHOOTER_MOTOR_TARGET_MIN = .98;
     /**the speed relative to SHOOTER_MOTOR_SPEED that shooter will count as the max speed for shooterReady() */
-    public static final double SHOOTER_MOTOR_TARGET_MAX = 1.05 * SHOOTER_SETPOINT;
+    public static final double SHOOTER_MOTOR_TARGET_MAX = 1.05;
+    public static final double SLOW_SHOOTER_SPEED = 1500;
+    public static final double SHOOTER_SPEED = 1600;
+    public static final double FAST_SHOOTER_SPEED = 1750;
     
     public static final double SHOOTER_kP = .0004; 
     public static final double SHOOTER_kI = 0;

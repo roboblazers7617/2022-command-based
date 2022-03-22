@@ -110,11 +110,20 @@ public class RobotContainer {
      Trigger rightTriggerButton = new Trigger(() -> shooterController.getRightTriggerAxis() >= 0.5);
      rightTriggerButton.whenActive(new GravityIntakeDeploy(intake));
 
-     Trigger dPadDown = new Trigger(() ->shooterController.getPOV() == 180);
-     dPadDown.whenActive(new SpinShooterFast(shooter));
-
      Trigger moveTowerIndividualJoysticks = new Trigger(() -> Math.abs(shooterController.getLeftY()) >.2 || Math.abs(shooterController.getRightY()) >.2);
      moveTowerIndividualJoysticks.whenActive(new moveTowerIndividual(tower, shooterController::getRightY, shooterController::getLeftY));
+
+     Trigger dPadLeft = new Trigger(() ->shooterController.getPOV() == 90);
+     dPadLeft.whenActive(new InstantCommand(() -> shooter.setSetPoint(Constants.SHOOTER_SPEED)));
+
+     Trigger dPadRight = new Trigger(() ->shooterController.getPOV() == 270);
+     dPadRight.whenActive(new InstantCommand(() -> shooter.setSetPoint(Constants.SHOOTER_SPEED)));
+
+     Trigger dPadUp = new Trigger(() ->shooterController.getPOV() == 0);
+     dPadUp.whenActive(new InstantCommand(() -> shooter.setSetPoint(Constants.FAST_SHOOTER_SPEED)));
+
+     Trigger dPadDown = new Trigger(() ->shooterController.getPOV() == 180);
+     dPadDown.whenActive(new InstantCommand(() -> shooter.setSetPoint(Constants.SLOW_SHOOTER_SPEED)));
   }
 
 public Command getTeleOpDrive(){
