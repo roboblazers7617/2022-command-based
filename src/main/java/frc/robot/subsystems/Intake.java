@@ -74,7 +74,7 @@ public class Intake extends SubsystemBase {
   }
   /**sets the speed for the intake motor not the intake rotation motor */
   private void setSpeedIntake(double speed){//for intake motor
-    if(!isIntakeRotationMotorRaised() || !isIntakeRasing()){
+    if(isIntakeRotationMotorLowered()){
       intakeMotor.set(speed);
     }
   }
