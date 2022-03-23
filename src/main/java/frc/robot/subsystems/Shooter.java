@@ -28,8 +28,8 @@ public class Shooter extends SubsystemBase {
   private final RelativeEncoder encoder;
   private final SparkMaxPIDController pidController;
   public final double kP, kI, kD, kIz, kFF, kMaxOutput, kMinOutput;
-  private double setPoint = 0.0;
-  private boolean shooterSpinning;
+  private double setPoint = Constants.SHOOTER_SPEED;
+  private boolean shooterSpinning = false;
 
 
 
