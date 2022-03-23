@@ -28,13 +28,6 @@ public class SpinShooter extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    /*if(Math.abs(m_shooter.getSpeed())>0){
-      m_shooter.setSpeed(0);
-      SmartDashboard.putNumber("Flywheel Speed", 0);
-    }
-    else{
-      m_shooter.setSpeed(.33);
-    }*/
     m_shooter.startShooter();
   }
 
