@@ -92,12 +92,17 @@ public final class Constants {
     //Intake Data
     public static final double INTAKE_LOWER_ENCODER_VALUE = -13;
     public static final double INTAKE_UPPER_ENCODER_VALUE = 0;
-    public static final double INTAKE_ROTATION_MOTOR_DISTANCE = 0.25;
-    public static final double INTAKE_ROTATION_MOTOR_SPEED_UP = 0.125;   
-    public static final double INTAKE_ROTATION_MOTOR_SPEED_DOWN = 0.25;   
+    public static final double INTAKE_ENCODER_UPPER_SLOW_POSITION = -4;
+    public static final double INTAKE_ENCODER_LOWER_SLOW_POSITION = -8;
+    public static final double INTAKE_ROTATION_MOTOR_SPEED_UP_FAST = 0.25;   
+    public static final double INTAKE_ROTATION_MOTOR_SPEED_UP_SLOW = 0.07;
+    public static final double INTAKE_ROTATION_MOTOR_SPEED_DOWN_FAST = 0.2;
+    public static final double INTAKE_ROTATION_MOTOR_SPEED_DOWN_SLOW = 0.1;   
     public static final double INTAKE_MOTOR_SPEED = 0.7;
     public static final int ANGLE_INTAKE_DEPLOY = 80;
     public static final int INTAKE_GRAVITY_LOWER_TIME = 500;
+    public static final double INTAKE_ROTATION_MOVEMENT_MAX_ERROR = 0.4;
+    public static final double INTAKE_ROTATION_CLASSFICATION_MAX_ERROR = 3;
 
     //Shooter data
     /**the speed relative to SHOOTER_MOTOR_SPEED that shooter will count as the minunum speed for shooterReady() */

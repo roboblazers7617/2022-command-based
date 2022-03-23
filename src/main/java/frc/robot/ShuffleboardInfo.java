@@ -34,7 +34,7 @@ public class ShuffleboardInfo {
     private final NetworkTableEntry drivetrainLeftFrontMotorEntry, drivetrainLeftRearMotorEntry, drivetrainRightFrontMotorEntry, drivetrainRightRearMotorEntry;
     private final NetworkTableEntry towerUpperMotorEntry, towerLowerMotorEntry, towerLowerSensorEntry, towerUpperSensorEntry;
     private final NetworkTableEntry shooterMotorEntry, shooterStateEntry, shooterSensorEntry;
-    private final NetworkTableEntry intakeRotationMotorPosition, intakeRotationMotorSpeed, intakeMotorSpeed, intakeUpperLimitSwtich, intakeLowerLimitSwitch;
+    private final NetworkTableEntry intakeRotationMotorPosition, intakeRotationMotorSpeed, intakeMotorSpeed, intakeUpperLimitSwtich, intakeLowerLimitSwitch, intakeGravityDeploy;
 
    
     // To better organize the data displayed, use Shuffleboard Layouts. These will all be setup in
@@ -96,6 +96,7 @@ public class ShuffleboardInfo {
         intakeRotationMotorSpeed = intakeLayout.add("Intake rotation motor speed", 0.0).getEntry();
         intakeLowerLimitSwitch = intakeLayout.add("lower limit switch", false).getEntry();
         intakeUpperLimitSwtich = intakeLayout.add("upper limit switch", false).getEntry();
+        intakeGravityDeploy = intakeLayout.add("is intake gravity deploying", false).getEntry();
 
 
     }
@@ -169,6 +170,9 @@ public class ShuffleboardInfo {
     }
     public NetworkTableEntry getIntakeLowerLimitSwich(){
         return intakeLowerLimitSwitch;
+    }
+    public NetworkTableEntry getIntakeGravityDeploy(){
+        return intakeGravityDeploy;
     }
     public NetworkTableEntry getShooterSensorEntry() {
         return shooterSensorEntry;
