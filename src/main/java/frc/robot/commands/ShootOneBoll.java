@@ -23,13 +23,7 @@ public class ShootOneBoll extends SequentialCommandGroup {
       addCommands(new SpinShooter(shooter),
       new WaitUntilCommand(shooter::shooterReady),
       new InstantCommand(() ->tower.setSpeedUpper(Constants.UPPER_TOWER_SPEED),tower),
-     /* new WaitUntilCommand(shooter::getShooterSensor),
-      new InstantCommand(() ->tower.setSpeedLower(Constants.LOWER_TOWER_SPEED),tower),
-      new WaitUntilCommand(tower::isBallHereUpper),
-      new InstantCommand(() -> tower.stop()),
-      new WaitUntilCommand(shooter::shooterReady),
-      new InstantCommand(() ->tower.setSpeedUpper(Constants.UPPER_TOWER_SPEED),tower),
-     */ new WaitCommand(.2),
+      new WaitCommand(.2),
       new InstantCommand(shooter::stopShooter, shooter),
       new InstantCommand(tower::stop, tower)
       );
