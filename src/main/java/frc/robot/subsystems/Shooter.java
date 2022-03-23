@@ -28,7 +28,7 @@ public class Shooter extends SubsystemBase {
   private final RelativeEncoder encoder;
   private final SparkMaxPIDController pidController;
   public final double kP, kI, kD, kIz, kFF, kMaxOutput, kMinOutput;
-  private double setPoint;
+  private double setPoint = 0.0;
 
 
 
@@ -70,8 +70,12 @@ public class Shooter extends SubsystemBase {
   private void setVelocity(double speed){
 
     if(speed == 0.0)
-      shooterMotor.set(0.0);
-    else{
+    {
+      //shooterMotor.set(0.0);
+      pidController.setReference(0, CANSparkMax.ControlType.kVelocity);
+      setPoint = 0;
+    }
+      else{
       
        setPoint = speed;
       
@@ -91,7 +95,8 @@ public class Shooter extends SubsystemBase {
   }
 
   public void stopShooter(){
-    setVelocity(0.0);
+    setPoint = 0;
+    pidController.setReference(0, CANSparkMax.ControlType.kVelocity);
   }
 
   public double getSpeed(){
@@ -108,7 +113,8 @@ public class Shooter extends SubsystemBase {
   }
 
   public boolean getShooterSensor(){
-    return !shooterSensor.get();
+    boolean sensorVal = shooterSensor.get();
+    return !sensorVal;
   }
 
   
@@ -118,7 +124,8 @@ public class Shooter extends SubsystemBase {
     // This method will be called once per scheduler run
     shooterMotorEntry.setDouble(getSpeed());
     shooterStateEntry.setBoolean(shooterReady());
-    shooterSensorEntry.setBoolean(shooterSensor.get());
+    //shooterSensorEntry.setBoolean(shooterSensor.get());
+    shooterSensorEntry.setBoolean(getShooterSensor());
     pidController.setReference(setPoint, CANSparkMax.ControlType.kVelocity);
 
   }

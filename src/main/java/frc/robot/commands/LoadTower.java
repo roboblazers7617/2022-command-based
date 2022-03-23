@@ -44,7 +44,7 @@ public class LoadTower extends CommandBase {
     
       if(!tower.lowerSensor.get() && !tower.upperSensor.get()){
         tower.setSpeedLower(0);
-        //finished = true; //JILL
+        finished = true; 
       }
   }
 
@@ -53,7 +53,6 @@ public class LoadTower extends CommandBase {
   public void end(boolean interrupted) {
     tower.setSpeedUpper(0);
     tower.setSpeedLower(0);
-    finished = true;
   }
   
     

@@ -41,9 +41,9 @@ public class RobotContainer {
     configureButtonBindings();
    drivetrain.setDefaultCommand(getTeleOpDrive());
    commandLayout = ShuffleboardInfo.getInstance().getCommandLayout();
-   commandLayout.add(new RaiseBottomClimber(climber));
+  // commandLayout.add(new RaiseBottomClimber(climber));
    commandLayout.add(new RaiseTopClimber(climber));
-   commandLayout.add(new LowerBottomClimber(climber));
+   //commandLayout.add(new LowerBottomClimber(climber));
    commandLayout.add(new LowerTopClimber(climber));
    commandLayout.add(new LoadTower(tower));
    commandLayout.add(new SpinShooter(shooter));
@@ -81,13 +81,13 @@ public class RobotContainer {
 
      JoystickButton climberTopFowardButton = new JoystickButton(driverController, Constants.CLIMBER_TOP_FOWARD_BUTTON);
      JoystickButton climberTopBackwordButton = new JoystickButton(driverController, Constants.CLIMBER_TOP_BACKWARD_BUTTON);
-     JoystickButton climberBottomFowardButton = new JoystickButton(driverController, Constants.CLIMBER_BOTTOM_FORWARD_BUTTON);
-      JoystickButton climberBottomBackwardButton = new JoystickButton(driverController, Constants.CLIMBER_BOTTOM_BACKWARD_BUTTON);
+  //   JoystickButton climberBottomFowardButton = new JoystickButton(driverController, Constants.CLIMBER_BOTTOM_FORWARD_BUTTON);
+  //    JoystickButton climberBottomBackwardButton = new JoystickButton(driverController, Constants.CLIMBER_BOTTOM_BACKWARD_BUTTON);
 
      climberTopFowardButton.whenHeld(new RaiseTopClimber(climber));
      climberTopBackwordButton.whenHeld(new LowerTopClimber(climber));
-     climberBottomFowardButton.whenHeld(new RaiseBottomClimber(climber));
-   climberBottomBackwardButton.whenHeld(new LowerBottomClimber(climber));
+//     climberBottomFowardButton.whenHeld(new RaiseBottomClimber(climber));
+ //  climberBottomBackwardButton.whenHeld(new LowerBottomClimber(climber));
      
      JoystickButton collectBallsButton = new JoystickButton(shooterController, Constants.COLLECT_BALLS_BUTTON);
      JoystickButton stopCollectBallsButton = new JoystickButton(shooterController, Constants.STOP_COLLECT_BALLS_BUTTON);
@@ -98,8 +98,8 @@ public class RobotContainer {
     
      collectBallsButton.whenPressed(new LoadBalls(intake, tower));
      stopCollectBallsButton.whenPressed(new InstantCommand(tower::stop,tower).andThen(new ResetIntake(intake)));
-     shootBallButton.whenHeld(new ShootBolls(shooter, tower));
-     shootBallButton.whenReleased(new InstantCommand (() -> tower.stop()).andThen(new StopShooter(shooter)));
+     shootBallButton.whenPressed(new ShootBolls(shooter, tower));
+     //shootBallButton.whenReleased(new InstantCommand (() -> tower.stop()).andThen(new StopShooter(shooter)));
      reverseIntakeButton.whenHeld(new ReverseIntake(intake));
      activateIntakeButton.whenHeld(new ActivateIntake(intake));
      resetIntakeButton.whenPressed(new ResetIntake(intake));
@@ -108,7 +108,8 @@ public class RobotContainer {
      leftTriggerButton.whenActive(new DeployIntake(intake));
 
      Trigger rightTriggerButton = new Trigger(() -> shooterController.getRightTriggerAxis() >= 0.5);
-     rightTriggerButton.whenActive(new GravityIntakeDeploy(intake));
+     //rightTriggerButton.whenActive(new GravityIntakeDeploy(intake));
+    rightTriggerButton.whenActive(new ShootOneBoll(shooter, tower));
 
      Trigger moveTowerIndividualJoysticks = new Trigger(() -> Math.abs(shooterController.getLeftY()) >.2 || Math.abs(shooterController.getRightY()) >.2);
      moveTowerIndividualJoysticks.whenActive(new moveTowerIndividual(tower, shooterController::getRightY, shooterController::getLeftY));
@@ -117,7 +118,7 @@ public class RobotContainer {
      dPadLeft.whenActive(new InstantCommand(() -> shooter.setSetPoint(Constants.SHOOTER_SPEED)));
 
      Trigger dPadRight = new Trigger(() ->shooterController.getPOV() == 270);
-     dPadRight.whenActive(new InstantCommand(() -> shooter.setSetPoint(Constants.SHOOTER_SPEED)));
+     dPadRight.whenActive((new StopShooter(shooter)).andThen(new StopTower(tower)));
 
      Trigger dPadUp = new Trigger(() ->shooterController.getPOV() == 0);
      dPadUp.whenActive(new InstantCommand(() -> shooter.setSetPoint(Constants.FAST_SHOOTER_SPEED)));

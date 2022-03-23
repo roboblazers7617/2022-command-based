@@ -55,7 +55,7 @@ public class Intake extends SubsystemBase {
     intakeMotor.setInverted(true);
     intakeRotationMotor.setInverted(true);
     intakeRotationMotorRaised = true;
-    intakeRotationMotor.setIdleMode(IdleMode.kCoast);
+    intakeRotationMotor.setIdleMode(IdleMode.kBrake);
     //intakeMotor.setIdleMode(IdleMode.kCoast);
     raisingIntake = false;
     loweringIntake = false;

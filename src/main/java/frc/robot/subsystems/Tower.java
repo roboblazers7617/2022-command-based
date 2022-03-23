@@ -33,8 +33,8 @@ public class Tower extends SubsystemBase {
     upperMotor.setIdleMode(IdleMode.kBrake);
     towerUpperMotorEntry = ShuffleboardInfo.getInstance().getTowerUpperMotorEntry();
     towerLowerMotorEntry = ShuffleboardInfo.getInstance().getTowerLowerMotorEntry();
-    towerUpperSensorEntry = ShuffleboardInfo.getInstance().getTowerUpperMotorEntry();
-    towerLowerSensorEntry = ShuffleboardInfo.getInstance().getTowerLowerMotorEntry();
+    towerUpperSensorEntry = ShuffleboardInfo.getInstance().getTowerUpperSensorEntry();
+    towerLowerSensorEntry = ShuffleboardInfo.getInstance().getTowerLowerSensorEntry();
 
   }
 
@@ -45,6 +45,7 @@ public class Tower extends SubsystemBase {
 
   /** Returns the set speed of the upper motor. */
   public double getSpeedUpper() {
+
     return upperMotor.get();
   }
 
@@ -64,11 +65,13 @@ public class Tower extends SubsystemBase {
   }
 
   public boolean isBallHereLower(){
-    return !lowerSensor.get();
+    boolean sensorVal = lowerSensor.get();
+    return !sensorVal;
   }
 
   public boolean isBallHereUpper(){
-    return !upperSensor.get();
+    boolean sensorVal = upperSensor.get();
+    return !sensorVal;
   }
 
 
@@ -77,8 +80,10 @@ public class Tower extends SubsystemBase {
     // This method will be called once per scheduler run
     towerUpperMotorEntry.setDouble(getSpeedUpper());
     towerLowerMotorEntry.setDouble(getSpeedLower());
-    towerUpperSensorEntry.setBoolean(upperSensor.get());
-    towerLowerSensorEntry.setBoolean(lowerSensor.get());
+    //towerUpperSensorEntry.setBoolean(upperSensor.get());
+    //towerLowerSensorEntry.setBoolean(lowerSensor.get());
+    towerUpperSensorEntry.setBoolean(isBallHereUpper());
+    towerLowerSensorEntry.setBoolean(isBallHereLower());
 
   }
 }
