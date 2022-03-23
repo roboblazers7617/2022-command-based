@@ -41,7 +41,7 @@ public class Intake extends SubsystemBase {
   private long timeUntilLowered;
 
   //private NetworkTableEntry speedDisplay = tab.add("Intake Motor Speed: ", 0).getEntry();
-  private final NetworkTableEntry intakeRotationMotorPositionEntry, intakeMotorSpeedEntry, intakeRotationMotorSpeedEntry, intakeUpperLimitSwitchEntry, intakeLowerLimitSwitchEntry;
+  private final NetworkTableEntry intakeRotationMotorPositionEntry, intakeMotorSpeedEntry, intakeRotationMotorSpeedEntry, intakeUpperLimitSwitchEntry, intakeLowerLimitSwitchEntry, intakeGravityDeployEntry;
   
   //private NetworkTableEntry intakeRotationSpeedDisplay = tab.add("Intake Rotation Motor Speed: ", 0).getEntry();
   private RelativeEncoder encoder = intakeRotationMotor.getEncoder();
@@ -53,7 +53,7 @@ public class Intake extends SubsystemBase {
     intakeMotor.setInverted(true);
     intakeRotationMotor.setInverted(true);
 
-    intakeRotationMotor.setIdleMode(IdleMode.kCoast);
+    intakeRotationMotor.setIdleMode(IdleMode.kBrake);
     //intakeMotor.setIdleMode(IdleMode.kCoast);
 
 
@@ -64,6 +64,7 @@ public class Intake extends SubsystemBase {
     intakeRotationMotorSpeedEntry = ShuffleboardInfo.getInstance().getIntakeRotationMotorSpeed();
     intakeUpperLimitSwitchEntry = ShuffleboardInfo.getInstance().getIntakeUpperLimitSwitch();
     intakeLowerLimitSwitchEntry = ShuffleboardInfo.getInstance().getIntakeLowerLimitSwich();
+    intakeGravityDeployEntry = ShuffleboardInfo.getInstance().getIntakeGravityDeploy();
 
     upperLimitSwitch = new DigitalInput(Constants.INTAKE_LIMIT_UPPER_PORT);
     lowerLimitSwitch = new DigitalInput(Constants.INTAKE_LIMIT_LOWER_PORT);
@@ -73,7 +74,7 @@ public class Intake extends SubsystemBase {
   }
   /**sets the speed for the intake motor not the intake rotation motor */
   private void setSpeedIntake(double speed){//for intake motor
-    if(!isIntakeRotationMotorRaised() && isIntakeRasing()){
+    if(!isIntakeRotationMotorRaised() || !isIntakeRasing()){
       intakeMotor.set(speed);
     }
   }
@@ -92,12 +93,40 @@ public class Intake extends SubsystemBase {
   }
 
   public boolean isIntakeRotationMotorRaised(){
-    return !upperLimitSwitch.get() || (getEncoderPosition() >= Constants.INTAKE_UPPER_ENCODER_VALUE);
+    //return !upperLimitSwitch.get() || (getEncoderPosition() >= (Constants.INTAKE_UPPER_ENCODER_VALUE - .7) && getSpeedIntakeRotation() == 0.0);
+    if(isIntakeRasing()){
+      if(!upperLimitSwitch.get() || encoder.getPosition() >= Constants.INTAKE_UPPER_ENCODER_VALUE -Constants.INTAKE_ROTATION_MOVEMENT_MAX_ERROR){
+        return true;
+      }
+    }
+    else{
+      if(!upperLimitSwitch.get() || encoder.getPosition() >= Constants.INTAKE_UPPER_ENCODER_VALUE -Constants.INTAKE_ROTATION_CLASSFICATION_MAX_ERROR){
+        return true;
+      }
+    }
+    return false;
   }
 
   public boolean isIntakeRotationMotorLowered(){
-    return !lowerLimitSwitch.get() || (getEncoderPosition() <= Constants.INTAKE_LOWER_ENCODER_VALUE);
+   // return !lowerLimitSwitch.get() || (getEncoderPosition() <= (Constants.INTAKE_LOWER_ENCODER_VALUE + 1.0) && getSpeedIntakeRotation() == 0.0);
+    if(isIntakeLowering()){
+      if(!lowerLimitSwitch.get() || encoder.getPosition() <= Constants.INTAKE_LOWER_ENCODER_VALUE + Constants.INTAKE_ROTATION_MOVEMENT_MAX_ERROR){
+        return true;
+      }
+    }
+    else{
+      if(!lowerLimitSwitch.get() || encoder.getPosition() <= Constants.INTAKE_LOWER_ENCODER_VALUE + Constants.INTAKE_ROTATION_CLASSFICATION_MAX_ERROR){
+        return true;
+      }
+    }
+    return false;
   }
+
+  public double getSpeedIntakeRotation(){
+    return intakeRotationMotor.get();
+  }
+
+  
 
 
 
@@ -106,11 +135,11 @@ public class Intake extends SubsystemBase {
   // }
 
   public boolean isIntakeRasing(){
-    return getSpeedIntake() == Constants.INTAKE_ROTATION_MOTOR_SPEED_UP;
+    return getSpeedIntakeRotation() > 0;
   }
 
   public boolean isIntakeLowering(){
-    return getSpeedIntake() == -Constants.INTAKE_ROTATION_MOTOR_SPEED_DOWN;
+    return getSpeedIntakeRotation() < 0;
   }
 
   public boolean isIntakeGravityLowering(){
@@ -130,7 +159,7 @@ public class Intake extends SubsystemBase {
       stopIntake();
 
       //Raising the instake is a positive direction
-      intakeRotationMotor.set(Constants.INTAKE_ROTATION_MOTOR_SPEED_UP);
+      intakeRotationMotor.set(Constants.INTAKE_ROTATION_MOTOR_SPEED_UP_FAST);
     }
     
 
@@ -139,10 +168,12 @@ public class Intake extends SubsystemBase {
   /** will lower the intake down to the ground, peramtor determines weather it will be a gravity deploy */
   public void lowerIntake(boolean gravity){
     if(isIntakeRotationMotorRaised() || isIntakeRasing()){
+      gravityLoweringIntake = gravity;
       intakeRotationMotor.setIdleMode(IdleMode.kCoast);
       //Lowering the intake is a negative direction
-      intakeRotationMotor.set(-Constants.INTAKE_ROTATION_MOTOR_SPEED_DOWN);
+      intakeRotationMotor.set(-Constants.INTAKE_ROTATION_MOTOR_SPEED_DOWN_FAST);
       if(gravity){
+        
         gravityLoweringIntake = true;
         timeUntilLowered = System.currentTimeMillis() + Constants.INTAKE_GRAVITY_LOWER_TIME;
       }
@@ -175,12 +206,15 @@ public class Intake extends SubsystemBase {
     intakeRotationMotorSpeedEntry.setDouble(encoder.getVelocity());
     intakeLowerLimitSwitchEntry.setBoolean(lowerLimitSwitch.get());
     intakeUpperLimitSwitchEntry.setBoolean(upperLimitSwitch.get());
+    intakeGravityDeployEntry.setBoolean(gravityLoweringIntake);
 
     //intakeRotationSpeedDisplay.setDouble(intakeRotationMotor.get());//updates the display for the intake rotation motor speed
     //manage raise and lower intake
     //raise intake
     if(isIntakeRasing()){
-      
+      if(encoder.getPosition() >= Constants.INTAKE_ENCODER_UPPER_SLOW_POSITION){
+        intakeRotationMotor.set(Constants.INTAKE_ROTATION_MOTOR_SPEED_UP_SLOW);
+      }
       if(isIntakeRotationMotorRaised()){
 
         stopIntakeRotation();
@@ -188,7 +222,10 @@ public class Intake extends SubsystemBase {
       
     }
     else if(isIntakeLowering()){
-      
+      if(encoder.getPosition() <= Constants.INTAKE_ENCODER_LOWER_SLOW_POSITION){
+        intakeRotationMotor.set(-Constants.INTAKE_ROTATION_MOTOR_SPEED_DOWN_SLOW);
+      }
+
       if(isIntakeRotationMotorLowered() && !gravityLoweringIntake){
 
 
@@ -208,11 +245,12 @@ public class Intake extends SubsystemBase {
 
       }
     }
-
+/*
     if(isIntakeRotationMotorLowered() && encoder.getPosition() > Constants.INTAKE_LOWER_ENCODER_VALUE){
       intakeRotationMotor.setIdleMode(IdleMode.kCoast);
       encoder.setPosition(Constants.INTAKE_LOWER_ENCODER_VALUE);
     }
+*/
     //used for testing purposes
     // if(raisingIntake){
     //   fakeEncoderPosition -= 0.05;
