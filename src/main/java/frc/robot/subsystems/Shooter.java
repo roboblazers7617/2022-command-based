@@ -29,6 +29,7 @@ public class Shooter extends SubsystemBase {
   private final SparkMaxPIDController pidController;
   public final double kP, kI, kD, kIz, kFF, kMaxOutput, kMinOutput;
   private double setPoint = 0.0;
+  private boolean shooterSpinning;
 
 
 
@@ -62,24 +63,6 @@ public class Shooter extends SubsystemBase {
     pidController.setIZone(kIz);
     pidController.setFF(kFF);
     pidController.setOutputRange(kMinOutput, kMaxOutput);
-    
-    /*toggleShooter.setDefaultOption("yes shoot", -1.0);
-    toggleShooter.setDefaultOption("no shoot", 0.0);
-    tab.add(toggleShooter);*/
-  }
-  private void setVelocity(double speed){
-
-    if(speed == 0.0)
-    {
-      //shooterMotor.set(0.0);
-      pidController.setReference(0, CANSparkMax.ControlType.kVelocity);
-      setPoint = 0;
-    }
-      else{
-      
-       setPoint = speed;
-      
-    }
   }
 
   public void setSetPoint(double setPoint) {
@@ -87,16 +70,11 @@ public class Shooter extends SubsystemBase {
   }
 
   public void startShooter(){
-    setVelocity(setPoint);
-  }
-
-  public void startShooterFast(){
-    pidController.setReference(1850, CANSparkMax.ControlType.kVelocity);
+    shooterSpinning = true;
   }
 
   public void stopShooter(){
-    setPoint = 0;
-    pidController.setReference(0, CANSparkMax.ControlType.kVelocity);
+    shooterSpinning = false;
   }
 
   public double getSpeed(){
@@ -124,9 +102,12 @@ public class Shooter extends SubsystemBase {
     // This method will be called once per scheduler run
     shooterMotorEntry.setDouble(getSpeed());
     shooterStateEntry.setBoolean(shooterReady());
-    //shooterSensorEntry.setBoolean(shooterSensor.get());
     shooterSensorEntry.setBoolean(getShooterSensor());
-    pidController.setReference(setPoint, CANSparkMax.ControlType.kVelocity);
+    shooterSensorEntry.setBoolean(getShooterSensor());
+    if(shooterSpinning)
+      pidController.setReference(setPoint, CANSparkMax.ControlType.kVelocity);
+    else
+      pidController.setReference(0, CANSparkMax.ControlType.kVelocity);
 
   }
 }

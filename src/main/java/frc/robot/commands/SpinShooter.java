@@ -35,7 +35,6 @@ public class SpinShooter extends CommandBase {
     else{
       m_shooter.setSpeed(.33);
     }*/
-    m_shooter.setSetPoint(Constants.SHOOTER_SPEED);
     m_shooter.startShooter();
   }
 
