@@ -4,6 +4,8 @@
 
 package frc.robot.subsystems;
 
+import java.lang.reflect.Array;
+
 import com.kauailabs.navx.frc.AHRS;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
@@ -88,6 +90,20 @@ public class Drivetrain extends SubsystemBase {
   public double getEncoderStrafeDistance()
   {
     return getAverageStrafePosition() * Constants.DRIVETRAIN_ENCODER_DISTANCE_PER_ROTATION;
+  }
+
+  public double[] getRobotTranslation(){
+    double leftFrontWheelMovement = leftFrontEncoder.getPosition()*Constants.DRIVETRAIN_ENCODER_DISTANCE_PER_ROTATION;
+    double leftBackWheelMovement = leftBackEncoder.getPosition()*Constants.DRIVETRAIN_ENCODER_DISTANCE_PER_ROTATION;
+    double rightFrontWheelMovement = rightFrontEncoder.getPosition()*Constants.DRIVETRAIN_ENCODER_DISTANCE_PER_ROTATION;
+    double rightBackWheelMovement = rightBackEncoder.getPosition()*Constants.DRIVETRAIN_ENCODER_DISTANCE_PER_ROTATION;
+    double[] distanceTraveled = new double[2];
+    //forward/backward distance
+  distanceTraveled[0] = leftFrontWheelMovement / Math.sqrt(2) + leftBackWheelMovement / Math.sqrt(2) + rightFrontWheelMovement / Math.sqrt(2) + rightBackWheelMovement / Math.sqrt(2);
+    //left/right distance
+    distanceTraveled[1] = rightFrontWheelMovement / Math.sqrt(2) - leftFrontWheelMovement / Math.sqrt(2) + leftBackWheelMovement / Math.sqrt(2) - rightBackWheelMovement / Math.sqrt(2);
+    return distanceTraveled;
+    
   }
 
 }
