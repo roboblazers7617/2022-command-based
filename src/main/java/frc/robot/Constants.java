@@ -4,7 +4,6 @@
 
 package frc.robot;
 
-import com.fasterxml.jackson.databind.deser.std.ContainerDeserializerBase;
 
 import edu.wpi.first.wpilibj.XboxController;
 
@@ -50,6 +49,9 @@ public final class Constants {
     public static final int CLIMBER_BOTTOM_FORWARD_BUTTON = XboxController.Button.kB.value;  // blue button
     public static final int CLIMBER_BOTTOM_BACKWARD_BUTTON = XboxController.Button.kA.value; //green button
     public static final int SPEED_ADJUSTOR_TRIGGER = XboxController.Button.kLeftBumper.value; // left bumper
+    public static final int INTAKE_ZERO_OUT_BUTTON = XboxController.Button.kB.value;
+    public static final int INTAKE_ZERO_OUT_CANCEL_BUTTON = XboxController.Button.kA.value;
+
     //public static final int SHORT_ARM_UP_BUTTON = 55;
     //public static final int SHORT_ARM_DOWN_BUTTON = 56;
     //public static final int LONG_ARM_UP_BUTTON = 57;
@@ -83,10 +85,10 @@ public final class Constants {
     public static final double DRIVETRAIN_ROTATIONAL_KI = 0;
     public static final double DRIVETRAIN_ROTAIONAL_KD = 0;
     public static final double LOW_GEAR = .25;
-    public static final double HIGH_GEAR = .75;
-    public static final double SUPER_HIGH_GEAR = .55;
+    public static final double HIGH_GEAR = .60;
+    public static final double SUPER_HIGH_GEAR = .70;
     public static final double DRIVETRAIN_ENCODER_DISTANCE_PER_ROTATION = 2*Math.PI*WHEEL_RADIUS*WHEEL_GEAR_RATIO;
-    public static final double DISTANCE_FROM_FENDER_TO_TAXI = 110;
+    public static final double DISTANCE_FROM_FENDER_TO_TAXI = 90;
     public static final double AUTO_SPEED = .4;
 
     //Intake Data
@@ -95,7 +97,7 @@ public final class Constants {
     public static final double INTAKE_ENCODER_UPPER_SLOW_POSITION = -4;
     public static final double INTAKE_ENCODER_LOWER_SLOW_POSITION = -8;
     public static final double INTAKE_ROTATION_MOTOR_SPEED_UP_FAST = 0.25;   
-    public static final double INTAKE_ROTATION_MOTOR_SPEED_UP_SLOW = 0.07;
+    public static final double INTAKE_ROTATION_MOTOR_SPEED_UP_SLOW = 0.17;
     public static final double INTAKE_ROTATION_MOTOR_SPEED_DOWN_FAST = 0.2;
     public static final double INTAKE_ROTATION_MOTOR_SPEED_DOWN_SLOW = 0.1;   
     public static final double INTAKE_MOTOR_SPEED = 0.7;
@@ -103,14 +105,16 @@ public final class Constants {
     public static final int INTAKE_GRAVITY_LOWER_TIME = 500;
     public static final double INTAKE_ROTATION_MOVEMENT_MAX_ERROR = 0.4;
     public static final double INTAKE_ROTATION_CLASSFICATION_MAX_ERROR = 3;
+    public static final double INTAKE_ZERO_OuT_MOTOR_SPEED = .20;
+
 
     //Shooter data
     /**the speed relative to SHOOTER_MOTOR_SPEED that shooter will count as the minunum speed for shooterReady() */
     public static final double SHOOTER_MOTOR_TARGET_MIN = .98;
     /**the speed relative to SHOOTER_MOTOR_SPEED that shooter will count as the max speed for shooterReady() */
     public static final double SHOOTER_MOTOR_TARGET_MAX = 1.05;
-    public static final double SLOW_SHOOTER_SPEED = 1500;
-    public static final double SHOOTER_SPEED = 1600;
+    public static final double SLOW_SHOOTER_SPEED = 1525;
+    public static final double SHOOTER_SPEED = 1650;
     public static final double FAST_SHOOTER_SPEED = 1750;
     
     public static final double SHOOTER_kP = .0004; 
@@ -125,4 +129,5 @@ public final class Constants {
     public static final double RIGHT_UPPER_CLIMBER_SPEED = 0.85;
     public static final double LEFT_UPPER_CLIMBER_SPEED = .85;
     public static final double LOWER_CLIMBER_SPEED = 1;
+
 }

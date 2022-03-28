@@ -77,8 +77,17 @@ public class Drivetrain extends SubsystemBase {
   public double getAverageEncoderPosition(){
     return (leftFrontEncoder.getPosition()+rightFrontEncoder.getPosition()+leftBackEncoder.getPosition()+rightBackEncoder.getPosition())/4;
   }
+  public double getAverageStrafePosition(){
+    return (leftFrontEncoder.getPosition()+rightBackEncoder.getPosition())/2;
+  }
   public double getEncoderDistance()
   {
     return getAverageEncoderPosition() * Constants.DRIVETRAIN_ENCODER_DISTANCE_PER_ROTATION;
   }
+
+  public double getEncoderStrafeDistance()
+  {
+    return getAverageStrafePosition() * Constants.DRIVETRAIN_ENCODER_DISTANCE_PER_ROTATION;
+  }
+
 }

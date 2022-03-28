@@ -6,6 +6,7 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardLayout;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -68,6 +69,8 @@ public class RobotContainer {
     autoChooser.setDefaultOption("Close Auto", new AutoEasyClose(drivetrain, shooter, tower));
     autoChooser.addOption("Farther Auto", new AutoEasy(drivetrain, shooter, tower));
     autoChooser.addOption("Do Nothing", new AutoCommand());
+    //autoChooser.addOption("Left Ball Auto", new TwoBallAutoLeft(tower, drivetrain, shooter, intake));
+    //autoChooser.addOption("Right Ball Auto", new TwoBallAutoRight(tower, drivetrain, shooter, intake));
     SmartDashboard.putData(autoChooser);
 
      JoystickButton speedButton = new JoystickButton(driverController, Constants.SPEED_ADJUSTOR_TRIGGER);
@@ -88,13 +91,27 @@ public class RobotContainer {
      climberTopBackwordButton.whenHeld(new LowerTopClimber(climber));
 //     climberBottomFowardButton.whenHeld(new RaiseBottomClimber(climber));
  //  climberBottomBackwardButton.whenHeld(new LowerBottomClimber(climber));
-     
+
+    JoystickButton intakeZeroOutButton = new JoystickButton(driverController, Constants.INTAKE_ZERO_OUT_BUTTON);
+    JoystickButton intakeZeroOutCancelButton = new JoystickButton(driverController, Constants.INTAKE_ZERO_OUT_CANCEL_BUTTON);
+
+    intakeZeroOutButton.whenPressed(new ZeroOutIntake(intake));
+    intakeZeroOutCancelButton.whenPressed(new ZeroOutIntakeCancel(intake));
+
+
+
+
+
+
      JoystickButton collectBallsButton = new JoystickButton(shooterController, Constants.COLLECT_BALLS_BUTTON);
      JoystickButton stopCollectBallsButton = new JoystickButton(shooterController, Constants.STOP_COLLECT_BALLS_BUTTON);
      JoystickButton shootBallButton = new JoystickButton(shooterController, Constants.SHOOT_BOLL_BUTTON);
      JoystickButton reverseIntakeButton = new JoystickButton(shooterController, Constants.REVERSE_INTAKE_BUTTON);
      JoystickButton activateIntakeButton = new JoystickButton(shooterController, Constants.ACTIVATE_INTAKE_BUTTON);
      JoystickButton resetIntakeButton = new JoystickButton(shooterController, Constants.RESET_INTAKE_BUTTON);
+     JoystickButton moveUpBallsButton = new JoystickButton(shooterController, XboxController.Button.kRightStick.value);
+     JoystickButton moveUpBallButton = new JoystickButton(shooterController, XboxController.Button.kLeftStick.value);
+
     
      collectBallsButton.whenPressed(new LoadBalls(intake, tower));
      stopCollectBallsButton.whenPressed(new InstantCommand(tower::stop,tower).andThen(new ResetIntake(intake)));
@@ -103,6 +120,9 @@ public class RobotContainer {
      reverseIntakeButton.whenHeld(new ReverseIntake(intake));
      activateIntakeButton.whenHeld(new ActivateIntake(intake));
      resetIntakeButton.whenPressed(new ResetIntake(intake));
+
+     moveUpBallsButton.whenPressed(new AdjustTower(tower,shooter));
+     moveUpBallButton.whenPressed(new LoadOneTower(tower));
 
      Trigger leftTriggerButton = new Trigger(() -> shooterController.getLeftTriggerAxis() >= 0.5);
      leftTriggerButton.whenActive(new DeployIntake(intake));

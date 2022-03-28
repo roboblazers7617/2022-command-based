@@ -36,7 +36,7 @@ public class Intake extends SubsystemBase {
   private DigitalInput upperLimitSwitch;
   private DigitalInput lowerLimitSwitch;
 
-
+  private boolean isIntakeZeroing = false;
   private boolean gravityLoweringIntake;
   private long timeUntilLowered;
 
@@ -126,8 +126,25 @@ public class Intake extends SubsystemBase {
     return intakeRotationMotor.get();
   }
 
-  
+  public void zeroIntake(){
+    isIntakeZeroing = true;
+    stopIntake();
+    intakeRotationMotor.setIdleMode(IdleMode.kBrake);
+    intakeRotationMotor.set(Constants.INTAKE_ZERO_OuT_MOTOR_SPEED);
 
+  }
+
+  
+  public void cancelZeroIntake()
+  {
+    isIntakeZeroing = false;
+    stopIntakeRotation();
+  }
+
+  public boolean isIntakeZeroingOut()
+  {
+    return isIntakeZeroing;
+  }
 
 
   // public boolean isIntakeRotationMotorMoving(){
@@ -211,7 +228,16 @@ public class Intake extends SubsystemBase {
     //intakeRotationSpeedDisplay.setDouble(intakeRotationMotor.get());//updates the display for the intake rotation motor speed
     //manage raise and lower intake
     //raise intake
-    if(isIntakeRasing()){
+    if(isIntakeZeroing)
+    {
+      if (!upperLimitSwitch.get())
+      {
+        stopIntakeRotation();
+        encoder.setPosition(0);
+        isIntakeZeroing = false;
+      }
+    }
+    else if(isIntakeRasing()){
       if(encoder.getPosition() >= Constants.INTAKE_ENCODER_UPPER_SLOW_POSITION){
         intakeRotationMotor.set(Constants.INTAKE_ROTATION_MOTOR_SPEED_UP_SLOW);
       }

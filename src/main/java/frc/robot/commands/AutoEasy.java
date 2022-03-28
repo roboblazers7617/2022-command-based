@@ -4,12 +4,7 @@
 
 package frc.robot.commands;
 
-import java.lang.invoke.ConstantCallSite;
-
-import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import edu.wpi.first.wpilibj2.command.WaitCommand;
-import edu.wpi.first.wpilibj2.command.WaitUntilCommand;
 import frc.robot.Constants;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Shooter;
@@ -24,13 +19,7 @@ public class AutoEasy extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(new DriveWithEncoders(drivetrain, -Constants.AUTO_SPEED, 40),
-                new SpinShooter(shooter),
-                new WaitUntilCommand(shooter::shooterReady),
-                new RunTower(tower),
-                new WaitCommand(2),
-                new InstantCommand(() ->tower.setSpeedUpper(0.0)),
-                new InstantCommand(() ->tower.setSpeedLower(0.0)), 
-                new StopShooter(shooter),
+                new ShootOneBoll(shooter, tower),
                 new DriveWithEncoders(drivetrain, Constants.AUTO_SPEED, Constants.DISTANCE_FROM_FENDER_TO_TAXI)
               );
   }

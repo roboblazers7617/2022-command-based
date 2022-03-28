@@ -10,17 +10,11 @@ import com.revrobotics.SparkMaxPIDController;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
-import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.DigitalInput;
-import edu.wpi.first.wpilibj.motorcontrol.PWMSparkMax;
-import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
-import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
-import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.ShuffleboardInfo;
-import frc.robot.commands.StopShooter;
 
 public class Shooter extends SubsystemBase {
   private final CANSparkMax shooterMotor = new CANSparkMax(Constants.SHOOTER_PORT, MotorType.kBrushless);
@@ -28,7 +22,7 @@ public class Shooter extends SubsystemBase {
   private final RelativeEncoder encoder;
   private final SparkMaxPIDController pidController;
   public final double kP, kI, kD, kIz, kFF, kMaxOutput, kMinOutput;
-  private double setPoint = Constants.SHOOTER_SPEED;
+  private double setPoint = Constants.SLOW_SHOOTER_SPEED;
   private boolean shooterSpinning = false;
 
 
