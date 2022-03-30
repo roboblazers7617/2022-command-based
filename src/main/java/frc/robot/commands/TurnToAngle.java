@@ -19,9 +19,9 @@ public class TurnToAngle extends PIDCommand {
         // The controller that the command will use
         new PIDController(Constants.DRIVETRAIN_ROTATIONAL_KP, Constants.DRIVETRAIN_KI, Constants.DRIVETRAIN_KD),
         // This should return the measurement
-        () -> drivetrain.getGyro(),
+        () -> drivetrain.getAngle(),
         // This should return the setpoint (can also be a constant)
-        () -> relativeAngle-drivetrain.getGyro(),
+        () -> relativeAngle-drivetrain.getAngle(),
         // This uses the output
         output -> {
           // Use the output here

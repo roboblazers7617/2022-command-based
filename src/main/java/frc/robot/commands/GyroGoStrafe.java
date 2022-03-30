@@ -44,7 +44,7 @@ public class GyroGoStrafe extends CommandBase {
       }
       m_distance = distance;
       addRequirements(drivetrain);
-      m_gyroAdjustment = -m_drivetrain.getGyro();
+      m_gyroAdjustment = -m_drivetrain.getAngle();
       m_positionAdjustment = -m_drivetrain.getAverageEncoderPosition();
       m_angleController.setSetpoint(0+m_gyroAdjustment);
       m_positionController.setSetpoint(m_distance*m_direction+m_positionAdjustment);
@@ -61,7 +61,7 @@ public class GyroGoStrafe extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_angleAddjustment = m_angleController.calculate(m_drivetrain.getGyro());
+    m_angleAddjustment = m_angleController.calculate(m_drivetrain.getAngle());
     speed = (m_positionController.calculate(Units.inchesToMeters(m_drivetrain.getAverageEncoderPosition())));
     if(!finished){
     m_drivetrain.setSpeeds(speed-m_angleAddjustment, -speed+m_angleAddjustment,speed-m_angleAddjustment, -speed+m_angleAddjustment);

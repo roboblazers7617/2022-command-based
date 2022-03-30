@@ -76,20 +76,9 @@ public final class Constants {
     public static final double NERF_LOWER_TOWER = -3;
 
     //Drivetrain Data
-    public static final double DRIVETRAIN_KP = 0;
-    public static final double DRIVETRAIN_KI = 0;
-    public static final double DRIVETRAIN_KD = 0;
-    public static final int WHEEL_RADIUS = 4;//inches
-    public static final double WHEEL_GEAR_RATIO = 1/12.75;
-    public static final double DRIVETRAIN_ROTATIONAL_KP = 0;
-    public static final double DRIVETRAIN_ROTATIONAL_KI = 0;
-    public static final double DRIVETRAIN_ROTAIONAL_KD = 0;
     public static final double LOW_GEAR = .25;
     public static final double HIGH_GEAR = .60;
     public static final double SUPER_HIGH_GEAR = .70;
-    public static final double DRIVETRAIN_ENCODER_DISTANCE_PER_ROTATION = 2*Math.PI*WHEEL_RADIUS*WHEEL_GEAR_RATIO;
-    public static final double DISTANCE_FROM_FENDER_TO_TAXI = 90;
-    public static final double AUTO_SPEED = .4;
 
     //Intake Data
     public static final double INTAKE_LOWER_ENCODER_VALUE = -13;
@@ -129,5 +118,31 @@ public final class Constants {
     public static final double RIGHT_UPPER_CLIMBER_SPEED = 0.85;
     public static final double LEFT_UPPER_CLIMBER_SPEED = .85;
     public static final double LOWER_CLIMBER_SPEED = 1;
+
+    //Drivetrain Auto
+    public static final double DRIVETRAIN_KS = 0;
+    public static final double DRIVETRAIN_KV = 0;
+    public static final double DRIVETRAIN_KA = 0;
+
+    public static final double WHEEL_KP = 0;
+    public static final double WHEEL_KI = 0;
+    public static final double WHEEL_KD = 0;
+
+    public static final double MAX_ROTATION = 0;
+    public static final double MAX_ROTATION_CHANGE = 0;
+    public static final double MAX_VELOCITY = 0;
+    public static final double MAX_ACCELERATION = 0;
+    
+    public static final double DRIVETRAIN_KP = 0;
+    public static final double DRIVETRAIN_KI = 0;
+    public static final double DRIVETRAIN_KD = 0;
+    public static final int WHEEL_RADIUS = 4;//inches
+    public static final double WHEEL_GEAR_RATIO = 1/12.75;
+    public static final double DRIVETRAIN_ROTATIONAL_KP = 0;
+    public static final double DRIVETRAIN_ROTATIONAL_KI = 0;
+    public static final double DRIVETRAIN_ROTAIONAL_KD = 0;
+    public static final double DRIVETRAIN_ENCODER_DISTANCE_PER_ROTATION = 2*Math.PI*WHEEL_RADIUS*WHEEL_GEAR_RATIO;
+    public static final double DISTANCE_FROM_FENDER_TO_TAXI = 90;
+    public static final double AUTO_SPEED = .4;
 
 }

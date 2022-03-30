@@ -4,14 +4,19 @@
 
 package frc.robot;
 
+import com.pathplanner.lib.PathPlanner;
+import com.pathplanner.lib.PathPlannerTrajectory;
+
+import edu.wpi.first.math.trajectory.TrajectoryConfig;
+import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.GenericHID;
-import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj.GenericHID.RumbleType;
+import edu.wpi.first.wpilibj.XboxController; 
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardLayout;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.MecanumControllerCommand;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import frc.robot.subsystems.*;
 import frc.robot.commands.*;
@@ -25,13 +30,13 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
-  private final XboxController driverController = new XboxController(Constants.DRIVER_CONTROLLER_PORT);
-  private final XboxController shooterController = new XboxController(Constants.SHOOTER_CONTROLLER_PORT);
-  private final Drivetrain drivetrain = new Drivetrain();
-  private final Intake intake = new Intake();
-  private final Tower tower = new Tower();
-  private final Shooter shooter = new Shooter();
-  private final Climber climber = new Climber();
+  private static final XboxController driverController = new XboxController(Constants.DRIVER_CONTROLLER_PORT);
+  private static final XboxController shooterController = new XboxController(Constants.SHOOTER_CONTROLLER_PORT);
+  private static final Drivetrain drivetrain = new Drivetrain();
+  private static final Intake intake = new Intake();
+  private static final Tower tower = new Tower();
+  private static final Shooter shooter = new Shooter();
+  private static final Climber climber = new Climber();
   private final ShuffleboardLayout commandLayout;
   private SendableChooser<Command> autoChooser = new SendableChooser<>();
 
@@ -69,8 +74,7 @@ public class RobotContainer {
     autoChooser.setDefaultOption("Close Auto", new AutoEasyClose(drivetrain, shooter, tower));
     autoChooser.addOption("Farther Auto", new AutoEasy(drivetrain, shooter, tower));
     autoChooser.addOption("Do Nothing", new AutoCommand());
-    //autoChooser.addOption("Left Ball Auto", new TwoBallAutoLeft(tower, drivetrain, shooter, intake));
-    //autoChooser.addOption("Right Ball Auto", new TwoBallAutoRight(tower, drivetrain, shooter, intake));
+    autoChooser.addOption("Odo Left", new TwoBallOdoAuto(intake, tower, shooter));
     SmartDashboard.putData(autoChooser);
 
      JoystickButton speedButton = new JoystickButton(driverController, Constants.SPEED_ADJUSTOR_TRIGGER);
@@ -160,4 +164,30 @@ public Command getTeleOpDrive(){
     // An ExampleCommand will run in autonomous
     return autoChooser.getSelected();
   } 
+
+
+
+  public static Command followTrajectory(String trajectoryName) {
+    // An ExampleCommand will run in autonomous
+    TrajectoryConfig tConfig = new TrajectoryConfig(Units.feetToMeters(Constants.MAX_VELOCITY), Units.feetToMeters(Constants.MAX_ACCELERATION));
+    tConfig.setKinematics(drivetrain.getKinematics());
+    PathPlannerTrajectory  trajectory = PathPlanner.loadPath(trajectoryName, Constants.MAX_VELOCITY, Constants.MAX_ACCELERATION);
+    MecanumControllerCommand trajectoryFollow = new MecanumControllerCommand(trajectory, 
+    drivetrain :: getPose, 
+    drivetrain.getFeedforward(),
+    drivetrain.getKinematics(), 
+    drivetrain.getXPID(), 
+    drivetrain.getYPID(), 
+    drivetrain.getThetaPID(), 
+    Units.feetToMeters(Constants.MAX_VELOCITY),
+    drivetrain.getLeftFrontPID(),
+    drivetrain.getLeftBackPID(),
+    drivetrain.getRightFrontPID(),
+    drivetrain.getRightBackPID(), 
+    drivetrain :: getSpeed,
+    drivetrain::setMotorVoltages, 
+    drivetrain);
+    drivetrain.resetOdometry(trajectory.getInitialPose());
+    return trajectoryFollow.andThen(() -> drivetrain.drive(0, 0, 0));
+  }
 }
