@@ -144,5 +144,5 @@ public final class Constants {
     public static final double DRIVETRAIN_ENCODER_DISTANCE_PER_ROTATION = 2*Math.PI*WHEEL_RADIUS*WHEEL_GEAR_RATIO;
     public static final double DISTANCE_FROM_FENDER_TO_TAXI = 90;
     public static final double AUTO_SPEED = .4;
-
+    public static final double PULSE_RELATIVE_ENCODER = 1024;
 }

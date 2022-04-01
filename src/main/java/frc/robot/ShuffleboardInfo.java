@@ -31,7 +31,7 @@ public class ShuffleboardInfo {
    
     // Create NetworkTableEntry for each data that is to be tracked/displayed
     private final NetworkTableEntry bottomClimbEntry, topRightClimbEntry, topLeftClimbEntry;
-    private final NetworkTableEntry drivetrainLeftFrontMotorEntry, drivetrainLeftRearMotorEntry, drivetrainRightFrontMotorEntry, drivetrainRightRearMotorEntry;
+    private final NetworkTableEntry drivetrainLeftFrontMotorEntry, drivetrainLeftRearMotorEntry, drivetrainRightFrontMotorEntry, drivetrainRightRearMotorEntry, gyroEntry;
     private final NetworkTableEntry towerUpperMotorEntry, towerLowerMotorEntry, towerLowerSensorEntry, towerUpperSensorEntry;
     private final NetworkTableEntry shooterMotorEntry, shooterStateEntry, shooterSensorEntry;
     private final NetworkTableEntry intakeRotationMotorPosition, intakeRotationMotorSpeed, intakeMotorSpeed, intakeUpperLimitSwtich, intakeLowerLimitSwitch, intakeGravityDeploy;
@@ -82,8 +82,9 @@ public class ShuffleboardInfo {
         // Drivetrain
         drivetrainLeftFrontMotorEntry = drivetrainLeftLayout.add("Drive LF", 0).getEntry();
         drivetrainRightFrontMotorEntry = drivetrainRightLayout.add("Drive RF", 0).getEntry();
-        drivetrainLeftRearMotorEntry = drivetrainLeftLayout.add("Drive LR", 0).getEntry();
-        drivetrainRightRearMotorEntry = drivetrainRightLayout.add("Drive RR", 0).getEntry();
+        drivetrainLeftRearMotorEntry = drivetrainLeftLayout.add("Drive LB", 0).getEntry();
+        drivetrainRightRearMotorEntry = drivetrainRightLayout.add("Drive RB", 0).getEntry();
+        gyroEntry = drivetrainLeftLayout.add("Gyro Value", 0).getEntry();
 
         //shooter
         shooterMotorEntry = shooterLayout.add("Shooter motor speed", 0).getEntry();
@@ -176,6 +177,9 @@ public class ShuffleboardInfo {
     }
     public NetworkTableEntry getShooterSensorEntry() {
         return shooterSensorEntry;
+    }
+    public NetworkTableEntry getGyroEntry() {
+        return gyroEntry;
     }
  
 }

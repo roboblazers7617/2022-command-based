@@ -10,6 +10,7 @@ import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import com.revrobotics.CANSparkMax.IdleMode;
 import frc.robot.Constants;
+import frc.robot.ShuffleboardInfo;
 import edu.wpi.first.wpilibj.SPI.Port;
 import edu.wpi.first.wpilibj.drive.MecanumDrive;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -71,12 +72,27 @@ public class Drivetrain extends SubsystemBase {
     drivetrain.setMaxOutput(Constants.HIGH_GEAR);
     gyro.calibrate();
     gyro.reset();
+
+    leftFrontEncoder.setPosition(0);
+    leftBackEncoder.setPosition(0);
+    rightFrontEncoder.setPosition(0);
+    rightBackEncoder.setPosition(0);
+
+    leftFrontEncoder.setPositionConversionFactor(Constants.WHEEL_GEAR_RATIO*Constants.PULSE_RELATIVE_ENCODER);
+    leftBackEncoder.setPositionConversionFactor(Constants.WHEEL_GEAR_RATIO*Constants.PULSE_RELATIVE_ENCODER);
+    rightFrontEncoder.setPositionConversionFactor(Constants.WHEEL_GEAR_RATIO*Constants.PULSE_RELATIVE_ENCODER);
+    rightBackEncoder.setPositionConversionFactor(Constants.WHEEL_GEAR_RATIO*Constants.PULSE_RELATIVE_ENCODER);  
   }
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
     pose = odometry.update(getAngle2d(), getSpeed());
+    ShuffleboardInfo.getInstance().getGyroEntry().setDouble(getAngle());
+    ShuffleboardInfo.getInstance().getDrivetrainLeftFrontMotorEntry().setDouble(leftFrontEncoder.getPosition());
+    ShuffleboardInfo.getInstance().getDrivetrainRightFrontMotorEntry().setDouble(rightFrontEncoder.getPosition());
+    ShuffleboardInfo.getInstance().getDrivetrainLeftRearMotorEntry().setDouble(leftBackEncoder.getPosition());
+    ShuffleboardInfo.getInstance().getDrivetrainRightRearMotorEntry().setDouble(rightBackEncoder.getPosition());
   }
 
   public void drive(double ySpeed, double xSpeed, double zRotation){
@@ -87,7 +103,7 @@ public class Drivetrain extends SubsystemBase {
     drivetrain.setMaxOutput(speed);
   }
   public double getAngle(){
-    return gyro.getAngle();
+    return -gyro.getAngle();
   }
   public void resetGyro(){
     gyro.reset();
@@ -115,10 +131,10 @@ public class Drivetrain extends SubsystemBase {
   }
 
   public double[] getRobotTranslation(){
-    double leftFrontWheelMovement = leftFrontEncoder.getPosition()*Constants.DRIVETRAIN_ENCODER_DISTANCE_PER_ROTATION;
-    double leftBackWheelMovement = leftBackEncoder.getPosition()*Constants.DRIVETRAIN_ENCODER_DISTANCE_PER_ROTATION;
-    double rightFrontWheelMovement = rightFrontEncoder.getPosition()*Constants.DRIVETRAIN_ENCODER_DISTANCE_PER_ROTATION;
-    double rightBackWheelMovement = rightBackEncoder.getPosition()*Constants.DRIVETRAIN_ENCODER_DISTANCE_PER_ROTATION;
+    double leftFrontWheelMovement = leftFrontEncoder.getPosition();
+    double leftBackWheelMovement = leftBackEncoder.getPosition();
+    double rightFrontWheelMovement = rightFrontEncoder.getPosition();
+    double rightBackWheelMovement = rightBackEncoder.getPosition();
     double[] distanceTraveled = new double[2];
     //forward/backward distance
   distanceTraveled[0] = leftFrontWheelMovement / Math.sqrt(2) + leftBackWheelMovement / Math.sqrt(2) + rightFrontWheelMovement / Math.sqrt(2) + rightBackWheelMovement / Math.sqrt(2);
@@ -194,6 +210,12 @@ public class Drivetrain extends SubsystemBase {
 
   public void resetOdometry(Pose2d pose){
     odometry.resetPosition(pose, gyro.getRotation2d());
+
+    leftFrontEncoder.setPosition(0);
+    leftBackEncoder.setPosition(0);
+    rightFrontEncoder.setPosition(0);
+    rightBackEncoder.setPosition(0);
+
   }
   }
 
