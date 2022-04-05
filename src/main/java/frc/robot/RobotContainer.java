@@ -6,6 +6,7 @@ package frc.robot;
 
 import com.pathplanner.lib.PathPlanner;
 import com.pathplanner.lib.PathPlannerTrajectory;
+import com.pathplanner.lib.commands.PPMecanumControllerCommand;
 
 import edu.wpi.first.math.trajectory.TrajectoryConfig;
 import edu.wpi.first.math.util.Units;
@@ -19,7 +20,37 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.MecanumControllerCommand;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import frc.robot.subsystems.*;
-import frc.robot.commands.*;
+import frc.robot.commands.Automations.AdjustTower;
+import frc.robot.commands.Automations.LoadBalls;
+import frc.robot.commands.Automations.ShootBolls;
+import frc.robot.commands.Automations.ShootOneBoll;
+import frc.robot.commands.Autonomous.AutoCommand;
+import frc.robot.commands.Autonomous.AutoEasy;
+import frc.robot.commands.Autonomous.AutoEasyClose;
+import frc.robot.commands.Autonomous.DriveWithEncoders;
+import frc.robot.commands.Autonomous.PathPlannerFollowTrajectory;
+import frc.robot.commands.Autonomous.RobotGoDiagy;
+import frc.robot.commands.Autonomous.TestEncoders;
+import frc.robot.commands.Autonomous.ThreeBallAutoLeft;
+import frc.robot.commands.Autonomous.TwoBallAutoLeft;
+import frc.robot.commands.Autonomous.TwoBallAutoRight;
+import frc.robot.commands.Autonomous.TwoBallOdoAuto;
+import frc.robot.commands.Climber.LowerTopClimber;
+import frc.robot.commands.Climber.RaiseTopClimber;
+import frc.robot.commands.Intake.ActivateIntake;
+import frc.robot.commands.Intake.DeployIntake;
+import frc.robot.commands.Intake.ResetIntake;
+import frc.robot.commands.Intake.ReverseIntake;
+import frc.robot.commands.Intake.RunIntake;
+import frc.robot.commands.Intake.ToggleIntakeRotation;
+import frc.robot.commands.Intake.ZeroOutIntake;
+import frc.robot.commands.Intake.ZeroOutIntakeCancel;
+import frc.robot.commands.Shooter.SpinShooter;
+import frc.robot.commands.Shooter.StopShooter;
+import frc.robot.commands.Tower.LoadOneTower;
+import frc.robot.commands.Tower.LoadTower;
+import frc.robot.commands.Tower.StopTower;
+import frc.robot.commands.Tower.moveTowerIndividual;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 /**
@@ -74,7 +105,12 @@ public class RobotContainer {
     autoChooser.setDefaultOption("Close Auto", new AutoEasyClose(drivetrain, shooter, tower));
     autoChooser.addOption("Farther Auto", new AutoEasy(drivetrain, shooter, tower));
     autoChooser.addOption("Do Nothing", new AutoCommand());
-    autoChooser.addOption("Odo Left", new TwoBallOdoAuto(intake, tower, shooter));
+    autoChooser.addOption("Odo Left", new TwoBallOdoAuto(intake, tower, shooter, drivetrain));
+    autoChooser.addOption("Two Ball Left", new TwoBallAutoLeft(tower, drivetrain, shooter, intake));
+    autoChooser.addOption("Three Ball Left", new ThreeBallAutoLeft(tower, drivetrain, shooter, intake));
+    autoChooser.addOption("Two Ball Right", new TwoBallAutoRight(tower, drivetrain, shooter, intake));
+    autoChooser.addOption("Simple Auto Test", new PathPlannerFollowTrajectory(drivetrain, "TestAuto", Constants.MAX_VELOCITY, Constants.MAX_ACCELERATION));
+    autoChooser.addOption("Diagonal Test", new RobotGoDiagy(drivetrain, 30, Constants.LEFT));
     SmartDashboard.putData(autoChooser);
 
      JoystickButton speedButton = new JoystickButton(driverController, Constants.SPEED_ADJUSTOR_TRIGGER);
@@ -169,10 +205,10 @@ public Command getTeleOpDrive(){
 
   public static Command followTrajectory(String trajectoryName) {
     // An ExampleCommand will run in autonomous
-    TrajectoryConfig tConfig = new TrajectoryConfig(Units.feetToMeters(Constants.MAX_VELOCITY), Units.feetToMeters(Constants.MAX_ACCELERATION));
+    TrajectoryConfig tConfig = new TrajectoryConfig(Constants.MAX_VELOCITY, Constants.MAX_ACCELERATION);
     tConfig.setKinematics(drivetrain.getKinematics());
     PathPlannerTrajectory  trajectory = PathPlanner.loadPath(trajectoryName, Constants.MAX_VELOCITY, Constants.MAX_ACCELERATION);
-    MecanumControllerCommand trajectoryFollow = new MecanumControllerCommand(trajectory, 
+   /* MecanumControllerCommand trajectoryFollow = new MecanumControllerCommand(trajectory, 
     drivetrain :: getPose, 
     drivetrain.getFeedforward(),
     drivetrain.getKinematics(), 
@@ -188,6 +224,22 @@ public Command getTeleOpDrive(){
     drivetrain::setMotorVoltages, 
     drivetrain);
     drivetrain.resetOdometry(trajectory.getInitialPose());
-    return trajectoryFollow.andThen(() -> drivetrain.drive(0, 0, 0));
+    return trajectoryFollow.andThen(() -> drivetrain.drive(0, 0, 0));*/
+    PPMecanumControllerCommand trajectoryFollow = new PPMecanumControllerCommand(
+      trajectory, 
+      drivetrain::getPose,
+      drivetrain.getKinematics(),
+      drivetrain.getXPID(),
+      drivetrain.getYPID(),
+      drivetrain.getThetaPID(), 
+      Constants.MAX_VELOCITY, 
+      drivetrain::setSpeeds, 
+      drivetrain);
+      drivetrain.resetOdometry(trajectory.getInitialPose());
+      return trajectoryFollow.andThen(() -> drivetrain.drive(0,0,0));
+  }
+
+  public void startTeleop(){
+    drivetrain.setBrakeMode("coast");
   }
 }

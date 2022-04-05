@@ -13,8 +13,8 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import frc.robot.Constants;
 import frc.robot.ShuffleboardInfo;
-import frc.robot.commands.ResetIntake;
-import frc.robot.commands.ToggleIntakeRotation;
+import frc.robot.commands.Intake.ResetIntake;
+import frc.robot.commands.Intake.ToggleIntakeRotation;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.CAN;
 import edu.wpi.first.wpilibj.DigitalInput;

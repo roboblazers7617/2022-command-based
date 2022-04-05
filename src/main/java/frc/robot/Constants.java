@@ -5,6 +5,7 @@
 package frc.robot;
 
 
+import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.XboxController;
 
 /**
@@ -27,7 +28,6 @@ public final class Constants {
     public static final int RIGHT_BACK_WHEEL_PORT =6;
     public static final int INTAKE_ROTATION_PORT = 10;
     public static final int SHOOTER_PORT = 1;
-    //public static final int BOTTOM_CLIMBER_PORT = 4;
     public static final int LEFT_TOP_CLIMBER_PORT = 3;
     public static final int RIGHT_TOP_CLIMBER_PORT = 2;
     public static final int LOWER_TOWER_MOTOR = 11;
@@ -72,7 +72,7 @@ public final class Constants {
     
     //Tower
     public static final double LOWER_TOWER_SPEED = 0.25;
-    public static final double UPPER_TOWER_SPEED = .4;
+    public static final double UPPER_TOWER_SPEED = .6;
     public static final double NERF_LOWER_TOWER = -3;
 
     //Drivetrain Data
@@ -93,7 +93,7 @@ public final class Constants {
     public static final int ANGLE_INTAKE_DEPLOY = 80;
     public static final int INTAKE_GRAVITY_LOWER_TIME = 500;
     public static final double INTAKE_ROTATION_MOVEMENT_MAX_ERROR = 0.4;
-    public static final double INTAKE_ROTATION_CLASSFICATION_MAX_ERROR = 3;
+    public static final double INTAKE_ROTATION_CLASSFICATION_MAX_ERROR = 5;// formerly three
     public static final double INTAKE_ZERO_OuT_MOTOR_SPEED = .20;
 
 
@@ -120,29 +120,32 @@ public final class Constants {
     public static final double LOWER_CLIMBER_SPEED = 1;
 
     //Drivetrain Auto
-    public static final double DRIVETRAIN_KS = 0;
-    public static final double DRIVETRAIN_KV = 0;
-    public static final double DRIVETRAIN_KA = 0;
+    public static final double DRIVETRAIN_KS = 0.12004;
+    public static final double DRIVETRAIN_KV = 2.5046;
+    public static final double DRIVETRAIN_KA = 0.53727;
 
-    public static final double WHEEL_KP = 0;
+    public static final double WHEEL_KP = 0.08055;
     public static final double WHEEL_KI = 0;
-    public static final double WHEEL_KD = 0;
+    public static final double WHEEL_KD = 0.0088055;
 
-    public static final double MAX_ROTATION = 0;
-    public static final double MAX_ROTATION_CHANGE = 0;
-    public static final double MAX_VELOCITY = 0;
-    public static final double MAX_ACCELERATION = 0;
+    public static final double MAX_ROTATION = 10;
+    public static final double MAX_ROTATION_CHANGE = 2.5;
+    public static final double MAX_VELOCITY = 3;  // Meters per second
+    public static final double MAX_ACCELERATION = 3; // Meters per second squared
     
-    public static final double DRIVETRAIN_KP = 0;
+    public static final double DRIVETRAIN_KP = 0.08055;
     public static final double DRIVETRAIN_KI = 0;
-    public static final double DRIVETRAIN_KD = 0;
+    public static final double DRIVETRAIN_KD = 0.0088055;
     public static final int WHEEL_RADIUS = 4;//inches
     public static final double WHEEL_GEAR_RATIO = 1/12.75;
-    public static final double DRIVETRAIN_ROTATIONAL_KP = 0;
+    public static final double DRIVETRAIN_ROTATIONAL_KP = 0.025;
     public static final double DRIVETRAIN_ROTATIONAL_KI = 0;
-    public static final double DRIVETRAIN_ROTAIONAL_KD = 0;
-    public static final double DRIVETRAIN_ENCODER_DISTANCE_PER_ROTATION = 2*Math.PI*WHEEL_RADIUS*WHEEL_GEAR_RATIO;
+    public static final double DRIVETRAIN_ROTAIONAL_KD = 0.0088055;
+    public static final double DRIVETRAIN_ENCODER_DISTANCE_PER_ROTATION = (2*Math.PI*Units.inchesToMeters(WHEEL_RADIUS)*WHEEL_GEAR_RATIO);
     public static final double DISTANCE_FROM_FENDER_TO_TAXI = 90;
-    public static final double AUTO_SPEED = .4;
-    public static final double PULSE_RELATIVE_ENCODER = 1024;
+    public static final double AUTO_SPEED = .58;
+    public static final double AUTO_SPEED_FORWARD = .45;
+    public static final double PULSE_RELATIVE_ENCODER = 1;
+    public static final int LEFT = 1;
+    public static final int RIGHT = 0;
 }

@@ -31,7 +31,8 @@ public class ShuffleboardInfo {
    
     // Create NetworkTableEntry for each data that is to be tracked/displayed
     private final NetworkTableEntry bottomClimbEntry, topRightClimbEntry, topLeftClimbEntry;
-    private final NetworkTableEntry drivetrainLeftFrontMotorEntry, drivetrainLeftRearMotorEntry, drivetrainRightFrontMotorEntry, drivetrainRightRearMotorEntry, gyroEntry;
+    private final NetworkTableEntry drivetrainLeftFrontMotorEntry, drivetrainLeftRearMotorEntry, drivetrainRightFrontMotorEntry, 
+        drivetrainRightRearMotorEntry, gyroEntry, drivetrainYPoseEntry, drivetrainXPoseEntry;
     private final NetworkTableEntry towerUpperMotorEntry, towerLowerMotorEntry, towerLowerSensorEntry, towerUpperSensorEntry;
     private final NetworkTableEntry shooterMotorEntry, shooterStateEntry, shooterSensorEntry;
     private final NetworkTableEntry intakeRotationMotorPosition, intakeRotationMotorSpeed, intakeMotorSpeed, intakeUpperLimitSwtich, intakeLowerLimitSwitch, intakeGravityDeploy;
@@ -59,8 +60,8 @@ public class ShuffleboardInfo {
         // For each subsystem or type of data being displayed, they are added to a group to more compactly display the data
         // and to more easily view data from one subsystem
         ShuffleboardLayout climberLayout = testTab.getLayout("Climber", BuiltInLayouts.kList).withPosition(5,0).withSize(1, 1).withProperties(Map.of("Label position", "HIDDEN"));
-        ShuffleboardLayout drivetrainLeftLayout = testTab.getLayout("Drivetrain Left", BuiltInLayouts.kList).withPosition(3,0).withSize(1, 1).withProperties(Map.of("Label position", "HIDDEN"));
-        ShuffleboardLayout drivetrainRightLayout = testTab.getLayout("Drivetrain Right", BuiltInLayouts.kList).withPosition(4,0).withSize(1, 1).withProperties(Map.of("Label position", "HIDDEN"));
+        ShuffleboardLayout drivetrainLeftLayout = testTab.getLayout("Drivetrain Left", BuiltInLayouts.kList).withPosition(3,0).withSize(1, 1);
+        ShuffleboardLayout drivetrainRightLayout = testTab.getLayout("Drivetrain Right", BuiltInLayouts.kList).withPosition(4,0).withSize(1, 1);
         ShuffleboardLayout towerLayout = testTab.getLayout("Tower", BuiltInLayouts.kList).withPosition(2,0).withSize(1, 6);
         ShuffleboardLayout shooterLayout = testTab.getLayout("Shooter", BuiltInLayouts.kList).withPosition(6, 0).withSize(1, 2).withProperties(Map.of("Label position", "HIDDEN"));
         ShuffleboardLayout intakeLayout = testTab.getLayout("Intake", BuiltInLayouts.kList).withPosition(7, 0).withSize(2, 4);
@@ -85,6 +86,8 @@ public class ShuffleboardInfo {
         drivetrainLeftRearMotorEntry = drivetrainLeftLayout.add("Drive LB", 0).getEntry();
         drivetrainRightRearMotorEntry = drivetrainRightLayout.add("Drive RB", 0).getEntry();
         gyroEntry = drivetrainLeftLayout.add("Gyro Value", 0).getEntry();
+        drivetrainXPoseEntry = drivetrainLeftLayout.add("Drive X Pose", 0).getEntry();
+        drivetrainYPoseEntry = drivetrainRightLayout.add("Drive Y Pose", 0).getEntry();
 
         //shooter
         shooterMotorEntry = shooterLayout.add("Shooter motor speed", 0).getEntry();
@@ -181,5 +184,10 @@ public class ShuffleboardInfo {
     public NetworkTableEntry getGyroEntry() {
         return gyroEntry;
     }
- 
+    public NetworkTableEntry getDrivetrainXPoseEntry() {
+        return drivetrainXPoseEntry;
+    }
+    public NetworkTableEntry getDrivetrainYPoseEntry() {
+        return drivetrainYPoseEntry;
+    }
 }
