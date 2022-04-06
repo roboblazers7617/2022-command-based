@@ -33,7 +33,7 @@ public class TwoBallAutoRight extends SequentialCommandGroup {
       new ShootOneBoll(shooter, tower),
       new DriveWithEncoders(drivetrain, 32, .5),
       new StrafeWithTime(drivetrain, -Constants.AUTO_SPEED, .65),
-      new ParallelDeadlineGroup(new LoadOneBallAuto(intake, tower),new DriveWithEncoders(drivetrain, 46, .5)),
+      new ParallelDeadlineGroup(new LoadOneBallAuto(intake, tower),new DriveWithEncoders(drivetrain, 46, .3)),
       new ParallelCommandGroup(new DriveWithEncoders(drivetrain, -38, .5), new ResetIntake(intake)),
       new TurnToAngle(drivetrain, 0),
       new StrafeWithTime(drivetrain, Constants.AUTO_SPEED, .62),

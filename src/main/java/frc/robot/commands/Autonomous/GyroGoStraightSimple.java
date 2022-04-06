@@ -27,6 +27,7 @@ public class GyroGoStraightSimple extends CommandBase {
   private double speed;
   private double endPosition;
   private double m_speedMultiplier = 1;
+  private double kP = .00001;
 
 
   public GyroGoStraightSimple(Drivetrain drivetrain, double distance) {
@@ -75,7 +76,7 @@ public class GyroGoStraightSimple extends CommandBase {
   @Override
   public void execute() {
     if(!finished){
-      m_angleAddjustment = Constants.DRIVETRAIN_ROTATIONAL_KP*(m_gyroSetpoint+m_drivetrain.getAngle());
+      m_angleAddjustment = kP*(m_gyroSetpoint+m_drivetrain.getAngle());
       m_drivetrain.setSpeeds(speed-m_angleAddjustment, speed+m_angleAddjustment, speed-m_angleAddjustment, speed+m_angleAddjustment);
     }
   }

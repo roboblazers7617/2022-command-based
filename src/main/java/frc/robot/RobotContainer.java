@@ -28,10 +28,15 @@ import frc.robot.commands.Autonomous.AutoCommand;
 import frc.robot.commands.Autonomous.AutoEasy;
 import frc.robot.commands.Autonomous.AutoEasyClose;
 import frc.robot.commands.Autonomous.DriveWithEncoders;
+import frc.robot.commands.Autonomous.GyroGoStraight;
+import frc.robot.commands.Autonomous.GyroGoStraightSimple;
 import frc.robot.commands.Autonomous.PathPlannerFollowTrajectory;
 import frc.robot.commands.Autonomous.RobotGoDiagy;
 import frc.robot.commands.Autonomous.TestEncoders;
+import frc.robot.commands.Autonomous.ThreeBallAutoDiagonally;
 import frc.robot.commands.Autonomous.ThreeBallAutoLeft;
+import frc.robot.commands.Autonomous.ThreeBallAutoLeftSimple;
+import frc.robot.commands.Autonomous.TurnToAngle;
 import frc.robot.commands.Autonomous.TwoBallAutoLeft;
 import frc.robot.commands.Autonomous.TwoBallAutoRight;
 import frc.robot.commands.Autonomous.TwoBallOdoAuto;
@@ -90,6 +95,7 @@ public class RobotContainer {
    commandLayout.add(new DeployIntake(intake));
    commandLayout.add(new ResetIntake(intake));
    commandLayout.add(new RunIntake(intake));
+
  //  tower.setDefaultCommand( new RunCommand(tower::stop, tower));  
    //intake.setDefaultCommand(new ResetIntakeForever(intake));
   }
@@ -102,15 +108,11 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
 
-    autoChooser.setDefaultOption("Close Auto", new AutoEasyClose(drivetrain, shooter, tower));
-    autoChooser.addOption("Farther Auto", new AutoEasy(drivetrain, shooter, tower));
+    autoChooser.setDefaultOption("One Ball Taxi", new AutoEasyClose(drivetrain, shooter, tower));
     autoChooser.addOption("Do Nothing", new AutoCommand());
-    autoChooser.addOption("Odo Left", new TwoBallOdoAuto(intake, tower, shooter, drivetrain));
     autoChooser.addOption("Two Ball Left", new TwoBallAutoLeft(tower, drivetrain, shooter, intake));
-    autoChooser.addOption("Three Ball Left", new ThreeBallAutoLeft(tower, drivetrain, shooter, intake));
     autoChooser.addOption("Two Ball Right", new TwoBallAutoRight(tower, drivetrain, shooter, intake));
-    autoChooser.addOption("Simple Auto Test", new PathPlannerFollowTrajectory(drivetrain, "TestAuto", Constants.MAX_VELOCITY, Constants.MAX_ACCELERATION));
-    autoChooser.addOption("Diagonal Test", new RobotGoDiagy(drivetrain, 30, Constants.LEFT));
+    autoChooser.addOption("Three Ball Left", new ThreeBallAutoDiagonally(tower, drivetrain, shooter, intake));
     SmartDashboard.putData(autoChooser);
 
      JoystickButton speedButton = new JoystickButton(driverController, Constants.SPEED_ADJUSTOR_TRIGGER);
