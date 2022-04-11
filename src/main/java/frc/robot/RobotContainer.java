@@ -124,13 +124,13 @@ public class RobotContainer {
     highSpeedButton.whenPressed(new InstantCommand(()-> drivetrain.setMaxSpeed(Constants.SUPER_HIGH_GEAR)));
     highSpeedButton.whenReleased(new InstantCommand(()-> drivetrain.setMaxSpeed(Constants.HIGH_GEAR)));
 
-     JoystickButton climberTopFowardButton = new JoystickButton(driverController, Constants.CLIMBER_TOP_FOWARD_BUTTON);
-     JoystickButton climberTopBackwordButton = new JoystickButton(driverController, Constants.CLIMBER_TOP_BACKWARD_BUTTON);
+
+
   //   JoystickButton climberBottomFowardButton = new JoystickButton(driverController, Constants.CLIMBER_BOTTOM_FORWARD_BUTTON);
   //    JoystickButton climberBottomBackwardButton = new JoystickButton(driverController, Constants.CLIMBER_BOTTOM_BACKWARD_BUTTON);
 
-     climberTopFowardButton.whenHeld(new RaiseTopClimber(climber));
-     climberTopBackwordButton.whenHeld(new LowerTopClimber(climber));
+
+
 //     climberBottomFowardButton.whenHeld(new RaiseBottomClimber(climber));
  //  climberBottomBackwardButton.whenHeld(new LowerBottomClimber(climber));
 
@@ -172,6 +172,14 @@ public class RobotContainer {
      Trigger rightTriggerButton = new Trigger(() -> shooterController.getRightTriggerAxis() >= 0.5);
      //rightTriggerButton.whenActive(new GravityIntakeDeploy(intake));
     rightTriggerButton.whenActive(new ShootOneBoll(shooter, tower));
+
+    Trigger raiseClimberButton = new Trigger(() -> driverController.getLeftTriggerAxis() >= 0.5);
+     raiseClimberButton.whenActive(new RaiseTopClimber(climber));
+
+     Trigger lowerClimberButton = new Trigger(() -> driverController.getRightTriggerAxis() >= 0.5);
+     lowerClimberButton.whenActive(new LowerTopClimber(climber));
+
+
 
      Trigger moveTowerIndividualJoysticks = new Trigger(() -> Math.abs(shooterController.getLeftY()) >.2 || Math.abs(shooterController.getRightY()) >.2);
      moveTowerIndividualJoysticks.whenActive(new moveTowerIndividual(tower, shooterController::getRightY, shooterController::getLeftY));

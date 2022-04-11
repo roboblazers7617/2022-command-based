@@ -10,42 +10,57 @@ import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.networktables.NetworkTableEntry;
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.ShuffleboardInfo;
 
 public class Climber extends SubsystemBase {
- // private final PWMSparkMax leftClimber = new PWMSparkMax(Constants.LEFT_CLIMBER_PORT);
+
   
   private final CANSparkMax rightTopClimber = new CANSparkMax(Constants.RIGHT_TOP_CLIMBER_PORT, MotorType.kBrushless);
   private final RelativeEncoder rightTopClimberEncoder;
-  //private final CANSparkMax bottomClimber = new CANSparkMax(Constants.BOTTOM_CLIMBER_PORT, MotorType.kBrushless);
- //private final RelativeEncoder bottomClimberEncoder;
+
+
   private final CANSparkMax leftTopClimber = new CANSparkMax(Constants.LEFT_TOP_CLIMBER_PORT, MotorType.kBrushless);
   private final RelativeEncoder leftTopClimberEncoder;
+
   private final NetworkTableEntry climberTopLeftSpeedEntry;
   private final NetworkTableEntry climberTopRightSpeedEntry;
-  //private final NetworkTableEntry climberBottomSpeedEntry;
+  private final NetworkTableEntry climberLimitSwitchEntry;
+  private final NetworkTableEntry climberMaxEncoderValueEntry;
+
+
+  /**the limit switch for the climber */
+  private DigitalInput limitSwitch;
+
+  private double maxEncoderValue;
   /** Creates a new Climber. */
   public Climber() {
 
     rightTopClimber.restoreFactoryDefaults();
-   //  bottomClimber.restoreFactoryDefaults();
+
     leftTopClimber.restoreFactoryDefaults();
     
     rightTopClimber.setIdleMode(IdleMode.kBrake);
-    //bottomClimber.setIdleMode(IdleMode.kBrake);
+
     leftTopClimber.setIdleMode(IdleMode.kBrake);
 
     rightTopClimber.setInverted(true);
 
     leftTopClimberEncoder = leftTopClimber.getEncoder();
     rightTopClimberEncoder = rightTopClimber.getEncoder();
-    //bottomClimberEncoder = bottomClimber.getEncoder();
 
-    // climberBottomSpeedEntry = ShuffleboardInfo.getInstance().getBottomClimbEntry();
+
+
     climberTopRightSpeedEntry = ShuffleboardInfo.getInstance().getTopRightClimbEntry();
-    climberTopLeftSpeedEntry = ShuffleboardInfo.getInstance().getTopRightClimbEntry();
+    climberTopLeftSpeedEntry = ShuffleboardInfo.getInstance().getTopLeftClimbEntry();
+    climberLimitSwitchEntry = ShuffleboardInfo.getInstance().getClimberLimitSwitchEntry();
+    climberMaxEncoderValueEntry = ShuffleboardInfo.getInstance().getClimberMaxEncodeEntry();
+
+    limitSwitch = new DigitalInput(Constants.CLIMBER_LIMIT_PORT);
+
+    maxEncoderValue = 100;
   }
 
   public void setSpeedTop(double leftSpeed, double rightSpeed){
@@ -56,10 +71,7 @@ public class Climber extends SubsystemBase {
 
   }
 
-  public void setSpeedBottom(double speed){
-
-    //bottomClimber.set(speed);
-  }
+  
 
   
 
@@ -73,9 +85,19 @@ public class Climber extends SubsystemBase {
     return leftTopClimberEncoder.getVelocity();
   }
   
-  public double getSpeedBottom(){
-   // return bottomClimberEncoder.getVelocity();
-   return 0;
+  
+
+  public boolean isClimberLowered(){
+    boolean limitSwitchPosition = limitSwitch.get();
+    return limitSwitchPosition;
+  }
+
+  public double getUpperEncoderLimit(){
+    return maxEncoderValue;
+  }
+
+  public double getPositionRightMotor(){
+    return rightTopClimberEncoder.getPosition();
   }
 
   @Override
@@ -83,6 +105,8 @@ public class Climber extends SubsystemBase {
    // climberBottomSpeedEntry.setDouble(getSpeedBottom());
     climberTopRightSpeedEntry.setDouble(getSpeedTopRight());
     climberTopLeftSpeedEntry.setDouble(getSpeedTopLeft());
+    climberLimitSwitchEntry.setBoolean(isClimberLowered());
+    maxEncoderValue = climberMaxEncoderValueEntry.getDouble(100);
     //leftClimberDisplay.setDouble(getSpeedLeft());
     //rightClimberDisplay.setDouble(getSpeedRight());
     //setSpeed(climberToggle.getSelected());
