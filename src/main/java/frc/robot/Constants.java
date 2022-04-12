@@ -16,7 +16,13 @@ import edu.wpi.first.wpilibj.XboxController;
  * <p>It is advised to statically import this class (or one of its inner classes) wherever the
  * constants are needed, to reduce verbosity.
  */
-public final class Constants {
+
+//left triggers goes down
+//right triggers go up
+//controller 0
+
+
+ public final class Constants {
 
     //PWM Ports
     public static final int INTAKE_PORT = 5;
@@ -39,20 +45,20 @@ public final class Constants {
     public static final int INTAKE_LIMIT_UPPER_PORT = 5;
     public static final int INTAKE_LIMIT_LOWER_PORT = 4;
     public static final int SHOOTER_SENSOR_PORT_INPUT = 9;
+    public static final int CLIMBER_LIMIT_PORT = 1;
+    public static final int CLIMBER_LIMIT_PORT_RIGHT = 2;
 
     //Controller Ports
     public static final int DRIVER_CONTROLLER_PORT = 0;
     public static final int SHOOTER_CONTROLLER_PORT = 1;
     //Driver Button Bindings
-    public static final int CLIMBER_TOP_FOWARD_BUTTON = XboxController.Button.kY.value; // yellow button
-    public static final int CLIMBER_TOP_BACKWARD_BUTTON = XboxController.Button.kX.value; // red button
-    public static final int CLIMBER_BOTTOM_FORWARD_BUTTON = XboxController.Button.kB.value;  // blue button
-    public static final int CLIMBER_BOTTOM_BACKWARD_BUTTON = XboxController.Button.kA.value; //green button
+
+
+
+
     public static final int SPEED_ADJUSTOR_TRIGGER = XboxController.Button.kLeftBumper.value; // left bumper
     public static final int INTAKE_ZERO_OUT_BUTTON = XboxController.Button.kB.value;
     public static final int INTAKE_ZERO_OUT_CANCEL_BUTTON = XboxController.Button.kA.value;
-    public static final int CAMERA0_BUTTON = XboxController.Button.kY.value;
-    public static final int CAMERA1_BUTTON = XboxController.Button.kX.value;
 
     //public static final int SHORT_ARM_UP_BUTTON = 55;
     //public static final int SHORT_ARM_DOWN_BUTTON = 56;
@@ -117,8 +123,8 @@ public final class Constants {
     public static final double SHOOTER_kMinOutput = -1;
 
     //Climber
-    public static final double RIGHT_UPPER_CLIMBER_SPEED = 0.85;
-    public static final double LEFT_UPPER_CLIMBER_SPEED = .85;
+    public static final double RIGHT_UPPER_CLIMBER_SPEED = 0.2;//old 0.85
+    public static final double LEFT_UPPER_CLIMBER_SPEED = .2;
     public static final double LOWER_CLIMBER_SPEED = 1;
 
     //Drivetrain Auto

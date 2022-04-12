@@ -30,11 +30,11 @@ public class ShuffleboardInfo {
     private  final ShuffleboardTab testTab;
    
     // Create NetworkTableEntry for each data that is to be tracked/displayed
-    private final NetworkTableEntry bottomClimbEntry, topRightClimbEntry, topLeftClimbEntry;
+    private final NetworkTableEntry topRightClimbEntry, topLeftClimbEntry, climberLeftLimitSwitchEntry, climberRightLimitSwitchEntry, climberRightEncoderValueEntry, climberLeftEncoderValueEntry;
     private final NetworkTableEntry drivetrainLeftFrontMotorEntry, drivetrainLeftRearMotorEntry, drivetrainRightFrontMotorEntry, 
         drivetrainRightRearMotorEntry, gyroEntry, drivetrainYPoseEntry, drivetrainXPoseEntry;
     private final NetworkTableEntry towerUpperMotorEntry, towerLowerMotorEntry, towerLowerSensorEntry, towerUpperSensorEntry;
-    private final NetworkTableEntry shooterMotorEntry, shooterStateEntry, shooterSensorEntry, shooterSetpointEntry;
+    private final NetworkTableEntry shooterMotorEntry, shooterStateEntry, shooterSensorEntry;
     private final NetworkTableEntry intakeRotationMotorPosition, intakeRotationMotorSpeed, intakeMotorSpeed, intakeUpperLimitSwtich, intakeLowerLimitSwitch, intakeGravityDeploy;
 
    
@@ -59,7 +59,7 @@ public class ShuffleboardInfo {
  
         // For each subsystem or type of data being displayed, they are added to a group to more compactly display the data
         // and to more easily view data from one subsystem
-        ShuffleboardLayout climberLayout = testTab.getLayout("Climber", BuiltInLayouts.kList).withPosition(5,0).withSize(1, 1).withProperties(Map.of("Label position", "HIDDEN"));
+        ShuffleboardLayout climberLayout = testTab.getLayout("Climber", BuiltInLayouts.kList).withPosition(5,0).withSize(1, 4);
         ShuffleboardLayout drivetrainLeftLayout = testTab.getLayout("Drivetrain Left", BuiltInLayouts.kList).withPosition(3,0).withSize(1, 1);
         ShuffleboardLayout drivetrainRightLayout = testTab.getLayout("Drivetrain Right", BuiltInLayouts.kList).withPosition(4,0).withSize(1, 1);
         ShuffleboardLayout towerLayout = testTab.getLayout("Tower", BuiltInLayouts.kList).withPosition(2,0).withSize(1, 6);
@@ -72,7 +72,11 @@ public class ShuffleboardInfo {
         // Climber Entries
         topRightClimbEntry = climberLayout.add("Climb Top Right", 0).getEntry();
         topLeftClimbEntry = climberLayout.add("Climb Top Left", 0).getEntry();
-        bottomClimbEntry = climberLayout.add("Climb Bottom", 0).getEntry();
+        climberLeftLimitSwitchEntry = climberLayout.add("climber left limit switch", false).getEntry();
+        climberRightLimitSwitchEntry = climberLayout.add("climber right limit switch", false).getEntry();
+        climberRightEncoderValueEntry = climberLayout.add("climber right encoder value", 0.0).getEntry();
+        climberLeftEncoderValueEntry = climberLayout.add("climber left encoder value", 0.0).getEntry();
+
  
         // Tower
         towerUpperMotorEntry = towerLayout.add("Upper Speed", 0).getEntry();
@@ -93,9 +97,7 @@ public class ShuffleboardInfo {
         shooterMotorEntry = shooterLayout.add("Shooter motor speed", 0).getEntry();
         shooterStateEntry = shooterLayout.add("Shooter Ready", false).getEntry();
         shooterSensorEntry = shooterLayout.add("Shooter Beam Break", false).getEntry();
-        shooterSetpointEntry = shooterLayout.add("Shooter Setpoint", Constants.SLOW_SHOOTER_SPEED).getEntry();
-
-
+        
         //intake
         intakeRotationMotorPosition = intakeLayout.add("Intake rotation motor position", 0.0).getEntry();
         intakeMotorSpeed = intakeLayout.add("Intake motor speed", 0.0).getEntry();
@@ -120,8 +122,8 @@ public class ShuffleboardInfo {
     /****
     /* Create getters for all the NetworkTableEntry items and all private variables that users of this class may need
     *****/
-    public NetworkTableEntry getBottomClimbEntry() {
-        return bottomClimbEntry;
+    public NetworkTableEntry getClimberLimitSwitchEntry() {
+        return climberLeftLimitSwitchEntry;
     }
     public NetworkTableEntry getTopRightClimbEntry() {
         return topRightClimbEntry;
@@ -129,6 +131,12 @@ public class ShuffleboardInfo {
     public NetworkTableEntry getTopLeftClimbEntry() {
         return topLeftClimbEntry;
     }
+    public NetworkTableEntry getClimberRightEncoderValueEntry(){
+        return climberRightEncoderValueEntry;
+    }
+    public NetworkTableEntry getClimberLeftEncoderValueEntry(){
+        return climberLeftEncoderValueEntry;
+    }    
      public NetworkTableEntry getDrivetrainLeftFrontMotorEntry() {
         return drivetrainLeftFrontMotorEntry;
     }
@@ -192,8 +200,7 @@ public class ShuffleboardInfo {
     public NetworkTableEntry getDrivetrainYPoseEntry() {
         return drivetrainYPoseEntry;
     }
-
-    public NetworkTableEntry getShooterSetpointEntry() {
-        return shooterSetpointEntry;
+    public NetworkTableEntry getClimberRightLimitSwitchEntry() {
+        return climberRightLimitSwitchEntry;
     }
 }
