@@ -45,7 +45,8 @@ import edu.wpi.first.wpilibj.XboxController;
     public static final int INTAKE_LIMIT_UPPER_PORT = 5;
     public static final int INTAKE_LIMIT_LOWER_PORT = 4;
     public static final int SHOOTER_SENSOR_PORT_INPUT = 9;
-    public static final int CLIMBER_LIMIT_PORT = 10;
+    public static final int CLIMBER_LIMIT_PORT = 1;
+    public static final int CLIMBER_LIMIT_PORT_RIGHT = 2;
 
     //Controller Ports
     public static final int DRIVER_CONTROLLER_PORT = 0;
@@ -122,8 +123,8 @@ import edu.wpi.first.wpilibj.XboxController;
     public static final double SHOOTER_kMinOutput = -1;
 
     //Climber
-    public static final double RIGHT_UPPER_CLIMBER_SPEED = 0.85;
-    public static final double LEFT_UPPER_CLIMBER_SPEED = .85;
+    public static final double RIGHT_UPPER_CLIMBER_SPEED = 0.2;//old 0.85
+    public static final double LEFT_UPPER_CLIMBER_SPEED = .2;
     public static final double LOWER_CLIMBER_SPEED = 1;
 
     //Drivetrain Auto

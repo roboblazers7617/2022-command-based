@@ -27,14 +27,17 @@ public class Climber extends SubsystemBase {
 
   private final NetworkTableEntry climberTopLeftSpeedEntry;
   private final NetworkTableEntry climberTopRightSpeedEntry;
-  private final NetworkTableEntry climberLimitSwitchEntry;
-  private final NetworkTableEntry climberMaxEncoderValueEntry;
+  private final NetworkTableEntry climberLeftLimitSwitchEntry;
+  private final NetworkTableEntry climberRightLimitSwitchEntry;
+  private final NetworkTableEntry climberRightEncoderValueEntry;
+  private final NetworkTableEntry climberLeftEncoderValueEntry;
 
 
   /**the limit switch for the climber */
-  private DigitalInput limitSwitch;
+  private DigitalInput limitSwitchLeft;
+  private DigitalInput limitSwitchRight;
 
-  private double maxEncoderValue;
+  private final double maxEncoderValue;
   /** Creates a new Climber. */
   public Climber() {
 
@@ -50,17 +53,22 @@ public class Climber extends SubsystemBase {
 
     leftTopClimberEncoder = leftTopClimber.getEncoder();
     rightTopClimberEncoder = rightTopClimber.getEncoder();
+    leftTopClimberEncoder.setPosition(0.0);
+    rightTopClimberEncoder.setPosition(0.0);
 
 
 
     climberTopRightSpeedEntry = ShuffleboardInfo.getInstance().getTopRightClimbEntry();
     climberTopLeftSpeedEntry = ShuffleboardInfo.getInstance().getTopLeftClimbEntry();
-    climberLimitSwitchEntry = ShuffleboardInfo.getInstance().getClimberLimitSwitchEntry();
-    climberMaxEncoderValueEntry = ShuffleboardInfo.getInstance().getClimberMaxEncodeEntry();
+    climberLeftLimitSwitchEntry = ShuffleboardInfo.getInstance().getClimberLimitSwitchEntry();
+    climberRightLimitSwitchEntry = ShuffleboardInfo.getInstance().getClimberRightLimitSwitchEntry();
+    climberRightEncoderValueEntry = ShuffleboardInfo.getInstance().getClimberRightEncoderValueEntry();
+    climberLeftEncoderValueEntry = ShuffleboardInfo.getInstance().getClimberLeftEncoderValueEntry();
 
-    limitSwitch = new DigitalInput(Constants.CLIMBER_LIMIT_PORT);
+    limitSwitchLeft = new DigitalInput(Constants.CLIMBER_LIMIT_PORT); 
+    limitSwitchRight = new DigitalInput(Constants.CLIMBER_LIMIT_PORT_RIGHT);
 
-    maxEncoderValue = 100;
+    maxEncoderValue = 132;
   }
 
   public void setSpeedTop(double leftSpeed, double rightSpeed){
@@ -88,8 +96,9 @@ public class Climber extends SubsystemBase {
   
 
   public boolean isClimberLowered(){
-    boolean limitSwitchPosition = limitSwitch.get();
-    return limitSwitchPosition;
+    boolean limitSwitchPositionLeft = !limitSwitchLeft.get();
+    boolean limitSwithPositionRight = !limitSwitchRight.get();
+    return (limitSwitchPositionLeft || limitSwithPositionRight);
   }
 
   public double getUpperEncoderLimit(){
@@ -105,8 +114,10 @@ public class Climber extends SubsystemBase {
    // climberBottomSpeedEntry.setDouble(getSpeedBottom());
     climberTopRightSpeedEntry.setDouble(getSpeedTopRight());
     climberTopLeftSpeedEntry.setDouble(getSpeedTopLeft());
-    climberLimitSwitchEntry.setBoolean(isClimberLowered());
-    maxEncoderValue = climberMaxEncoderValueEntry.getDouble(100);
+    climberLeftLimitSwitchEntry.setBoolean(!limitSwitchLeft.get());
+    climberRightLimitSwitchEntry.setBoolean(!limitSwitchRight.get());
+    climberRightEncoderValueEntry.setDouble(rightTopClimberEncoder.getPosition());
+    climberLeftEncoderValueEntry.setDouble(leftTopClimberEncoder.getPosition());
     //leftClimberDisplay.setDouble(getSpeedLeft());
     //rightClimberDisplay.setDouble(getSpeedRight());
     //setSpeed(climberToggle.getSelected());

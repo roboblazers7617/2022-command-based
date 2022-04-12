@@ -170,14 +170,14 @@ public class RobotContainer {
      leftTriggerButton.whenActive(new DeployIntake(intake));
 
      Trigger rightTriggerButton = new Trigger(() -> shooterController.getRightTriggerAxis() >= 0.5);
-     //rightTriggerButton.whenActive(new GravityIntakeDeploy(intake));
     rightTriggerButton.whenActive(new ShootOneBoll(shooter, tower));
 
     Trigger raiseClimberButton = new Trigger(() -> driverController.getLeftTriggerAxis() >= 0.5);
-     raiseClimberButton.whenActive(new RaiseTopClimber(climber));
+     raiseClimberButton.whileActiveContinuous(new RaiseTopClimber(climber));
+    
 
      Trigger lowerClimberButton = new Trigger(() -> driverController.getRightTriggerAxis() >= 0.5);
-     lowerClimberButton.whenActive(new LowerTopClimber(climber));
+     lowerClimberButton.whileActiveContinuous(new LowerTopClimber(climber));
 
 
 

@@ -30,7 +30,7 @@ public class ShuffleboardInfo {
     private  final ShuffleboardTab testTab;
    
     // Create NetworkTableEntry for each data that is to be tracked/displayed
-    private final NetworkTableEntry topRightClimbEntry, topLeftClimbEntry, climberLimitSwitchEntry, climberMaxEncoderEntry;
+    private final NetworkTableEntry topRightClimbEntry, topLeftClimbEntry, climberLeftLimitSwitchEntry, climberRightLimitSwitchEntry, climberRightEncoderValueEntry, climberLeftEncoderValueEntry;
     private final NetworkTableEntry drivetrainLeftFrontMotorEntry, drivetrainLeftRearMotorEntry, drivetrainRightFrontMotorEntry, 
         drivetrainRightRearMotorEntry, gyroEntry, drivetrainYPoseEntry, drivetrainXPoseEntry;
     private final NetworkTableEntry towerUpperMotorEntry, towerLowerMotorEntry, towerLowerSensorEntry, towerUpperSensorEntry;
@@ -72,8 +72,11 @@ public class ShuffleboardInfo {
         // Climber Entries
         topRightClimbEntry = climberLayout.add("Climb Top Right", 0).getEntry();
         topLeftClimbEntry = climberLayout.add("Climb Top Left", 0).getEntry();
-        climberLimitSwitchEntry = climberLayout.add("climber limit switch", false).getEntry();
-        climberMaxEncoderEntry = climberLayout.add("climber max encoder value", 0.0).getEntry();
+        climberLeftLimitSwitchEntry = climberLayout.add("climber left limit switch", false).getEntry();
+        climberRightLimitSwitchEntry = climberLayout.add("climber right limit switch", false).getEntry();
+        climberRightEncoderValueEntry = climberLayout.add("climber right encoder value", 0.0).getEntry();
+        climberLeftEncoderValueEntry = climberLayout.add("climber left encoder value", 0.0).getEntry();
+
  
         // Tower
         towerUpperMotorEntry = towerLayout.add("Upper Speed", 0).getEntry();
@@ -120,7 +123,7 @@ public class ShuffleboardInfo {
     /* Create getters for all the NetworkTableEntry items and all private variables that users of this class may need
     *****/
     public NetworkTableEntry getClimberLimitSwitchEntry() {
-        return climberLimitSwitchEntry;
+        return climberLeftLimitSwitchEntry;
     }
     public NetworkTableEntry getTopRightClimbEntry() {
         return topRightClimbEntry;
@@ -128,9 +131,12 @@ public class ShuffleboardInfo {
     public NetworkTableEntry getTopLeftClimbEntry() {
         return topLeftClimbEntry;
     }
-    public NetworkTableEntry getClimberMaxEncodeEntry(){
-        return climberMaxEncoderEntry;
+    public NetworkTableEntry getClimberRightEncoderValueEntry(){
+        return climberRightEncoderValueEntry;
     }
+    public NetworkTableEntry getClimberLeftEncoderValueEntry(){
+        return climberLeftEncoderValueEntry;
+    }    
      public NetworkTableEntry getDrivetrainLeftFrontMotorEntry() {
         return drivetrainLeftFrontMotorEntry;
     }
@@ -193,5 +199,8 @@ public class ShuffleboardInfo {
     }
     public NetworkTableEntry getDrivetrainYPoseEntry() {
         return drivetrainYPoseEntry;
+    }
+    public NetworkTableEntry getClimberRightLimitSwitchEntry() {
+        return climberRightLimitSwitchEntry;
     }
 }
