@@ -24,13 +24,7 @@ public class RaiseTopClimber extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if(climber.getPositionRightMotor() < climber.getUpperEncoderLimit()){
-      climber.setSpeedTop(Constants.LEFT_UPPER_CLIMBER_SPEED,Constants.RIGHT_UPPER_CLIMBER_SPEED);
-    }
-    else{
-      climber.setSpeedTop(0.0,0.0);
-    }
-    
+    climber.setSpeedTop(Constants.LEFT_UPPER_CLIMBER_SPEED,Constants.RIGHT_UPPER_CLIMBER_SPEED);
   }
 
   // Called once the command ends or is interrupted.

@@ -24,10 +24,11 @@ public class Shooter extends SubsystemBase {
   public final double kP, kI, kD, kIz, kFF, kMaxOutput, kMinOutput;
   private double setPoint = Constants.SLOW_SHOOTER_SPEED;
   private boolean shooterSpinning = false;
+  private double shuffleboardSetPoint;
 
 
 
-  private final NetworkTableEntry shooterMotorEntry, shooterStateEntry, shooterSensorEntry;
+  private final NetworkTableEntry shooterMotorEntry, shooterStateEntry, shooterSensorEntry, shooterSetpointEntry;
  
   /** Creates a new Shooter. */
   public Shooter() {
@@ -37,6 +38,7 @@ public class Shooter extends SubsystemBase {
     shooterMotorEntry = ShuffleboardInfo.getInstance().getShooterMotorEntry();
     shooterStateEntry = ShuffleboardInfo.getInstance().getShooterStateEntry();
     shooterSensorEntry = ShuffleboardInfo.getInstance().getShooterSensorEntry();
+    shooterSetpointEntry = ShuffleboardInfo.getInstance().getShooterSetpointEntry();
     encoder = shooterMotor.getEncoder();
     pidController = shooterMotor.getPIDController();
 
@@ -63,12 +65,20 @@ public class Shooter extends SubsystemBase {
       this.setPoint = setPoint;
   }
 
+  public double getSetPoint() {
+      return setPoint;
+  }
+
   public void startShooter(){
     shooterSpinning = true;
   }
 
   public void stopShooter(){
     shooterSpinning = false;
+  }
+
+  public boolean isShooterSpinning(){
+    return shooterSpinning;
   }
 
   public double getSpeed(){
@@ -97,7 +107,9 @@ public class Shooter extends SubsystemBase {
     shooterMotorEntry.setDouble(getSpeed());
     shooterStateEntry.setBoolean(shooterReady());
     shooterSensorEntry.setBoolean(getShooterSensor());
-    shooterSensorEntry.setBoolean(getShooterSensor());
+    /*shuffleboardSetPoint = shooterSetpointEntry.getDouble(0);
+    if(shuffleboardSetPoint != setPoint){ shooterSetpointEntry.setDouble(shuffleboardSetPoint); setPoint = shuffleboardSetPoint;}*/
+    shooterSetpointEntry.setDouble(setPoint);
     if(shooterSpinning)
       pidController.setReference(setPoint, CANSparkMax.ControlType.kVelocity);
     else

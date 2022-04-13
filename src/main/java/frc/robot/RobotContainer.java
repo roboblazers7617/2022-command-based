@@ -19,10 +19,14 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.MecanumControllerCommand;
 import edu.wpi.first.wpilibj2.command.RunCommand;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
+import edu.wpi.first.wpilibj2.command.WaitUntilCommand;
 import frc.robot.subsystems.*;
 import frc.robot.commands.Automations.AdjustTower;
 import frc.robot.commands.Automations.LoadBalls;
 import frc.robot.commands.Automations.ShootBolls;
+import frc.robot.commands.Automations.ShootBollsSmart;
 import frc.robot.commands.Automations.ShootOneBoll;
 import frc.robot.commands.Autonomous.AutoCommand;
 import frc.robot.commands.Autonomous.AutoEasy;
@@ -124,13 +128,13 @@ public class RobotContainer {
     highSpeedButton.whenPressed(new InstantCommand(()-> drivetrain.setMaxSpeed(Constants.SUPER_HIGH_GEAR)));
     highSpeedButton.whenReleased(new InstantCommand(()-> drivetrain.setMaxSpeed(Constants.HIGH_GEAR)));
 
-
-
+     JoystickButton climberTopFowardButton = new JoystickButton(driverController, Constants.CLIMBER_TOP_FOWARD_BUTTON);
+     JoystickButton climberTopBackwordButton = new JoystickButton(driverController, Constants.CLIMBER_TOP_BACKWARD_BUTTON);
   //   JoystickButton climberBottomFowardButton = new JoystickButton(driverController, Constants.CLIMBER_BOTTOM_FORWARD_BUTTON);
   //    JoystickButton climberBottomBackwardButton = new JoystickButton(driverController, Constants.CLIMBER_BOTTOM_BACKWARD_BUTTON);
 
-
-
+     climberTopFowardButton.whenHeld(new RaiseTopClimber(climber));
+     climberTopBackwordButton.whenHeld(new LowerTopClimber(climber));
 //     climberBottomFowardButton.whenHeld(new RaiseBottomClimber(climber));
  //  climberBottomBackwardButton.whenHeld(new LowerBottomClimber(climber));
 
@@ -139,7 +143,6 @@ public class RobotContainer {
 
     intakeZeroOutButton.whenPressed(new ZeroOutIntake(intake));
     intakeZeroOutCancelButton.whenPressed(new ZeroOutIntakeCancel(intake));
-
 
 
 
@@ -158,7 +161,10 @@ public class RobotContainer {
      collectBallsButton.whenPressed(new LoadBalls(intake, tower));
      stopCollectBallsButton.whenPressed(new InstantCommand(tower::stop,tower).andThen(new ResetIntake(intake)));
      shootBallButton.whenPressed(new ShootBolls(shooter, tower));
-     //shootBallButton.whenReleased(new InstantCommand (() -> tower.stop()).andThen(new StopShooter(shooter)));
+     /*shootBallButton.whenPressed(new SpinShooter(shooter));
+     shootBallButton.whenReleased(new ShootBollsSmart(tower, shooter));*/
+     
+
      reverseIntakeButton.whenHeld(new ReverseIntake(intake));
      activateIntakeButton.whenHeld(new ActivateIntake(intake));
      resetIntakeButton.whenPressed(new ResetIntake(intake));
@@ -166,20 +172,14 @@ public class RobotContainer {
      moveUpBallsButton.whenPressed(new AdjustTower(tower,shooter));
      moveUpBallButton.whenPressed(new LoadOneTower(tower));
 
+    
+
      Trigger leftTriggerButton = new Trigger(() -> shooterController.getLeftTriggerAxis() >= 0.5);
      leftTriggerButton.whenActive(new DeployIntake(intake));
 
      Trigger rightTriggerButton = new Trigger(() -> shooterController.getRightTriggerAxis() >= 0.5);
+     //rightTriggerButton.whenActive(new GravityIntakeDeploy(intake));
     rightTriggerButton.whenActive(new ShootOneBoll(shooter, tower));
-
-    Trigger raiseClimberButton = new Trigger(() -> driverController.getLeftTriggerAxis() >= 0.5);
-     raiseClimberButton.whileActiveContinuous(new RaiseTopClimber(climber));
-    
-
-     Trigger lowerClimberButton = new Trigger(() -> driverController.getRightTriggerAxis() >= 0.5);
-     lowerClimberButton.whileActiveContinuous(new LowerTopClimber(climber));
-
-
 
      Trigger moveTowerIndividualJoysticks = new Trigger(() -> Math.abs(shooterController.getLeftY()) >.2 || Math.abs(shooterController.getRightY()) >.2);
      moveTowerIndividualJoysticks.whenActive(new moveTowerIndividual(tower, shooterController::getRightY, shooterController::getLeftY));
