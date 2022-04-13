@@ -59,6 +59,8 @@ import edu.wpi.first.wpilibj.XboxController;
     public static final int SPEED_ADJUSTOR_TRIGGER = XboxController.Button.kLeftBumper.value; // left bumper
     public static final int INTAKE_ZERO_OUT_BUTTON = XboxController.Button.kB.value;
     public static final int INTAKE_ZERO_OUT_CANCEL_BUTTON = XboxController.Button.kA.value;
+    public static final int CAMERA0_BUTTON = XboxController.Button.kY.value;
+    public static final int CAMERA1_BUTTON = XboxController.Button.kX.value;
 
     //public static final int SHORT_ARM_UP_BUTTON = 55;
     //public static final int SHORT_ARM_DOWN_BUTTON = 56;
