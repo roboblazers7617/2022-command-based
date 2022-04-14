@@ -54,6 +54,6 @@ public class ShootBollsSmart extends SequentialCommandGroup {
         // does nothing if shooter isn't spinning
         null,
         //checks if the shooter is spinning
-        shooter::isShooterSpinning));
+        () -> shooter.isShooterSpinning()));
   }
 }
