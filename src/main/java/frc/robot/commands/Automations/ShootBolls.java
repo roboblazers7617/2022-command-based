@@ -23,14 +23,14 @@ public class ShootBolls extends SequentialCommandGroup {
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(new SpinShooter(shooter),
     new WaitUntilCommand(shooter::shooterReady),
-    new InstantCommand(() ->tower.setSpeedUpper(Constants.UPPER_TOWER_SPEED),tower),
+    new InstantCommand(() ->tower.setSpeedUpper(Constants.UPPER_TOWER_SPEED+.17),tower),
     new WaitUntilCommand(shooter::getShooterSensor),
     new InstantCommand(() ->tower.setSpeedLower(Constants.LOWER_TOWER_SPEED),tower),
     new WaitCommand(.5),  // Possible fix for beam break issue   
     new WaitUntilCommand(() -> !tower.upperSensor.get()),
     new InstantCommand(() -> tower.stop()),
     new WaitUntilCommand(shooter::shooterReady),
-    new InstantCommand(() ->tower.setSpeedUpper(Constants.UPPER_TOWER_SPEED),tower),
+    new InstantCommand(() ->tower.setSpeedUpper(Constants.UPPER_TOWER_SPEED+.17),tower),
     new WaitCommand(.5),
     new InstantCommand(shooter::stopShooter, shooter),
     new InstantCommand(tower::stop, tower)

@@ -20,7 +20,7 @@ public class AutoEasyClose extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(new ShootOneBoll(shooter, tower),
-                new DriveWithEncoders(drivetrain, Constants.DISTANCE_FROM_FENDER_TO_TAXI, .5)   
+    new DriveWithEncoders(drivetrain, 40, .5)   
               );
   }
 }
