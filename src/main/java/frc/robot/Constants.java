@@ -16,13 +16,7 @@ import edu.wpi.first.wpilibj.XboxController;
  * <p>It is advised to statically import this class (or one of its inner classes) wherever the
  * constants are needed, to reduce verbosity.
  */
-
-//left triggers goes down
-//right triggers go up
-//controller 0
-
-
- public final class Constants {
+public final class Constants {
 
     //PWM Ports
     public static final int INTAKE_PORT = 5;
@@ -45,18 +39,18 @@ import edu.wpi.first.wpilibj.XboxController;
     public static final int INTAKE_LIMIT_UPPER_PORT = 5;
     public static final int INTAKE_LIMIT_LOWER_PORT = 4;
     public static final int SHOOTER_SENSOR_PORT_INPUT = 9;
-    public static final int CLIMBER_LIMIT_PORT = 1;
-    public static final int CLIMBER_LIMIT_PORT_RIGHT = 2;
 
     //Controller Ports
     public static final int DRIVER_CONTROLLER_PORT = 0;
     public static final int SHOOTER_CONTROLLER_PORT = 1;
-
     //Driver Button Bindings
+    public static final int CLIMBER_TOP_FOWARD_BUTTON = XboxController.Button.kY.value; // yellow button
+    public static final int CLIMBER_TOP_BACKWARD_BUTTON = XboxController.Button.kX.value; // red button
+    public static final int CLIMBER_BOTTOM_FORWARD_BUTTON = XboxController.Button.kB.value;  // blue button
+    public static final int CLIMBER_BOTTOM_BACKWARD_BUTTON = XboxController.Button.kA.value; //green button
     public static final int SPEED_ADJUSTOR_TRIGGER = XboxController.Button.kLeftBumper.value; // left bumper
     public static final int INTAKE_ZERO_OUT_BUTTON = XboxController.Button.kB.value;
     public static final int INTAKE_ZERO_OUT_CANCEL_BUTTON = XboxController.Button.kA.value;
-    public static final int CLIMBER_ENCODER_RESET_BUTTON = XboxController.Button.kY.value;
 
     //public static final int SHORT_ARM_UP_BUTTON = 55;
     //public static final int SHORT_ARM_DOWN_BUTTON = 56;
@@ -84,7 +78,7 @@ import edu.wpi.first.wpilibj.XboxController;
     //Drivetrain Data
     public static final double LOW_GEAR = .25;
     public static final double HIGH_GEAR = .60;
-    public static final double SUPER_HIGH_GEAR = .90;
+    public static final double SUPER_HIGH_GEAR = .70;
 
     //Intake Data
     public static final double INTAKE_LOWER_ENCODER_VALUE = -13;
@@ -105,23 +99,23 @@ import edu.wpi.first.wpilibj.XboxController;
 
     //Shooter data
     /**the speed relative to SHOOTER_MOTOR_SPEED that shooter will count as the minunum speed for shooterReady() */
-    public static final double SHOOTER_MOTOR_TARGET_MIN = 1;
+    public static final double SHOOTER_MOTOR_TARGET_MIN = .98;
     /**the speed relative to SHOOTER_MOTOR_SPEED that shooter will count as the max speed for shooterReady() */
-    public static final double SHOOTER_MOTOR_TARGET_MAX = 1.01;
-    public static final double SLOW_SHOOTER_SPEED = 1455;
-    public static final double SHOOTER_SPEED = 1462;
-    public static final double FAST_SHOOTER_SPEED = 1485;
+    public static final double SHOOTER_MOTOR_TARGET_MAX = 1.05;
+    public static final double SLOW_SHOOTER_SPEED = 1525;
+    public static final double SHOOTER_SPEED = 1650;
+    public static final double FAST_SHOOTER_SPEED = 1750;
     
-    public static final double SHOOTER_kP = .00095; 
+    public static final double SHOOTER_kP = .0004; 
     public static final double SHOOTER_kI = 0;
-    public static final double SHOOTER_kD = 0.0004; 
+    public static final double SHOOTER_kD = 0; 
     public static final double SHOOTER_kIz = 0; 
     public static final double SHOOTER_kFF = 0.00018; 
     public static final double SHOOTER_kMaxOutput = 1; 
     public static final double SHOOTER_kMinOutput = -1;
 
     //Climber
-    public static final double RIGHT_UPPER_CLIMBER_SPEED = 0.85;//old 0.85
+    public static final double RIGHT_UPPER_CLIMBER_SPEED = 0.85;
     public static final double LEFT_UPPER_CLIMBER_SPEED = .85;
     public static final double LOWER_CLIMBER_SPEED = 1;
 

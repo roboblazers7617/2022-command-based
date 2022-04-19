@@ -5,17 +5,9 @@
 package frc.robot;
 
 import edu.wpi.first.cameraserver.CameraServer;
-import edu.wpi.first.cscore.UsbCamera;
-import edu.wpi.first.cscore.VideoSource.ConnectionStrategy;
-import edu.wpi.first.networktables.NetworkTableEntry;
-import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.TimedRobot;
-import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import edu.wpi.first.wpilibj2.command.InstantCommand;
-import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-import frc.robot.commands.Autonomous.RobotGoDiagy;
 
 
 /**
@@ -30,12 +22,6 @@ public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
 
   private RobotContainer m_robotContainer;
-  private XboxController driverController;
-  private NetworkTableEntry cameraSelection;
-  private UsbCamera camera0;
-  private UsbCamera camera1;
-  private JoystickButton camera0Button;
-  private JoystickButton camera1Button;
 
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -43,23 +29,10 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotInit() {
-
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
-/*
-    driverController = RobotContainer.getDrivercontroller();
-
-*/
-    //camera0 = CameraServer.startAutomaticCapture(0);
-    camera1 = CameraServer.startAutomaticCapture();
-
-   // camera0.setResolution(120, 120);
-    //camera0.setFPS(5);
-    camera1.setResolution(480, 320);
-    camera1.setFPS(15);
-
-    cameraSelection = NetworkTableInstance.getDefault().getTable("").getEntry("CameraSelection");
+     CameraServer.startAutomaticCapture();
   }
 
   /**
@@ -116,11 +89,7 @@ public class Robot extends TimedRobot {
   /** This function is called periodically during operator control. */
   @Override
   public void teleopPeriodic() {
-/*
-    camera0Button.whenPressed(new InstantCommand(()-> cameraSelection.setString(camera0.getName())));
-    camera1Button.whenPressed(new InstantCommand(()-> cameraSelection.setString(camera1.getName())));
-*/
-    /*
+  /*
     if(controller.getXButton()){
       climber.setSpeed(1);
     }
