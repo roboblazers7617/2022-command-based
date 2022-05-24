@@ -16,13 +16,19 @@ import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardLayout;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.ConditionalCommand;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.MecanumControllerCommand;
 import edu.wpi.first.wpilibj2.command.RunCommand;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
+import edu.wpi.first.wpilibj2.command.WaitUntilCommand;
 import frc.robot.subsystems.*;
 import frc.robot.commands.Automations.AdjustTower;
 import frc.robot.commands.Automations.LoadBalls;
 import frc.robot.commands.Automations.ShootBolls;
+import frc.robot.commands.Automations.ShootBollsNoSpin;
+import frc.robot.commands.Automations.ShootBollsSmart;
 import frc.robot.commands.Automations.ShootOneBoll;
 import frc.robot.commands.Autonomous.AutoCommand;
 import frc.robot.commands.Autonomous.AutoEasy;
@@ -113,6 +119,7 @@ public class RobotContainer {
     autoChooser.addOption("Two Ball Left", new TwoBallAutoLeft(tower, drivetrain, shooter, intake));
     autoChooser.addOption("Two Ball Right", new TwoBallAutoRight(tower, drivetrain, shooter, intake));
     autoChooser.addOption("Three Ball Left", new ThreeBallAutoDiagonally(tower, drivetrain, shooter, intake));
+    autoChooser.addOption("Taxi", new DriveWithEncoders(drivetrain, 20));
     SmartDashboard.putData(autoChooser);
 
      JoystickButton speedButton = new JoystickButton(driverController, Constants.SPEED_ADJUSTOR_TRIGGER);
@@ -124,7 +131,8 @@ public class RobotContainer {
     highSpeedButton.whenPressed(new InstantCommand(()-> drivetrain.setMaxSpeed(Constants.SUPER_HIGH_GEAR)));
     highSpeedButton.whenReleased(new InstantCommand(()-> drivetrain.setMaxSpeed(Constants.HIGH_GEAR)));
 
-
+    JoystickButton climberEncoderResetButton = new JoystickButton(driverController, Constants.CLIMBER_ENCODER_RESET_BUTTON);
+    climberEncoderResetButton.whenPressed(new InstantCommand(() ->climber.resetClimberEncoders()));
 
   //   JoystickButton climberBottomFowardButton = new JoystickButton(driverController, Constants.CLIMBER_BOTTOM_FORWARD_BUTTON);
   //    JoystickButton climberBottomBackwardButton = new JoystickButton(driverController, Constants.CLIMBER_BOTTOM_BACKWARD_BUTTON);
@@ -157,8 +165,24 @@ public class RobotContainer {
     
      collectBallsButton.whenPressed(new LoadBalls(intake, tower));
      stopCollectBallsButton.whenPressed(new InstantCommand(tower::stop,tower).andThen(new ResetIntake(intake)));
-     shootBallButton.whenPressed(new ShootBolls(shooter, tower));
-     //shootBallButton.whenReleased(new InstantCommand (() -> tower.stop()).andThen(new StopShooter(shooter)));
+     shootBallButton.whenPressed(new SpinShooter(shooter));
+     shootBallButton.whenReleased( new ConditionalCommand(
+      new SequentialCommandGroup(
+        new WaitUntilCommand(shooter::shooterReady),
+        new InstantCommand(() ->tower.setSpeedUpper(Constants.UPPER_TOWER_SPEED+.17),tower),
+        new WaitUntilCommand(shooter::getShooterSensor),
+        new InstantCommand(() ->tower.setSpeedLower(Constants.LOWER_TOWER_SPEED),tower),
+        new WaitCommand(.5),  // Possible fix for beam break issue   
+        new WaitUntilCommand(() -> !tower.upperSensor.get()),
+        new InstantCommand(() -> tower.stop()),
+        new WaitUntilCommand(shooter::shooterReady),
+        new InstantCommand(() ->tower.setSpeedUpper(Constants.UPPER_TOWER_SPEED+.17),tower),
+        new WaitCommand(.5),
+        new InstantCommand(shooter::stopShooter, shooter),
+        new InstantCommand(tower::stop, tower)
+      ), 
+      new WaitCommand(0), 
+      shooter::isShooterSpinning));
      reverseIntakeButton.whenHeld(new ReverseIntake(intake));
      activateIntakeButton.whenHeld(new ActivateIntake(intake));
      resetIntakeButton.whenPressed(new ResetIntake(intake));
@@ -172,11 +196,11 @@ public class RobotContainer {
      Trigger rightTriggerButton = new Trigger(() -> shooterController.getRightTriggerAxis() >= 0.5);
     rightTriggerButton.whenActive(new ShootOneBoll(shooter, tower));
 
-    Trigger raiseClimberButton = new Trigger(() -> driverController.getLeftTriggerAxis() >= 0.5);
+    Trigger raiseClimberButton = new Trigger(() -> driverController.getRightTriggerAxis() >= 0.5);
      raiseClimberButton.whileActiveContinuous(new RaiseTopClimber(climber));
     
 
-     Trigger lowerClimberButton = new Trigger(() -> driverController.getRightTriggerAxis() >= 0.5);
+     Trigger lowerClimberButton = new Trigger(() -> driverController.getLeftTriggerAxis() >= 0.5);
      lowerClimberButton.whileActiveContinuous(new LowerTopClimber(climber));
 
 
@@ -191,7 +215,7 @@ public class RobotContainer {
      dPadRight.whenActive((new StopShooter(shooter)).andThen(new StopTower(tower)));
 
      Trigger dPadUp = new Trigger(() ->shooterController.getPOV() == 0);
-     dPadUp.whenActive(new InstantCommand(() -> shooter.setSetPoint(Constants.FAST_SHOOTER_SPEED)));
+     dPadUp.whileActiveContinuous(new InstantCommand(() -> shooter.setSetPoint(Constants.FAST_SHOOTER_SPEED)), false);
 
      Trigger dPadDown = new Trigger(() ->shooterController.getPOV() == 180);
      dPadDown.whenActive(new InstantCommand(() -> shooter.setSetPoint(Constants.SLOW_SHOOTER_SPEED)));

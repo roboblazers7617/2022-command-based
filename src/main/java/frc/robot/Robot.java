@@ -50,18 +50,14 @@ public class Robot extends TimedRobot {
 /*
     driverController = RobotContainer.getDrivercontroller();
 
-    camera0Button = new JoystickButton(driverController, Constants.CAMERA0_BUTTON);
-    camera1Button = new JoystickButton(driverController, Constants.CAMERA1_BUTTON);
 */
-    camera0 = CameraServer.startAutomaticCapture(0);
-    camera1 = CameraServer.startAutomaticCapture(1);
+    //camera0 = CameraServer.startAutomaticCapture(0);
+    camera1 = CameraServer.startAutomaticCapture();
 
-    camera0.setResolution(320, 480);
-    camera0.setFPS(7);
+   // camera0.setResolution(120, 120);
+    //camera0.setFPS(5);
     camera1.setResolution(480, 320);
-    camera1.setFPS(7);
-    //camera0.setConnectionStrategy(ConnectionStrategy.kKeepOpen);
-    //camera1.setConnectionStrategy(ConnectionStrategy.kKeepOpen);
+    camera1.setFPS(15);
 
     cameraSelection = NetworkTableInstance.getDefault().getTable("").getEntry("CameraSelection");
   }

@@ -68,7 +68,7 @@ public class Climber extends SubsystemBase {
     limitSwitchLeft = new DigitalInput(Constants.CLIMBER_LIMIT_PORT); 
     limitSwitchRight = new DigitalInput(Constants.CLIMBER_LIMIT_PORT_RIGHT);
 
-    maxEncoderValue = 132;
+    maxEncoderValue = 130;
   }
 
   public void setSpeedTop(double leftSpeed, double rightSpeed){
@@ -92,8 +92,30 @@ public class Climber extends SubsystemBase {
     //  return leftClimber.get();
     return leftTopClimberEncoder.getVelocity();
   }
+
+  public void setSpeedLeft(double leftSpeed){
+    leftTopClimber.set(leftSpeed);
+  }
+
+  public void setSpeedRight(double rightSpeed){
+    rightTopClimber.set(rightSpeed);
+  }
   
+  public void resetClimberEncoders()
+  {
+    leftTopClimberEncoder.setPosition(0.0);
+    rightTopClimberEncoder.setPosition(0.0);
+  }
   
+  public boolean isLeftClimberLowered(){
+    boolean var = !limitSwitchLeft.get();
+    return var;
+  }
+
+  public boolean isRightClimberLowered(){
+    boolean var = !limitSwitchRight.get(); 
+    return var;
+  }
 
   public boolean isClimberLowered(){
     boolean limitSwitchPositionLeft = !limitSwitchLeft.get();
@@ -107,6 +129,10 @@ public class Climber extends SubsystemBase {
 
   public double getPositionRightMotor(){
     return rightTopClimberEncoder.getPosition();
+  }
+
+  public double getPositionLeftMotor(){
+    return leftTopClimberEncoder.getPosition();
   }
 
   @Override

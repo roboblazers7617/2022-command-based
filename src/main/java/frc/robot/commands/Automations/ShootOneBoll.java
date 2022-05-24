@@ -22,7 +22,7 @@ public class ShootOneBoll extends SequentialCommandGroup {
       // addCommands(new FooCommand(), new BarCommand());
       addCommands(new SpinShooter(shooter),
       new WaitUntilCommand(shooter::shooterReady),
-      new InstantCommand(() ->tower.setSpeedUpper(Constants.UPPER_TOWER_SPEED),tower),
+      new InstantCommand(() ->tower.setSpeedUpper(Constants.UPPER_TOWER_SPEED+.17),tower),
       new WaitCommand(.5),
       new InstantCommand(shooter::stopShooter, shooter),
       new InstantCommand(tower::stop, tower)

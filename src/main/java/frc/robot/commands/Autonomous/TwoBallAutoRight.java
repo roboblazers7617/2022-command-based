@@ -39,8 +39,8 @@ public class TwoBallAutoRight extends SequentialCommandGroup {
       new StrafeWithTime(drivetrain, Constants.AUTO_SPEED, .62),
       new DriveWithEncoders(drivetrain, -40, .5),
       new ShootOneBoll(shooter, tower),
-      new DriveWithEncoders(drivetrain, 30, .5),
-      new InstantCommand(() -> drivetrain.setBrakeMode("Coast"))
+      new InstantCommand(() -> drivetrain.setBrakeMode("Coast")),
+      new DriveWithEncoders(drivetrain, 40, .5)
     );
   }
 }
