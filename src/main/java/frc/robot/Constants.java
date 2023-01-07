@@ -82,8 +82,8 @@ import edu.wpi.first.wpilibj.XboxController;
     public static final double NERF_LOWER_TOWER = -3;
 
     //Drivetrain Data
-    public static final double LOW_GEAR = .25;
-    public static final double HIGH_GEAR = .60;
+    public static final double LOW_GEAR = .4;
+    public static final double HIGH_GEAR = .2; // 0.6
     public static final double SUPER_HIGH_GEAR = .90;
 
     //Intake Data
@@ -108,8 +108,8 @@ import edu.wpi.first.wpilibj.XboxController;
     public static final double SHOOTER_MOTOR_TARGET_MIN = 1;
     /**the speed relative to SHOOTER_MOTOR_SPEED that shooter will count as the max speed for shooterReady() */
     public static final double SHOOTER_MOTOR_TARGET_MAX = 1.01;
-    public static final double SLOW_SHOOTER_SPEED = 1455;
-    public static final double SHOOTER_SPEED = 1462;
+    public static final double SLOW_SHOOTER_SPEED = 1455;//1455
+    public static final double SHOOTER_SPEED = 1000;//1462
     public static final double FAST_SHOOTER_SPEED = 1485;
     
     public static final double SHOOTER_kP = .00095; 

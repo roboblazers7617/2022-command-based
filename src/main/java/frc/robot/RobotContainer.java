@@ -124,7 +124,7 @@ public class RobotContainer {
 
      JoystickButton speedButton = new JoystickButton(driverController, Constants.SPEED_ADJUSTOR_TRIGGER);
      speedButton.whenPressed(new InstantCommand(()-> drivetrain.setMaxSpeed(Constants.LOW_GEAR)));
-     speedButton.whenReleased(new InstantCommand(()-> drivetrain.setMaxSpeed(Constants.SUPER_HIGH_GEAR)));
+     speedButton.whenReleased(new InstantCommand(()-> drivetrain.setMaxSpeed(Constants.HIGH_GEAR)));
 
 
     JoystickButton highSpeedButton = new JoystickButton(driverController, XboxController.Button.kRightBumper.value);
